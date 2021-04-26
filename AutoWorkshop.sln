@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoWorkshop.Model", "AutoWorkshop.Model\AutoWorkshop.Model.csproj", "{0BF3EC12-10BE-4651-B2C0-C60633454650}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoWorkshop.Specs", "AutoWorkshop.Specs\AutoWorkshop.Specs.csproj", "{E86ADB6D-F80A-4A43-BB4F-907E43DA6D29}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0BF3EC12-10BE-4651-B2C0-C60633454650}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BF3EC12-10BE-4651-B2C0-C60633454650}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BF3EC12-10BE-4651-B2C0-C60633454650}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BF3EC12-10BE-4651-B2C0-C60633454650}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E86ADB6D-F80A-4A43-BB4F-907E43DA6D29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E86ADB6D-F80A-4A43-BB4F-907E43DA6D29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E86ADB6D-F80A-4A43-BB4F-907E43DA6D29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E86ADB6D-F80A-4A43-BB4F-907E43DA6D29}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0B01C6C8-205A-4361-AAFC-165AD1DF41E2}
+	EndGlobalSection
+EndGlobal
