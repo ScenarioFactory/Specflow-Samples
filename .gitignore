@@ -6,6 +6,9 @@
 # SpecFlow code-behind files
 *.feature.cs
 
+# App settings
+appsettings.json
+
 # User-specific files
 *.rsuser
 *.suo
