@@ -4,16 +4,16 @@
     using System.IO;
     using Microsoft.Extensions.Configuration;
 
-    public class TestConfig
+    public class Configuration
     {
-        static TestConfig()
+        public static IConfiguration AppSettings { get; }
+
+        static Configuration()
         {
             AppSettings = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
                 .AddJsonFile("appsettings.json", false)
                 .Build();
         }
-
-        public static IConfigurationRoot AppSettings { get; }
     }
 }

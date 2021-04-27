@@ -45,7 +45,7 @@
         {
             _customerUiInput.Should().NotBeNull();
 
-            _retrievedCustomerInfo = CustomerRepository.FindByName(_customerUiInput.Name);
+            _retrievedCustomerInfo = CustomerRepository.GetInfoByName(_customerUiInput.Name);
 
             _retrievedCustomerInfo.Should().NotBeNull();
             _retrievedCustomerInfo.Title.Should().Be(_customerUiInput.Title);

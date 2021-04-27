@@ -7,9 +7,9 @@
 
     public static class CustomerRepository
     {
-        private static readonly string ConnectionString = TestConfig.AppSettings["ConnectionStrings:AutoWorkshop"];
+        private static readonly string ConnectionString = Configuration.AppSettings["AutoWorkshop:MySqlConnectionString"];
 
-        public static CustomerInfo FindByName(string name)
+        public static CustomerInfo GetInfoByName(string name)
         {
             using var connection = new MySqlConnection(ConnectionString);
             return connection.Query<CustomerInfo>(@"

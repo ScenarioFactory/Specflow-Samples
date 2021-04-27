@@ -8,9 +8,9 @@
     public class AutoWorkshopDriver : ChromeDriver
     {
         private const int TimeoutSeconds = 30;
-        private const string BaseUri = "http://localhost:8080/elitenet";
-        private const string AuthenticationCookieName = "auth";
-        private const string AuthenticationCookieValue = "authOK";
+        private static readonly string BaseUrl = Configuration.AppSettings["AutoWorkshop:Url"];
+        private static readonly string AuthenticationCookieName = Configuration.AppSettings["AutoWorkshop:AuthenticationCookie:Name"];
+        private static readonly string AuthenticationCookieValue = Configuration.AppSettings["AutoWorkshop:AuthenticationCookie:Value"];
 
         private AutoWorkshopDriver()
         {
@@ -20,7 +20,7 @@
         {
             var driver = new AutoWorkshopDriver
             {
-                Url = BaseUri
+                Url = BaseUrl
             };
 
             driver.Manage().Cookies.AddCookie(new Cookie(AuthenticationCookieName, AuthenticationCookieValue));
@@ -30,7 +30,7 @@
 
         public void NavigateTo(string path)
         {
-            Url = Uri.EscapeUriString($"{BaseUri}/{path}");
+            Url = Uri.EscapeUriString($"{BaseUrl}/{path}");
         }
 
         public IWebElement WaitForElement(By findBy)
