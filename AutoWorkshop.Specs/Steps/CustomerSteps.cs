@@ -12,7 +12,11 @@
     {
         private CustomerUiViewInfo _uiViewInfo;
         private CustomerInfo _storedCustomer;
+        private AutoWorkshopDriver _driver;
         private CustomerMaintenancePage _customerMaintenancePage;
+
+        [AfterScenario("MaintainCustomers")]
+        public void DisposeWebDriver() => _driver?.Quit();
 
         [Given(@"there are no customers named '(.*)'")]
         public void GivenThereAreNoCustomersNamed(string customerName)
@@ -69,8 +73,8 @@
             
             int customerId = CustomerRepository.GetIdByName(_storedCustomer.Name);
 
-            var driver = AutoWorkshopDriver.CreateAuthenticatedInstance();
-            _customerMaintenancePage = new CustomerMaintenancePage(driver, customerId);
+            _driver = AutoWorkshopDriver.CreateAuthenticatedInstance();
+            _customerMaintenancePage = new CustomerMaintenancePage(_driver, customerId);
 
             _uiViewInfo = _customerMaintenancePage.GetViewInfo();
         }
