@@ -1,8 +1,8 @@
 ﻿namespace AutoWorkshop.Specs.Dto
 {
-    public class CustomerUiInput
+    public class CustomerUiViewInfo
     {
-        public CustomerUiInput(
+        public CustomerUiViewInfo(
             string title,
             string name,
             string addressLine1,

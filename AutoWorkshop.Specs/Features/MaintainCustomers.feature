@@ -4,11 +4,41 @@
 
 @WebTest
 Scenario: Create new customer
-	Given there are no customers named 'John Smith'
+	Given there are no customers named 'Jane Jones'
 
-	When the user creates a new customer with the following details
-	| Title | Name       | Address Line 1 | Address Line 2 | Address Line 3 | Postcode | Home Phone   | Mobile       |
-	| Mr    | John Smith | 1 High Street  | Oakhampton     | Wessex         | WX1 5QT  | 01234 100200 | 07777 987654 |
+	When I create a new customer with the following details
+	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Home Phone    | Mobile       |
+	| Mrs   | Jane Jones | 72 Acacia Avenue | Shepherds Bush | London         | W12 8QT  | 0121 756 2584 | 07575 456789 |
 
-	Then the customer is added to the system
+	Then the customer is added to the system with the details provided
 	And the customer is marked as manually invoiced
+
+@WebTest
+Scenario: View customer details
+	Given the following existing customer
+	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Home Phone    | Mobile       |
+	| Mrs   | Jane Jones | 72 Acacia Avenue | Shepherds Bush | London         | W12 8QT  | 0121 756 2584 | 07575 456789 |
+	
+	When I view the customer
+
+	Then I should see the stored customer details
+
+@WebTest
+Scenario: Update existing customer
+	Given the following existing customer
+	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Home Phone    | Mobile       |
+	| Mrs   | Jane Jones | 72 Acacia Avenue | Shepherds Bush | London         | W12 8QT  | 0121 756 2584 | 07575 456789 |
+	
+	When I update the customer with a new mobile number of '07777 789456'
+
+	Then the stored customer should be updated with mobile '07777 789456'
+
+@WebTest
+Scenario: Option is available to create new car for customer
+	Given the following existing customer
+	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Home Phone | Mobile       |
+	| Mrs   | Jane Jones | 72 Acacia Avenue | Shepherds Bush | London         | W12 8QT  | 0121 756 2584 | 07575 456789 |
+	
+	When I view the customer
+
+	Then I should see a link to create a new car for the customer

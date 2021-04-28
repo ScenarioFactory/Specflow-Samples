@@ -10,21 +10,22 @@
     [Binding]
     public class CustomerSteps
     {
-        private CustomerUiInput _customerUiInput;
-        private CustomerInfo _retrievedCustomerInfo;
+        private CustomerUiViewInfo _uiViewInfo;
+        private CustomerInfo _storedCustomer;
+        private CustomerMaintenancePage _customerMaintenancePage;
 
         [Given(@"there are no customers named '(.*)'")]
-        public void GivenThereAreNoCustomersNamed(string name)
+        public void GivenThereAreNoCustomersNamed(string customerName)
         {
-            CustomerRepository.RemoveByName(name);
+            CustomerRepository.RemoveByName(customerName);
         }
 
-        [When(@"the user creates a new customer with the following details")]
-        public void WhenTheUserCreatesANewCustomerWithTheFollowingDetails(Table table)
+        [When(@"I create a new customer with the following details")]
+        public void WhenICreateANewCustomerWithTheFollowingDetails(Table table)
         {
             var values = table.Rows.Single();
 
-            _customerUiInput = new CustomerUiInput(
+            _uiViewInfo = new CustomerUiViewInfo(
                 values["Title"],
                 values["Name"],
                 values["Address Line 1"],
@@ -37,33 +38,115 @@
             using var driver = AutoWorkshopDriver.CreateAuthenticatedInstance();
             var page = new CustomerMaintenancePage(driver);
 
-            page.CreateCustomer(_customerUiInput);
+            page.CreateCustomer(_uiViewInfo);
         }
 
-        [Then(@"the customer is added to the system")]
-        public void ThenTheCustomerIsAddedToTheSystem()
+        [Given(@"the following existing customer")]
+        public void GivenTheFollowingExistingCustomer(Table table)
         {
-            _customerUiInput.Should().NotBeNull();
+            var values = table.Rows.Single();
 
-            _retrievedCustomerInfo = CustomerRepository.GetInfoByName(_customerUiInput.Name);
+            CustomerRepository.RemoveByName(values["Name"]);
 
-            _retrievedCustomerInfo.Should().NotBeNull();
-            _retrievedCustomerInfo.Title.Should().Be(_customerUiInput.Title);
-            _retrievedCustomerInfo.Name.Should().Be(_customerUiInput.Name);
-            _retrievedCustomerInfo.AddressLine1.Should().Be(_customerUiInput.AddressLine1);
-            _retrievedCustomerInfo.AddressLine2.Should().Be(_customerUiInput.AddressLine2);
-            _retrievedCustomerInfo.AddressLine2.Should().Be(_customerUiInput.AddressLine2);
-            _retrievedCustomerInfo.Postcode.Should().Be(_customerUiInput.Postcode);
-            _retrievedCustomerInfo.HomePhone.Should().Be(_customerUiInput.HomePhone);
-            _retrievedCustomerInfo.Mobile.Should().Be(_customerUiInput.Mobile);
+            _storedCustomer = new CustomerInfo(
+                values["Title"],
+                values["Name"],
+                values["Address Line 1"],
+                values["Address Line 2"],
+                values["Address Line 3"],
+                values["Postcode"],
+                values["Home Phone"],
+                values["Mobile"],
+                1);
+
+            CustomerRepository.Create(_storedCustomer);
+        }
+
+        [When(@"I view the customer")]
+        public void WhenIViewTheCustomer()
+        {
+            _storedCustomer.Should().NotBeNull();
+            
+            int customerId = CustomerRepository.GetIdByName(_storedCustomer.Name);
+
+            var driver = AutoWorkshopDriver.CreateAuthenticatedInstance();
+            _customerMaintenancePage = new CustomerMaintenancePage(driver, customerId);
+
+            _uiViewInfo = _customerMaintenancePage.GetViewInfo();
+        }
+
+        [When(@"I update the customer with a new mobile number of '(.*)'")]
+        public void WhenIUpdateTheCustomerWithANewMobileNumberOf(string newMobileNumber)
+        {
+            _storedCustomer.Should().NotBeNull();
+
+            int customerId = CustomerRepository.GetIdByName(_storedCustomer.Name);
+
+            using var driver = AutoWorkshopDriver.CreateAuthenticatedInstance();
+            var page = new CustomerMaintenancePage(driver, customerId);
+
+            page.UpdateMobile(newMobileNumber);
+        }
+
+        [Then(@"the customer is added to the system with the details provided")]
+        public void ThenTheCustomerIsAddedToTheSystemWithTheDetailsProvided()
+        {
+            _uiViewInfo.Should().NotBeNull();
+
+            _storedCustomer = CustomerRepository.GetInfoByName(_uiViewInfo.Name);
+
+            _storedCustomer.Should().NotBeNull();
+            _storedCustomer.Title.Should().Be(_uiViewInfo.Title);
+            _storedCustomer.Name.Should().Be(_uiViewInfo.Name);
+            _storedCustomer.AddressLine1.Should().Be(_uiViewInfo.AddressLine1);
+            _storedCustomer.AddressLine2.Should().Be(_uiViewInfo.AddressLine2);
+            _storedCustomer.AddressLine2.Should().Be(_uiViewInfo.AddressLine2);
+            _storedCustomer.Postcode.Should().Be(_uiViewInfo.Postcode);
+            _storedCustomer.HomePhone.Should().Be(_uiViewInfo.HomePhone);
+            _storedCustomer.Mobile.Should().Be(_uiViewInfo.Mobile);
         }
 
         [Then(@"the customer is marked as manually invoiced")]
         public void ThenTheCustomerIsMarkedAsManuallyInvoiced()
         {
-            _retrievedCustomerInfo.Should().NotBeNull();
+            _storedCustomer.Should().NotBeNull();
 
-            _retrievedCustomerInfo.IsAccountInvoicing.Should().BeFalse();
+            _storedCustomer.HasAccountInvoicing.Should().BeFalse();
+        }
+
+        [Then(@"I should see the stored customer details")]
+        public void ThenIShouldSeeTheStoredCustomerDetails()
+        {
+            _uiViewInfo.Should().NotBeNull();
+            _storedCustomer.Should().NotBeNull();
+
+            _uiViewInfo.Title.Should().Be(_storedCustomer.Title);
+            _uiViewInfo.Name.Should().Be(_storedCustomer.Name);
+            _uiViewInfo.AddressLine1.Should().Be(_storedCustomer.AddressLine1);
+            _uiViewInfo.AddressLine2.Should().Be(_storedCustomer.AddressLine2);
+            _uiViewInfo.Postcode.Should().Be(_storedCustomer.Postcode);
+            _uiViewInfo.HomePhone.Should().Be(_storedCustomer.HomePhone);
+            _uiViewInfo.Mobile.Should().Be(_storedCustomer.Mobile);
+        }
+
+        [Then(@"the stored customer should be updated with mobile '(.*)'")]
+        public void ThenTheStoredCustomerShouldBeUpdatedWithMobile(string expectedMobileNumber)
+        {
+            _storedCustomer.Should().NotBeNull();
+
+            var latestStoredCustomer = CustomerRepository.GetInfoByName(_storedCustomer.Name);
+
+            latestStoredCustomer.Mobile.Should().Be(expectedMobileNumber);
+        }
+
+        [Then(@"I should see a link to create a new car for the customer")]
+        public void ThenIShouldSeeALinkToCreateANewCarForTheCustomer()
+        {
+            _customerMaintenancePage.Should().NotBeNull();
+
+            bool hasNewCarToolbarLink = _customerMaintenancePage.HasNewCarLink();
+
+            hasNewCarToolbarLink.Should().BeTrue();
         }
     }
 }

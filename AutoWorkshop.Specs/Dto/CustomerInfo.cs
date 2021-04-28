@@ -11,7 +11,7 @@
             string postcode,
             string homePhone,
             string mobile,
-            byte isAccountInvoicing)
+            byte accountInvoicing)
         {
             Title = title;
             Name = name;
@@ -21,7 +21,7 @@
             Postcode = postcode;
             HomePhone = homePhone;
             Mobile = mobile;
-            IsAccountInvoicing = isAccountInvoicing == 1;
+            AccountInvoicing = accountInvoicing;
         }
 
         public string Title { get; }
@@ -40,6 +40,8 @@
 
         public string Mobile { get; }
 
-        public bool IsAccountInvoicing { get; }
+        public byte AccountInvoicing { get; }
+
+        public bool HasAccountInvoicing => AccountInvoicing == 1;
     }
 }

@@ -20,5 +20,12 @@
         {
             return decimal.Parse(row[column]);
         }
+
+        public static string ParseNullableString(this TableRow row, string column)
+        {
+            string value = row[column];
+
+            return string.IsNullOrEmpty(value) ? null : value;
+        }
     }
 }
