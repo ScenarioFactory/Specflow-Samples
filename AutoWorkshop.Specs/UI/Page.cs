@@ -10,6 +10,6 @@
 
         protected AutoWorkshopDriver Driver { get; }
 
-        protected Toolbar Toolbar { get; }
+        public Toolbar Toolbar { get; }
     }
 }

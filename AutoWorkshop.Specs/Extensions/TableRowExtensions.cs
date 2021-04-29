@@ -1,6 +1,7 @@
 ﻿namespace AutoWorkshop.Specs.Extensions
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using TechTalk.SpecFlow;
 
@@ -26,6 +27,14 @@
             string value = row[column];
 
             return string.IsNullOrEmpty(value) ? null : value;
+        }
+
+        public static void ForEach(this IEnumerable<TableRow> rows, Action<TableRow> action)
+        {
+            foreach (var row in rows)
+            {
+                action(row);
+            }
         }
     }
 }

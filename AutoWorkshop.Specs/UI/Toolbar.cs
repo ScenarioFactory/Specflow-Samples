@@ -24,5 +24,10 @@
                     .ToArray();
             }
         }
+
+        public bool ContainsLink(string altText)
+        {
+            return Links.Any(l => l.AltText == altText);
+        }
     }
 }

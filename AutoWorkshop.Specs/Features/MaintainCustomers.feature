@@ -23,6 +23,12 @@ Scenario: View customer details
 	When I view the customer
 
 	Then I should see the stored customer details
+	And I should see the following toolbar options
+	| Option                                  |
+	| Maintain account for Jane Jones         |
+	| Add a new car for Jane Jones            |
+	| Add a new parts-only job for Jane Jones |
+	| Add a new quote for Jane Jones          |
 
 @WebTest
 Scenario: Update existing customer
@@ -35,11 +41,11 @@ Scenario: Update existing customer
 	Then the stored customer should be updated with mobile '07777 789456'
 
 @WebTest
-Scenario: Option is available to create new car for customer
+Scenario: Search for customer as you type
 	Given the following existing customer
-	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Home Phone | Mobile       |
+	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Home Phone    | Mobile       |
 	| Mrs   | Jane Jones | 72 Acacia Avenue | Shepherds Bush | London         | W12 8QT  | 0121 756 2584 | 07575 456789 |
-	
-	When I view the customer
 
-	Then I should see a link to create a new car for the customer
+	When I search for 'Jones'
+
+	Then I should see the customer in the list of as-you-type results

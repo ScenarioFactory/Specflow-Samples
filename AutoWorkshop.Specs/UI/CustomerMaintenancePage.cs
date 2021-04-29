@@ -17,6 +17,7 @@
         private static readonly By HomePhone = By.Name("homephone");
         private static readonly By Mobile = By.Name("mobile");
         private static readonly By Save = By.Name("save");
+        private static readonly By AsYouTypeSearchResultAnchors = By.XPath("//div[@id='matchingPanel']//a");
 
         public CustomerMaintenancePage(AutoWorkshopDriver driver) :base(driver)
         {
@@ -64,10 +65,19 @@
                 Driver.FindElement(Mobile).GetAttribute("value"));
         }
 
-        public bool HasNewCarLink()
+        public void TypeName(string searchText)
         {
-            return Toolbar.Links
-                .Any(l => l.Url.Contains("carmaint.php") && l.AltText.Contains("Add a new car for"));
+            Driver.FindElement(Name).SendKeys(searchText);
+        }
+
+        public string[] GetAsYouTypeSearchResults()
+        {
+            var anchors = Driver.FindElements(AsYouTypeSearchResultAnchors);
+
+            return anchors
+                .Where((a, i) => i % 2 != 0)
+                .Select(a => a.Text)
+                .ToArray();
         }
     }
 }

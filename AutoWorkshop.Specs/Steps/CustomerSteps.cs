@@ -2,7 +2,9 @@
 {
     using System.Linq;
     using Dto;
+    using Extensions;
     using FluentAssertions;
+    using Infrastructure;
     using Repositories;
     using TechTalk.SpecFlow;
     using UI;
@@ -92,6 +94,15 @@
             page.UpdateMobile(newMobileNumber);
         }
 
+        [When(@"I search for '(.*)'")]
+        public void WhenISearchFor(string searchText)
+        {
+            _driver = AutoWorkshopDriver.CreateAuthenticatedInstance();
+            _customerMaintenancePage = new CustomerMaintenancePage(_driver);
+
+            _customerMaintenancePage.TypeName(searchText);
+        }
+
         [Then(@"the customer is added to the system with the details provided")]
         public void ThenTheCustomerIsAddedToTheSystemWithTheDetailsProvided()
         {
@@ -143,14 +154,27 @@
             latestStoredCustomer.Mobile.Should().Be(expectedMobileNumber);
         }
 
-        [Then(@"I should see a link to create a new car for the customer")]
-        public void ThenIShouldSeeALinkToCreateANewCarForTheCustomer()
+        [Then(@"I should see the following toolbar options")]
+        public void ThenIShouldSeeTheFollowingToolbarOptions(Table table)
         {
             _customerMaintenancePage.Should().NotBeNull();
 
-            bool hasNewCarToolbarLink = _customerMaintenancePage.HasNewCarLink();
+            table.Rows.ForEach(row =>
+            {
+                _customerMaintenancePage.Toolbar.ContainsLink(row["Option"]).Should().BeTrue();
+            });
+        }
 
-            hasNewCarToolbarLink.Should().BeTrue();
+        [Then(@"I should see the customer in the list of as-you-type results")]
+        public void ThenIShouldSeeTheCustomerInTheListOfAsYouTypeResults()
+        {
+            _storedCustomer.Should().NotBeNull();
+            _customerMaintenancePage.Should().NotBeNull();
+
+            bool foundExpectedCustomerInSearchResults = Poller.PollForResult(() =>
+                _customerMaintenancePage.GetAsYouTypeSearchResults().Contains(_storedCustomer.Name));
+
+            foundExpectedCustomerInSearchResults.Should().BeTrue();
         }
     }
 }
