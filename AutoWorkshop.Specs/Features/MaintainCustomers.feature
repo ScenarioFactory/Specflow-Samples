@@ -16,7 +16,7 @@ Scenario: Create new customer
 
 @WebTest
 Scenario: View customer details
-	Given the following existing customer
+	Given this existing customer
 	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Home Phone    | Mobile       |
 	| Mrs   | Jane Jones | 72 Acacia Avenue | Shepherds Bush | London         | W12 8QT  | 0121 756 2584 | 07575 456789 |
 	
@@ -32,7 +32,7 @@ Scenario: View customer details
 
 @WebTest
 Scenario: Update existing customer
-	Given the following existing customer
+	Given this existing customer
 	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Home Phone    | Mobile       |
 	| Mrs   | Jane Jones | 72 Acacia Avenue | Shepherds Bush | London         | W12 8QT  | 0121 756 2584 | 07575 456789 |
 	
@@ -42,7 +42,7 @@ Scenario: Update existing customer
 
 @WebTest
 Scenario: Search for customer as you type
-	Given the following existing customer
+	Given this existing customer
 	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Home Phone    | Mobile       |
 	| Mrs   | Jane Jones | 72 Acacia Avenue | Shepherds Bush | London         | W12 8QT  | 0121 756 2584 | 07575 456789 |
 

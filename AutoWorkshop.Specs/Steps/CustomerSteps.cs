@@ -47,8 +47,8 @@
             page.CreateCustomer(_uiViewInfo);
         }
 
-        [Given(@"the following existing customer")]
-        public void GivenTheFollowingExistingCustomer(Table table)
+        [Given(@"this existing customer")]
+        public void GivenThisExistingCustomer(Table table)
         {
             var values = table.Rows.Single();
 
