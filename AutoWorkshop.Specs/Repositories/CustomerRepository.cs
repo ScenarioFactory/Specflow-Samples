@@ -1,6 +1,5 @@
 ﻿namespace AutoWorkshop.Specs.Repositories
 {
-    using System;
     using System.Linq;
     using Dapper;
     using Dto;
@@ -8,11 +7,16 @@
 
     public class CustomerRepository
     {
-        private static readonly string ConnectionString = Configuration.AppSettings["AutoWorkshop:MySqlConnectionString"];
+        private readonly AppSettings _appSettings;
+
+        public CustomerRepository(AppSettings appSettings)
+        {
+            _appSettings = appSettings;
+        }
 
         public void Create(CustomerInfo customer)
         {
-            using var connection = new MySqlConnection(ConnectionString);
+            using var connection = new MySqlConnection(_appSettings.ConnectionString);
 
             connection.Execute(@"
                 INSERT INTO customers
@@ -25,14 +29,14 @@
 
         public int GetIdByName(string name)
         {
-            using var connection = new MySqlConnection(ConnectionString);
+            using var connection = new MySqlConnection(_appSettings.ConnectionString);
 
             return connection.ExecuteScalar<int>("SELECT cus_custid FROM customers WHERE cus_name = @name", new { name });
         }
 
         public CustomerInfo GetInfoByName(string name)
         {
-            using var connection = new MySqlConnection(ConnectionString);
+            using var connection = new MySqlConnection(_appSettings.ConnectionString);
 
             return connection.Query<CustomerInfo>(@"
                 SELECT
@@ -55,14 +59,14 @@
 
         public void RemoveByName(string name)
         {
-            using var connection = new MySqlConnection(ConnectionString);
+            using var connection = new MySqlConnection(_appSettings.ConnectionString);
 
             connection.Execute("DELETE FROM customers WHERE cus_name = @name", new { name });
         }
 
         public uint GetFirstCustomerId()
         {
-            using var connection = new MySqlConnection(ConnectionString);
+            using var connection = new MySqlConnection(_appSettings.ConnectionString);
 
             return connection.ExecuteScalar<uint>("SELECT cus_custid FROM customers ORDER BY cus_custid LIMIT 1");
         }

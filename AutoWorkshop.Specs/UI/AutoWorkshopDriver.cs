@@ -7,20 +7,20 @@
 
     public class AutoWorkshopDriver : ChromeDriver
     {
+        private readonly AppSettings _appSettings;
         private const int TimeoutSeconds = 10;
-        private static readonly string BaseUrl = Configuration.AppSettings["AutoWorkshop:Url"];
-        private static readonly string AuthenticationCookieName = Configuration.AppSettings["AutoWorkshop:AuthenticationCookie:Name"];
-        private static readonly string AuthenticationCookieValue = Configuration.AppSettings["AutoWorkshop:AuthenticationCookie:Value"];
 
-        public AutoWorkshopDriver()
+        public AutoWorkshopDriver(AppSettings appSettings)
         {
-            Url = BaseUrl;
-            Manage().Cookies.AddCookie(new Cookie(AuthenticationCookieName, AuthenticationCookieValue));
+            _appSettings = appSettings;
+
+            Url = _appSettings.BaseUrl;
+            Manage().Cookies.AddCookie(new Cookie(_appSettings.AuthenticationCookieName, _appSettings.AuthenticationCookieValue));
         }
 
         public void NavigateTo(string path)
         {
-            Url = Uri.EscapeUriString($"{BaseUrl}/{path}");
+            Url = Uri.EscapeUriString($"{_appSettings.BaseUrl}/{path}");
         }
 
         public IWebElement WaitForElement(By findBy)

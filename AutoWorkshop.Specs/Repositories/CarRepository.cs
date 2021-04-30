@@ -7,11 +7,16 @@
 
     public class CarRepository
     {
-        private static readonly string ConnectionString = Configuration.AppSettings["AutoWorkshop:MySqlConnectionString"];
+        private readonly AppSettings _appSettings;
+
+        public CarRepository(AppSettings appSettings)
+        {
+            _appSettings = appSettings;
+        }
 
         public void Create(CarInfo car)
         {
-            using var connection = new MySqlConnection(ConnectionString);
+            using var connection = new MySqlConnection(_appSettings.ConnectionString);
 
             connection.Execute(@"
                 INSERT INTO cars
@@ -29,14 +34,14 @@
 
         public void RemoveByRegistration(string registration)
         {
-            using var connection = new MySqlConnection(ConnectionString);
+            using var connection = new MySqlConnection(_appSettings.ConnectionString);
 
             connection.Execute("DELETE FROM cars WHERE car_regis = @registration", new { registration });
         }
 
         public CarInfo GetInfoByRegistration(string registration)
         {
-            using var connection = new MySqlConnection(ConnectionString);
+            using var connection = new MySqlConnection(_appSettings.ConnectionString);
 
             return connection.Query<CarInfo>(@"
                 SELECT
