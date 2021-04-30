@@ -9,6 +9,7 @@
         private static readonly By NewRegistration = By.Name("newregis");
         private static readonly By UpdateRegistration = By.Name("change");
         private static readonly By SuccessMessage = By.XPath("//p[@class='largehead']");
+        private static readonly By ErrorMessage = By.XPath("//p[@class='error']");
 
         public ChangeCarRegistrationPage(AutoWorkshopDriver driver) : base(driver)
         {
@@ -27,9 +28,12 @@
 
         public string GetSuccessMessage()
         {
-            IWebElement successMessage = Driver.WaitForElement(SuccessMessage);
+            return Driver.WaitForElement(SuccessMessage).Text;
+        }
 
-            return successMessage.Text;
+        public string GetErrorMessage()
+        {
+            return Driver.WaitForElement(ErrorMessage).Text;
         }
     }
 }
