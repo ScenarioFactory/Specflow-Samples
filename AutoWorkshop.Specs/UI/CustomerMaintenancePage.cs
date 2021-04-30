@@ -24,11 +24,6 @@
             Driver.NavigateTo(PageUrl);
         }
 
-        public CustomerMaintenancePage(AutoWorkshopDriver driver, int customerId) : base(driver)
-        {
-            Driver.NavigateTo($"{PageUrl}?custid={customerId}");
-        }
-
         public void CreateCustomer(CustomerUiViewInfo viewInfo)
         {
             var titleSelectElement = new SelectElement(Driver.WaitForElement(Title));
@@ -43,6 +38,11 @@
             Driver.FindElement(Mobile).SendKeys(viewInfo.Mobile);
 
             Driver.FindElement(Save).Click();
+        }
+
+        public void ViewCustomer(int customerId)
+        {
+            Driver.NavigateTo($"{PageUrl}?custid={customerId}");
         }
 
         public void UpdateMobile(string mobileNumber)

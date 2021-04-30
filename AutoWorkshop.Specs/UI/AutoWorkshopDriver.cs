@@ -12,20 +12,10 @@
         private static readonly string AuthenticationCookieName = Configuration.AppSettings["AutoWorkshop:AuthenticationCookie:Name"];
         private static readonly string AuthenticationCookieValue = Configuration.AppSettings["AutoWorkshop:AuthenticationCookie:Value"];
 
-        private AutoWorkshopDriver()
+        public AutoWorkshopDriver()
         {
-        }
-
-        public static AutoWorkshopDriver CreateAuthenticatedInstance()
-        {
-            var driver = new AutoWorkshopDriver
-            {
-                Url = BaseUrl
-            };
-
-            driver.Manage().Cookies.AddCookie(new Cookie(AuthenticationCookieName, AuthenticationCookieValue));
-
-            return driver;
+            Url = BaseUrl;
+            Manage().Cookies.AddCookie(new Cookie(AuthenticationCookieName, AuthenticationCookieValue));
         }
 
         public void NavigateTo(string path)

@@ -12,13 +12,14 @@
     [Binding]
     public class CustomerSteps
     {
+        private readonly CustomerMaintenancePage _customerMaintenancePage;
         private CustomerUiViewInfo _uiViewInfo;
         private CustomerInfo _storedCustomer;
-        private AutoWorkshopDriver _driver;
-        private CustomerMaintenancePage _customerMaintenancePage;
 
-        [AfterScenario("MaintainCustomers")]
-        public void DisposeWebDriver() => _driver?.Quit();
+        public CustomerSteps(CustomerMaintenancePage customerMaintenancePage)
+        {
+            _customerMaintenancePage = customerMaintenancePage;
+        }
 
         [Given(@"there are no customers named '(.*)'")]
         public void GivenThereAreNoCustomersNamed(string customerName)
@@ -41,10 +42,7 @@
                 values["Home Phone"],
                 values["Mobile"]);
 
-            using var driver = AutoWorkshopDriver.CreateAuthenticatedInstance();
-            var page = new CustomerMaintenancePage(driver);
-
-            page.CreateCustomer(_uiViewInfo);
+            _customerMaintenancePage.CreateCustomer(_uiViewInfo);
         }
 
         [Given(@"this existing customer")]
@@ -75,8 +73,7 @@
             
             int customerId = CustomerRepository.GetIdByName(_storedCustomer.Name);
 
-            _driver = AutoWorkshopDriver.CreateAuthenticatedInstance();
-            _customerMaintenancePage = new CustomerMaintenancePage(_driver, customerId);
+            _customerMaintenancePage.ViewCustomer(customerId);
 
             _uiViewInfo = _customerMaintenancePage.GetViewInfo();
         }
@@ -88,18 +85,14 @@
 
             int customerId = CustomerRepository.GetIdByName(_storedCustomer.Name);
 
-            using var driver = AutoWorkshopDriver.CreateAuthenticatedInstance();
-            var page = new CustomerMaintenancePage(driver, customerId);
+            _customerMaintenancePage.ViewCustomer(customerId);
 
-            page.UpdateMobile(newMobileNumber);
+            _customerMaintenancePage.UpdateMobile(newMobileNumber);
         }
 
         [When(@"I search for '(.*)'")]
         public void WhenISearchFor(string searchText)
         {
-            _driver = AutoWorkshopDriver.CreateAuthenticatedInstance();
-            _customerMaintenancePage = new CustomerMaintenancePage(_driver);
-
             _customerMaintenancePage.TypeName(searchText);
         }
 
@@ -157,8 +150,6 @@
         [Then(@"I should see the following toolbar options")]
         public void ThenIShouldSeeTheFollowingToolbarOptions(Table table)
         {
-            _customerMaintenancePage.Should().NotBeNull();
-
             table.Rows.ForEach(row =>
             {
                 _customerMaintenancePage.Toolbar.ContainsLink(row["Option"]).Should().BeTrue();
@@ -169,7 +160,6 @@
         public void ThenIShouldSeeTheCustomerInTheListOfAsYouTypeResults()
         {
             _storedCustomer.Should().NotBeNull();
-            _customerMaintenancePage.Should().NotBeNull();
 
             bool foundExpectedCustomerInSearchResults = Poller.PollForResult(() =>
                 _customerMaintenancePage.GetAsYouTypeSearchResults().Contains(_storedCustomer.Name));

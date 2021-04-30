@@ -16,7 +16,6 @@ Scenario: Change car registration
 	| V8RVR        | Range Rover | Vogue |
 	And there should be no car with registration 'AY16CPD'
 
-
 @WebTest
 Scenario: Cannot change car registration where proposed registration already in use
 	Given these existing cars

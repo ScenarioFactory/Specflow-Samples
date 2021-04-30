@@ -10,8 +10,12 @@
     [Binding]
     public class CarSteps
     {
-        private AutoWorkshopDriver _driver;
-        private ChangeCarRegistrationPage _changeCarRegistrationPage;
+        private readonly ChangeCarRegistrationPage _changeCarRegistrationPage;
+
+        public CarSteps(ChangeCarRegistrationPage changeCarRegistrationPage)
+        {
+            _changeCarRegistrationPage = changeCarRegistrationPage;
+        }
 
         [Given(@"this existing car")]
         [Given(@"these existing cars")]
@@ -42,17 +46,12 @@
         [When(@"I change the registration of '(.*)' to '(.*)'")]
         public void WhenIChangeTheRegistrationOfTo(string currentRegistration, string newRegistration)
         {
-            _driver = AutoWorkshopDriver.CreateAuthenticatedInstance();
-            _changeCarRegistrationPage = new ChangeCarRegistrationPage(_driver);
-
             _changeCarRegistrationPage.ChangeRegistration(currentRegistration, newRegistration);
         }
 
         [Then(@"I should see the success message '(.*)'")]
         public void ThenIShouldSeeTheSuccessMessage(string expectedMessage)
         {
-            _changeCarRegistrationPage.Should().NotBeNull();
-
             string successMessage = _changeCarRegistrationPage.GetSuccessMessage();
 
             successMessage.Should().Be(expectedMessage);
@@ -61,8 +60,6 @@
         [Then(@"I should see the error message '(.*)'")]
         public void ThenIShouldSeeTheErrorMessage(string expectedMessage)
         {
-            _changeCarRegistrationPage.Should().NotBeNull();
-
             string errorMessage = _changeCarRegistrationPage.GetErrorMessage();
 
             errorMessage.Should().Be(expectedMessage);
