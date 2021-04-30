@@ -1,7 +1,5 @@
 ﻿namespace AutoWorkshop.Specs.Steps
 {
-    using System;
-    using System.Linq;
     using Dto;
     using Extensions;
     using FluentAssertions;
