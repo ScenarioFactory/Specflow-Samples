@@ -7,7 +7,7 @@
 
     public class AutoWorkshopDriver : ChromeDriver
     {
-        private const int TimeoutSeconds = 30;
+        private const int TimeoutSeconds = 10;
         private static readonly string BaseUrl = Configuration.AppSettings["AutoWorkshop:Url"];
         private static readonly string AuthenticationCookieName = Configuration.AppSettings["AutoWorkshop:AuthenticationCookie:Name"];
         private static readonly string AuthenticationCookieValue = Configuration.AppSettings["AutoWorkshop:AuthenticationCookie:Value"];

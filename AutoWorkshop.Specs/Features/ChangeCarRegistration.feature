@@ -10,14 +10,15 @@ Scenario: Change car registration
 	
 	When I change the registration of 'AY16CPD' to 'V8RVR'
 
-	Then the following car should be present in the system
+	Then I should see the message 'AY16CPD successfully changed to V8RVR'
+	And the following car should be present in the system
 	| Registration | Make        | Model |
 	| V8RVR        | Range Rover | Vogue |
 	And there should be no car with registration 'AY16CPD'
 
 
 @WebTest
-Scenario: Cannot change car registration where new registration already in use
+Scenario: Cannot change car registration where proposed registration already in use
 	Given these existing cars
 	| Registration | Make        | Model |
 	| AY16CPD      | Range Rover | Vogue |
