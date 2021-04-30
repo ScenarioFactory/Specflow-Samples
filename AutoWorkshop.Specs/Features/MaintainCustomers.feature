@@ -1,5 +1,4 @@
-﻿@MaintainCustomers
-Feature: Maintain Customers
+﻿Feature: Maintain Customers
 	Create and maintain customers.
 	New customers are created with manual invoicing by default.
 

@@ -6,11 +6,11 @@
     using Dto;
     using MySql.Data.MySqlClient;
 
-    public static class CustomerRepository
+    public class CustomerRepository
     {
         private static readonly string ConnectionString = Configuration.AppSettings["AutoWorkshop:MySqlConnectionString"];
 
-        public static void Create(CustomerInfo customer)
+        public void Create(CustomerInfo customer)
         {
             using var connection = new MySqlConnection(ConnectionString);
 
@@ -23,14 +23,14 @@
                     customer.HomePhone, customer.Mobile, customer.AccountInvoicing});
         }
 
-        public static int GetIdByName(string name)
+        public int GetIdByName(string name)
         {
             using var connection = new MySqlConnection(ConnectionString);
 
             return connection.ExecuteScalar<int>("SELECT cus_custid FROM customers WHERE cus_name = @name", new { name });
         }
 
-        public static CustomerInfo GetInfoByName(string name)
+        public CustomerInfo GetInfoByName(string name)
         {
             using var connection = new MySqlConnection(ConnectionString);
 
@@ -53,14 +53,14 @@
                 .Single();
         }
 
-        public static void RemoveByName(string name)
+        public void RemoveByName(string name)
         {
             using var connection = new MySqlConnection(ConnectionString);
 
             connection.Execute("DELETE FROM customers WHERE cus_name = @name", new { name });
         }
 
-        public static uint GetFirstCustomerId()
+        public uint GetFirstCustomerId()
         {
             using var connection = new MySqlConnection(ConnectionString);
 

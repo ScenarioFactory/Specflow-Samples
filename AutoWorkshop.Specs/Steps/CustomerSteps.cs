@@ -13,18 +13,20 @@
     public class CustomerSteps
     {
         private readonly CustomerMaintenancePage _customerMaintenancePage;
+        private readonly CustomerRepository _customerRepository;
         private CustomerUiViewInfo _uiViewInfo;
         private CustomerInfo _storedCustomer;
 
-        public CustomerSteps(CustomerMaintenancePage customerMaintenancePage)
+        public CustomerSteps(CustomerMaintenancePage customerMaintenancePage, CustomerRepository customerRepository)
         {
             _customerMaintenancePage = customerMaintenancePage;
+            _customerRepository = customerRepository;
         }
 
         [Given(@"there are no customers named '(.*)'")]
         public void GivenThereAreNoCustomersNamed(string customerName)
         {
-            CustomerRepository.RemoveByName(customerName);
+            _customerRepository.RemoveByName(customerName);
         }
 
         [When(@"I create a new customer with the following details")]
@@ -50,7 +52,7 @@
         {
             var values = table.Rows.Single();
 
-            CustomerRepository.RemoveByName(values["Name"]);
+            _customerRepository.RemoveByName(values["Name"]);
 
             _storedCustomer = new CustomerInfo(
                 values["Title"],
@@ -63,7 +65,7 @@
                 values["Mobile"],
                 1);
 
-            CustomerRepository.Create(_storedCustomer);
+            _customerRepository.Create(_storedCustomer);
         }
 
         [When(@"I view the customer")]
@@ -71,7 +73,7 @@
         {
             _storedCustomer.Should().NotBeNull();
             
-            int customerId = CustomerRepository.GetIdByName(_storedCustomer.Name);
+            int customerId = _customerRepository.GetIdByName(_storedCustomer.Name);
 
             _customerMaintenancePage.ViewCustomer(customerId);
 
@@ -83,7 +85,7 @@
         {
             _storedCustomer.Should().NotBeNull();
 
-            int customerId = CustomerRepository.GetIdByName(_storedCustomer.Name);
+            int customerId = _customerRepository.GetIdByName(_storedCustomer.Name);
 
             _customerMaintenancePage.ViewCustomer(customerId);
 
@@ -101,7 +103,7 @@
         {
             _uiViewInfo.Should().NotBeNull();
 
-            _storedCustomer = CustomerRepository.GetInfoByName(_uiViewInfo.Name);
+            _storedCustomer = _customerRepository.GetInfoByName(_uiViewInfo.Name);
 
             _storedCustomer.Should().NotBeNull();
             _storedCustomer.Title.Should().Be(_uiViewInfo.Title);
@@ -142,7 +144,7 @@
         {
             _storedCustomer.Should().NotBeNull();
 
-            var latestStoredCustomer = CustomerRepository.GetInfoByName(_storedCustomer.Name);
+            var latestStoredCustomer = _customerRepository.GetInfoByName(_storedCustomer.Name);
 
             latestStoredCustomer.Mobile.Should().Be(expectedMobileNumber);
         }

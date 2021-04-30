@@ -5,11 +5,11 @@
     using Dto;
     using MySql.Data.MySqlClient;
 
-    public static class CarRepository
+    public class CarRepository
     {
         private static readonly string ConnectionString = Configuration.AppSettings["AutoWorkshop:MySqlConnectionString"];
 
-        public static void Create(CarInfo car)
+        public void Create(CarInfo car)
         {
             using var connection = new MySqlConnection(ConnectionString);
 
@@ -27,14 +27,14 @@
                 });
         }
 
-        public static void RemoveByRegistration(string registration)
+        public void RemoveByRegistration(string registration)
         {
             using var connection = new MySqlConnection(ConnectionString);
 
             connection.Execute("DELETE FROM cars WHERE car_regis = @registration", new { registration });
         }
 
-        public static CarInfo GetInfoByRegistration(string registration)
+        public CarInfo GetInfoByRegistration(string registration)
         {
             using var connection = new MySqlConnection(ConnectionString);
 

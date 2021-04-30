@@ -11,10 +11,14 @@
     public class CarSteps
     {
         private readonly ChangeCarRegistrationPage _changeCarRegistrationPage;
+        private readonly CarRepository _carRepository;
+        private readonly CustomerRepository _customerRepository;
 
-        public CarSteps(ChangeCarRegistrationPage changeCarRegistrationPage)
+        public CarSteps(ChangeCarRegistrationPage changeCarRegistrationPage, CarRepository carRepository, CustomerRepository customerRepository)
         {
             _changeCarRegistrationPage = changeCarRegistrationPage;
+            _carRepository = carRepository;
+            _customerRepository = customerRepository;
         }
 
         [Given(@"this existing car")]
@@ -23,9 +27,9 @@
         {
             table.Rows.ForEach(values =>
             {
-                CarRepository.RemoveByRegistration(values["Registration"]);
+                _carRepository.RemoveByRegistration(values["Registration"]);
 
-                uint customerId = CustomerRepository.GetFirstCustomerId();
+                uint customerId = _customerRepository.GetFirstCustomerId();
 
                 var car = new CarInfo(
                     values["Registration"],
@@ -33,14 +37,14 @@
                     values["Make"],
                     values["Model"]);
 
-                CarRepository.Create(car);
+                _carRepository.Create(car);
             });
         }
 
         [Given(@"there is no existing car with registration '(.*)'")]
         public void GivenThereIsNoExistingCarWithRegistration(string registration)
         {
-            CarRepository.RemoveByRegistration(registration);
+            _carRepository.RemoveByRegistration(registration);
         }
 
         [When(@"I change the registration of '(.*)' to '(.*)'")]
@@ -71,7 +75,7 @@
         {
             table.Rows.ForEach(expectedValues =>
             {
-                CarInfo storedCar = CarRepository.GetInfoByRegistration(expectedValues["Registration"]);
+                CarInfo storedCar = _carRepository.GetInfoByRegistration(expectedValues["Registration"]);
 
                 storedCar.Should().NotBeNull();
                 storedCar.Registration.Should().Be(expectedValues["Registration"]);
@@ -83,7 +87,7 @@
         [Then(@"there should be no car with registration '(.*)'")]
         public void ThenThereShouldBeNoCarWithRegistration(string registration)
         {
-            CarInfo storedCar = CarRepository.GetInfoByRegistration(registration);
+            CarInfo storedCar = _carRepository.GetInfoByRegistration(registration);
 
             storedCar.Should().BeNull();
         }
