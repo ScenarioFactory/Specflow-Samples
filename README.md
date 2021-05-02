@@ -24,7 +24,7 @@ When developing scenarios, the preference is for highly readable scenarios witho
 @WebTest
 Scenario: Create new customer
 	Given the following customer details
-	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Mobile       |
+	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Phone        |
 	| Mrs   | Jane Jones | 72 Acacia Avenue | Shepherds Bush | London         | W12 8QT  | 07575 456789 |
 
 	When I create the customer
@@ -43,12 +43,12 @@ Scenario: Create new customer
 	Given there are no customers named 'Jane Jones'
 
 	When I create a new customer with the following details
-	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Mobile       |
+	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Phone        |
 	| Mrs   | Jane Jones | 72 Acacia Avenue | Shepherds Bush | London         | W12 8QT  | 07575 456789 |
 
 	Then a customer is present in the system with the following details
- 	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Home Phone    | Mobile       |
-	| Mrs   | Jane Jones | 72 Acacia Avenue | Shepherds Bush | London         | W12 8QT  | 0121 756 2584 | 07575 456789 |
+ 	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Phone        |
+	| Mrs   | Jane Jones | 72 Acacia Avenue | Shepherds Bush | London         | W12 8QT  | 07575 456789 |
   
 	And customer 'Jane Jones' is marked as manually invoiced
 ```
