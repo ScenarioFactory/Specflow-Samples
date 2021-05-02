@@ -21,7 +21,16 @@
 
         public CustomerMaintenancePage(AutoWorkshopDriver driver) :base(driver)
         {
+        }
+
+        public void Open()
+        {
             Driver.NavigateTo(PageUrl);
+        }
+
+        public void Open(int customerId)
+        {
+            Driver.NavigateTo($"{PageUrl}?custid={customerId}");
         }
 
         public void CreateCustomer(CustomerUiViewInfo viewInfo)
@@ -38,11 +47,6 @@
             Driver.FindElement(Mobile).SendKeys(viewInfo.Mobile);
 
             Driver.FindElement(Save).Click();
-        }
-
-        public void ViewCustomer(int customerId)
-        {
-            Driver.NavigateTo($"{PageUrl}?custid={customerId}");
         }
 
         public void UpdateMobile(string mobileNumber)
@@ -78,6 +82,11 @@
                 .Where((a, i) => i % 2 != 0)
                 .Select(a => a.Text)
                 .ToArray();
+        }
+
+        public void SelectOptionToAddNewCar()
+        {
+            Toolbar.Click("Add a new car");
         }
     }
 }

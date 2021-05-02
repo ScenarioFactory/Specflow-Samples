@@ -1,5 +1,6 @@
 ﻿namespace AutoWorkshop.Specs.Steps
 {
+    using System.Linq;
     using Dto;
     using Extensions;
     using FluentAssertions;
@@ -10,15 +11,25 @@
     [Binding]
     public class CarSteps
     {
+        private readonly CarMaintenancePage _carMaintenancePage;
         private readonly ChangeCarRegistrationPage _changeCarRegistrationPage;
         private readonly CarRepository _carRepository;
         private readonly CustomerRepository _customerRepository;
+        private readonly JobRepository _jobRepository;
+        private CarUiViewInfo _uiViewInfo;
 
-        public CarSteps(ChangeCarRegistrationPage changeCarRegistrationPage, CarRepository carRepository, CustomerRepository customerRepository)
+        public CarSteps(
+            CarMaintenancePage carMaintenancePage,
+            ChangeCarRegistrationPage changeCarRegistrationPage,
+            CarRepository carRepository,
+            CustomerRepository customerRepository,
+            JobRepository jobRepository)
         {
+            _carMaintenancePage = carMaintenancePage;
             _changeCarRegistrationPage = changeCarRegistrationPage;
             _carRepository = carRepository;
             _customerRepository = customerRepository;
+            _jobRepository = jobRepository;
         }
 
         [Given(@"this existing car")]
@@ -45,12 +56,46 @@
         public void GivenThereIsNoExistingCarWithRegistration(string registration)
         {
             _carRepository.RemoveByRegistration(registration);
+            _jobRepository.RemoveByRegistration(registration);
         }
 
         [When(@"I change the registration of '(.*)' to '(.*)'")]
         public void WhenIChangeTheRegistrationOfTo(string currentRegistration, string newRegistration)
         {
+            _changeCarRegistrationPage.Open();
             _changeCarRegistrationPage.ChangeRegistration(currentRegistration, newRegistration);
+        }
+
+        [When(@"I create a new car for customer '(.*)' with the following details")]
+        public void WhenICreateANewCarForCustomerWithTheFollowingDetails(string customerName, Table table)
+        {
+            var values = table.Rows.Single();
+
+            _uiViewInfo = new CarUiViewInfo(
+                values["Registration"],
+                values["Make"],
+                values["Model"],
+                values["Year"]);
+
+            _carMaintenancePage.CreateCar(_uiViewInfo);
+        }
+
+        [When(@"I select the option to create a new job for the car")]
+        public void WhenISelectTheOptionToCreateANewJobForTheCar()
+        {
+            _carMaintenancePage.SelectOptionToAddNewJob();
+        }
+
+        [Then(@"the car is added to the system with the details provided")]
+        public void ThenTheCarIsAddedToTheSystemWithTheDetailsProvided()
+        {
+            _uiViewInfo.Should().NotBeNull();
+
+            CarInfo storedCar = _carRepository.GetInfoByRegistration(_uiViewInfo.Registration);
+
+            storedCar.Registration.Should().Be(_uiViewInfo.Registration);
+            storedCar.Make.Should().Be(_uiViewInfo.Make);
+            storedCar.Model.Should().Be(_uiViewInfo.Model);
         }
 
         [Then(@"I should see the success message '(.*)'")]

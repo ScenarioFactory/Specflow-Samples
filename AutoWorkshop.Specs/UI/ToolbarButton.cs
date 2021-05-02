@@ -1,8 +1,8 @@
-﻿namespace AutoWorkshop.Specs.Dto
+﻿namespace AutoWorkshop.Specs.UI
 {
-    public class LinkInfo
+    public class ToolbarButton
     {
-        public LinkInfo(string url, string altText)
+        public ToolbarButton(string url, string altText)
         {
             Url = url;
             AltText = altText;

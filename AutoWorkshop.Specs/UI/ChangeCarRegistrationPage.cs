@@ -13,6 +13,10 @@
 
         public ChangeCarRegistrationPage(AutoWorkshopDriver driver) : base(driver)
         {
+        }
+
+        public void Open()
+        {
             Driver.NavigateTo(PageUrl);
         }
 

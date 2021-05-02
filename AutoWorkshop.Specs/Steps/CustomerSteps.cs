@@ -44,6 +44,7 @@
                 values["Home Phone"],
                 values["Mobile"]);
 
+            _customerMaintenancePage.Open();
             _customerMaintenancePage.CreateCustomer(_uiViewInfo);
         }
 
@@ -75,8 +76,7 @@
             
             int customerId = _customerRepository.GetIdByName(_storedCustomer.Name);
 
-            _customerMaintenancePage.ViewCustomer(customerId);
-
+            _customerMaintenancePage.Open(customerId);
             _uiViewInfo = _customerMaintenancePage.GetViewInfo();
         }
 
@@ -87,15 +87,21 @@
 
             int customerId = _customerRepository.GetIdByName(_storedCustomer.Name);
 
-            _customerMaintenancePage.ViewCustomer(customerId);
-
+            _customerMaintenancePage.Open(customerId);
             _customerMaintenancePage.UpdateMobile(newMobileNumber);
         }
 
         [When(@"I search for '(.*)'")]
         public void WhenISearchFor(string searchText)
         {
+            _customerMaintenancePage.Open();
             _customerMaintenancePage.TypeName(searchText);
+        }
+
+        [When(@"I select the option to create a new car for the customer")]
+        public void WhenISelectTheOptionToCreateANewCarForTheCustomer()
+        {
+            _customerMaintenancePage.SelectOptionToAddNewCar();
         }
 
         [Then(@"the customer is added to the system with the details provided")]
