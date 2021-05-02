@@ -4,7 +4,7 @@ AutoWorkshop.Model - sample domain model to write scenarios against directly.
 
 AutoWorkshop.Specs - sample acceptance test suite of WebDriver and domain model tests.
 
-### SpecFlow test suite design guidelines
+### SpecFlow test suite layers philosophy
 
 - Provide database and other infrastructure access via stateless repositories and services.
 - Retain all SpecFlow types and parsing of SpecFlow parameters in step files.
