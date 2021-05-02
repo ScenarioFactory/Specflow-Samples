@@ -27,7 +27,7 @@ Scenario: Create new customer
 	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Phone        |
 	| Mrs   | Jane Jones | 72 Acacia Avenue | Shepherds Bush | London         | W12 8QT  | 07575 456789 |
 
-	When I create the customer
+	When I create the customer in AutoWorkshop
 
 	Then the customer is added to the system with the details provided
 	And the customer is marked as manually invoiced
@@ -42,7 +42,7 @@ As an alternative where maximum step re-usability is needed, or where scenarios 
 Scenario: Create new customer
 	Given there are no customers named 'Jane Jones'
 
-	When I create a new customer with the following details
+	When I create a new customer in AutoWorkshop with the following details
 	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Phone        |
 	| Mrs   | Jane Jones | 72 Acacia Avenue | Shepherds Bush | London         | W12 8QT  | 07575 456789 |
 
