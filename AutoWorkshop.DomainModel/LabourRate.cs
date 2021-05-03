@@ -1,10 +1,10 @@
-﻿namespace AutoWorkshop.Model
+﻿namespace AutoWorkshop.DomainModel
 {
     using System;
 
-    public class VatRate
+    public class LabourRate
     {
-        public VatRate(DateTime applicableFrom, decimal rate)
+        public LabourRate(DateTime applicableFrom, decimal rate)
         {
             ApplicableFrom = applicableFrom;
             Rate = rate;

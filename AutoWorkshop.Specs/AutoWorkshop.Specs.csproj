@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AutoWorkshop.Model\AutoWorkshop.Model.csproj" />
+    <ProjectReference Include="..\AutoWorkshop.DomainModel\AutoWorkshop.DomainModel.csproj" />
   </ItemGroup>
 
   <ItemGroup>

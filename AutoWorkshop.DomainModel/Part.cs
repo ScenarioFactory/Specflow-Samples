@@ -1,4 +1,4 @@
-﻿namespace AutoWorkshop.Model
+﻿namespace AutoWorkshop.DomainModel
 {
     public class Part
     {

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoWorkshop.Model", "AutoWorkshop.Model\AutoWorkshop.Model.csproj", "{0BF3EC12-10BE-4651-B2C0-C60633454650}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoWorkshop.DomainModel", "AutoWorkshop.DomainModel\AutoWorkshop.DomainModel.csproj", "{0BF3EC12-10BE-4651-B2C0-C60633454650}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoWorkshop.Specs", "AutoWorkshop.Specs\AutoWorkshop.Specs.csproj", "{E86ADB6D-F80A-4A43-BB4F-907E43DA6D29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoWorkshop.Specs", "AutoWorkshop.Specs\AutoWorkshop.Specs.csproj", "{E86ADB6D-F80A-4A43-BB4F-907E43DA6D29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,4 @@
-﻿namespace AutoWorkshop.Model.Extensions
+﻿namespace AutoWorkshop.DomainModel.Extensions
 {
     using System;
 

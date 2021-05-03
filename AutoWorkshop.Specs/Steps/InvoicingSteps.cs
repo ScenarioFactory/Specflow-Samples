@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using DomainModel;
     using Extensions;
     using FluentAssertions;
-    using Model;
     using TechTalk.SpecFlow;
 
     [Binding]

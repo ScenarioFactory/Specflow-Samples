@@ -1,4 +1,4 @@
-﻿namespace AutoWorkshop.Model
+﻿namespace AutoWorkshop.DomainModel
 {
     using System;
     using System.Collections.Generic;
