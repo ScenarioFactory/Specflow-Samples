@@ -1,4 +1,4 @@
-﻿namespace AutoWorkshop.Specs.Infrastructure
+﻿namespace AutoWorkshop.Specs.Utilities
 {
     using System;
     using System.Threading.Tasks;

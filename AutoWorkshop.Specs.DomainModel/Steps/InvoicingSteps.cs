@@ -1,9 +1,9 @@
-﻿namespace AutoWorkshop.Specs.Steps
+﻿namespace AutoWorkshop.Specs.DomainModel.Steps
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using DomainModel;
+    using AutoWorkshop.DomainModel;
     using Extensions;
     using FluentAssertions;
     using TechTalk.SpecFlow;
