@@ -2,9 +2,9 @@
 
 AutoWorkshop.DomainModel - sample domain model to write scenarios against directly.
 
-AutoWorkshop.Specs - sample WebDriver tests.
-
 AutoWorkshop.Specs.DomainModel - sample domain model tests.
+
+AutoWorkshop.Specs - sample WebDriver tests.
 
 ### SpecFlow test suite principles
 
