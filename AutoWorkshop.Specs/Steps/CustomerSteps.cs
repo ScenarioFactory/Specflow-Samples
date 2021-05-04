@@ -29,25 +29,6 @@
             _customerRepository.RemoveByName(customerName);
         }
 
-        [When(@"I create a new customer with the following details")]
-        public void WhenICreateANewCustomerWithTheFollowingDetails(Table table)
-        {
-            var values = table.Rows.Single();
-
-            _uiViewInfo = new CustomerUiViewInfo(
-                values["Title"],
-                values["Name"],
-                values["Address Line 1"],
-                values["Address Line 2"],
-                values["Address Line 3"],
-                values["Postcode"],
-                values["Home Phone"],
-                values["Mobile"]);
-
-            _customerMaintenancePage.Open();
-            _customerMaintenancePage.CreateCustomer(_uiViewInfo);
-        }
-
         [Given(@"this existing customer")]
         public void GivenThisExistingCustomer(Table table)
         {
@@ -67,6 +48,25 @@
                 1);
 
             _customerRepository.Create(_storedCustomer);
+        }
+
+        [When(@"I create a new customer with the following details")]
+        public void WhenICreateANewCustomerWithTheFollowingDetails(Table table)
+        {
+            var values = table.Rows.Single();
+
+            _uiViewInfo = new CustomerUiViewInfo(
+                values["Title"],
+                values["Name"],
+                values["Address Line 1"],
+                values["Address Line 2"],
+                values["Address Line 3"],
+                values["Postcode"],
+                values["Home Phone"],
+                values["Mobile"]);
+
+            _customerMaintenancePage.Open();
+            _customerMaintenancePage.CreateCustomer(_uiViewInfo);
         }
 
         [When(@"I view the customer")]
@@ -116,7 +116,7 @@
             _storedCustomer.Name.Should().Be(_uiViewInfo.Name);
             _storedCustomer.AddressLine1.Should().Be(_uiViewInfo.AddressLine1);
             _storedCustomer.AddressLine2.Should().Be(_uiViewInfo.AddressLine2);
-            _storedCustomer.AddressLine2.Should().Be(_uiViewInfo.AddressLine2);
+            _storedCustomer.AddressLine3.Should().Be(_uiViewInfo.AddressLine3);
             _storedCustomer.Postcode.Should().Be(_uiViewInfo.Postcode);
             _storedCustomer.HomePhone.Should().Be(_uiViewInfo.HomePhone);
             _storedCustomer.Mobile.Should().Be(_uiViewInfo.Mobile);
