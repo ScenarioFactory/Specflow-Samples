@@ -4,7 +4,9 @@ AutoWorkshop.DomainModel - sample domain model to write scenarios against direct
 
 AutoWorkshop.Specs.DomainModel - sample domain model tests.
 
-AutoWorkshop.Specs - sample WebDriver tests.
+AutoWorkshop.Specs.Stateless - sample tests using a largely stateless step file approach to allow maximum step re-use by non-programming QAs. See thoughts below.
+
+AutoWorkshop.Specs - sample tests using preferred approach.
 
 ### SpecFlow test suite principles
 
