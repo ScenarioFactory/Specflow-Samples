@@ -4,10 +4,10 @@
     using Dto;
     using Extensions;
     using FluentAssertions;
+    using Framework;
     using Repositories;
     using TechTalk.SpecFlow;
     using UI;
-    using Utilities;
 
     [Binding]
     public class CustomerSteps

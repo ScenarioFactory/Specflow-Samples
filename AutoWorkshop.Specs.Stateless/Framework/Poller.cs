@@ -1,4 +1,4 @@
-﻿namespace AutoWorkshop.Specs.Utilities
+﻿namespace AutoWorkshop.Specs.Stateless.Framework
 {
     using System;
     using System.Threading.Tasks;
