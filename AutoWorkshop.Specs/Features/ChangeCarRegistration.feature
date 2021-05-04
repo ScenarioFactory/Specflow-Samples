@@ -1,8 +1,8 @@
 ﻿Feature: Change Car Registration
-	Change registration for a given car.
+	Change registration for a car.
 
 @WebTest
-Scenario: Change car registration
+Scenario: Change car registration can be changed
 	Given this existing car
 	| Registration | Make        | Model |
 	| AY16CPD      | Range Rover | Vogue |

@@ -1,9 +1,8 @@
 ﻿Feature: Maintain Customers
-	Create and maintain customers.
-	New customers are created with manual invoicing by default.
+	Create, view and update customers.
 
 @WebTest
-Scenario: Create new customer
+Scenario: Create a new customer with default invoicing 
 	Given there are no customers named 'Jane Jones'
 
 	When I create a new customer with the following details
@@ -14,7 +13,7 @@ Scenario: Create new customer
 	And the customer is marked as manually invoiced
 
 @WebTest
-Scenario: View customer details
+Scenario: View an existing customer
 	Given this existing customer
 	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Home Phone    | Mobile       |
 	| Mrs   | Jane Jones | 72 Acacia Avenue | Shepherds Bush | London         | W12 8QT  | 0121 756 2584 | 07575 456789 |
@@ -30,7 +29,7 @@ Scenario: View customer details
 	| Add a new quote for Jane Jones          |
 
 @WebTest
-Scenario: Update existing customer
+Scenario: Update an existing customer
 	Given this existing customer
 	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Home Phone    | Mobile       |
 	| Mrs   | Jane Jones | 72 Acacia Avenue | Shepherds Bush | London         | W12 8QT  | 0121 756 2584 | 07575 456789 |
@@ -40,7 +39,7 @@ Scenario: Update existing customer
 	Then the stored customer should be updated with mobile '07777 789456'
 
 @WebTest
-Scenario: Search for customer as you type
+Scenario: Search for a customer as you type
 	Given this existing customer
 	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Home Phone    | Mobile       |
 	| Mrs   | Jane Jones | 72 Acacia Avenue | Shepherds Bush | London         | W12 8QT  | 0121 756 2584 | 07575 456789 |

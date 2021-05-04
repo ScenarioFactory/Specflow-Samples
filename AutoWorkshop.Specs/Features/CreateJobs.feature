@@ -1,8 +1,8 @@
-﻿Feature: CreateJobs
+﻿Feature: Create Jobs
 	Create workshop jobs to work on cars.
 
 @EndToEndTest @WebTest
-Scenario: User journey to book in a new customer with a new car, create a job and raise an invoice
+Scenario: User journey to book in a new customer with a new car and create a workshop job
 	Given there are no customers named 'Melanie Morgan'
 	And there is no existing car with registration 'V8MEL'
 

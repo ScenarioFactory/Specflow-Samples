@@ -1,9 +1,5 @@
 ﻿Feature: Calculate Invoice Costs
-	Invoice costs should be calculated from the parts, labour, MOT and VAT components of a job.
-	VAT should not be applied to MOT costs.
-	Historic changes to the rate of VAT should be reflected.
-	Historic changes to the labour rate should be reflected.
-	Historic changes to the MOT fee should be reflected.
+	Calculate invoice costs from the parts, labour, MOT and VAT costs of a job.
 
 @DomainModelTest
 Scenario: Calculate invoice and VAT costs for a job with parts, labour and MOT

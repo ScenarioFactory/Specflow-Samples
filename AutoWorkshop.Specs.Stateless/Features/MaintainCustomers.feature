@@ -1,9 +1,11 @@
 ﻿@Stateless
 Feature: Maintain Customers
-	** These scenarios are written to use largely stateless step files to allow maximum step reusability by non-programming QAs. **
+	Create, view and update customers.
+
+	*** These scenarios are written to illustrate largely stateless step files which allow maximum step reusability by non-programming QAs. ***
 
 @WebTest
-Scenario: Create new customer
+Scenario: Create a new customer with default invoicing
 	Given there are no customers named 'Jane Jones'
 
 	When I create a new customer with the following details
@@ -16,7 +18,7 @@ Scenario: Create new customer
 	And customer 'Jane Jones' is marked as manually invoiced
 
 @WebTest
-Scenario: View customer details
+Scenario: View an existing customer
 	Given there are no customers named 'Jane Jones'
 	And the following customer is present in the system
 	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Home Phone    | Mobile       |
@@ -35,7 +37,7 @@ Scenario: View customer details
 	| Add a new quote for Jane Jones          |
 
 @WebTest
-Scenario: Update existing customer
+Scenario: Update an existing customer
 	Given there are no customers named 'Jane Jones'
 	And the following customer is present in the system
 	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Home Phone    | Mobile       |
@@ -46,7 +48,7 @@ Scenario: Update existing customer
 	Then customer 'Jane Jones' should be have a mobile number of '07777 789456'
 
 @WebTest
-Scenario: Search for customer as you type
+Scenario: Search for a customer as you type
 	Given there are no customers named 'Jane Jones'
 	And the following customer is present in the system
 	| Title | Name       | Address Line 1   | Address Line 2 | Address Line 3 | Postcode | Home Phone    | Mobile       |
