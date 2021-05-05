@@ -145,7 +145,7 @@
         {
             table.Rows.ForEach(row =>
             {
-                _customerMaintenancePage.Toolbar.ContainsLink(row["Option"]).Should().BeTrue();
+                _customerMaintenancePage.Toolbar.Buttons.Any(b => b.Matches(row["Option"])).Should().BeTrue();
             });
         }
 

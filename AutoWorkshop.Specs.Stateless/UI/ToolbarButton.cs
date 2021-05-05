@@ -1,15 +1,20 @@
 ﻿namespace AutoWorkshop.Specs.Stateless.UI
 {
+    using OpenQA.Selenium;
+
     public class ToolbarButton
     {
-        public ToolbarButton(string url, string altText)
+        private readonly IWebElement _anchor;
+
+        public ToolbarButton(IWebElement anchor)
         {
-            Url = url;
-            AltText = altText;
+            _anchor = anchor;
         }
 
-        public string Url { get; }
+        private string AltText => _anchor.FindElement(By.TagName("img")).GetAttribute("Alt");
 
-        public string AltText { get; }
+        public bool Matches(string matchText) => AltText.Contains(matchText);
+
+        public void Click() => _anchor.Click();
     }
 }

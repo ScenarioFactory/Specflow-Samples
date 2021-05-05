@@ -84,9 +84,9 @@
                 .ToArray();
         }
 
-        public void SelectOptionToAddNewCar()
+        public void AddNewCar()
         {
-            Toolbar.Click("Add a new car");
+            Toolbar.Buttons.Single(b => b.Matches("Add a new car")).Click();
         }
     }
 }

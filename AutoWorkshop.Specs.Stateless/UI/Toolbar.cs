@@ -1,5 +1,6 @@
 ﻿namespace AutoWorkshop.Specs.Stateless.UI
 {
+    using System.Collections.ObjectModel;
     using System.Linq;
     using OpenQA.Selenium;
 
@@ -16,27 +17,12 @@
         {
             get
             {
-                var anchors = _driver.FindElements(By.XPath("//fieldset//a"));
+                ReadOnlyCollection<IWebElement> anchors = _driver.FindElements(By.XPath("//fieldset//a"));
 
                 return anchors
-                    .Select(anchor => new ToolbarButton(anchor.GetAttribute("href"), anchor.FindElement(By.TagName("img")).GetAttribute("Alt")))
+                    .Select(anchor => new ToolbarButton(anchor))
                     .ToArray();
             }
-        }
-
-        public bool ContainsLink(string altText)
-        {
-            return Buttons.Any(l => l.AltText == altText);
-        }
-
-        public void Click(string altText)
-        {
-            var anchors = _driver.FindElements(By.XPath("//fieldset//a"));
-
-            IWebElement toolbarButtonToClick = anchors
-                .Single(a => a.FindElement(By.TagName("img")).GetAttribute("Alt").Contains(altText));
-
-            toolbarButtonToClick.Click();
         }
     }
 }

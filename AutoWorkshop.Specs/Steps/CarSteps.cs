@@ -83,7 +83,7 @@
         [When(@"I select the option to create a new job for the car")]
         public void WhenISelectTheOptionToCreateANewJobForTheCar()
         {
-            _carMaintenancePage.SelectOptionToAddNewJob();
+            _carMaintenancePage.AddNewJob();
         }
 
         [Then(@"the car is added to the system with the details provided")]

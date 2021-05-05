@@ -101,7 +101,7 @@
         [When(@"I select the option to create a new car for the customer")]
         public void WhenISelectTheOptionToCreateANewCarForTheCustomer()
         {
-            _customerMaintenancePage.SelectOptionToAddNewCar();
+            _customerMaintenancePage.AddNewCar();
         }
 
         [Then(@"the customer is added to the system with the details provided")]
@@ -160,7 +160,7 @@
         {
             table.Rows.ForEach(row =>
             {
-                _customerMaintenancePage.Toolbar.ContainsLink(row["Option"]).Should().BeTrue();
+                _customerMaintenancePage.Toolbar.Buttons.Any(b => b.Matches(row["Option"])).Should().BeTrue();
             });
         }
 

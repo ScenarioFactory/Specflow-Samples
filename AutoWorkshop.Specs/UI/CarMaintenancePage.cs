@@ -1,5 +1,6 @@
 ﻿namespace AutoWorkshop.Specs.UI
 {
+    using System.Linq;
     using Dto;
     using OpenQA.Selenium;
 
@@ -26,9 +27,9 @@
             Driver.FindElement(Save).Click();
         }
 
-        public void SelectOptionToAddNewJob()
+        public void AddNewJob()
         {
-            Toolbar.Click("Add a new job");
+            Toolbar.Buttons.Single(b => b.Matches("Add a new job")).Click();
         }
     }
 }
