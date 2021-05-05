@@ -16,15 +16,15 @@ Scenario: User journey to create a new customer with a new car
 	And customer 'Melanie Morgan' is marked as manually invoiced
 
 	# set the scenario variable
-	Given '<CustomerId>' is the customer ID of 'Melanie Morgan' 
+	Given '[CustomerId]' is the customer ID of 'Melanie Morgan' 
 
 	# use the scenario variable as a parameter to the step
-	When I create a new car for customer '<CustomerId> with the following details
+	When I create a new car for customer '[CustomerId] with the following details
 	| Registration | Make    | Model       | Year |
 	| V8MEL        | Bentley | Continental | 2010 |
 	
 	# use the scenario variable as a value in the table
 	Then a car is present in the system with the following details
 	| Registration | Customer     | Make    | Model       | Year |
-	| V8MEL        | <CustomerId> | Bentley | Continental | 2010 |
+	| V8MEL        | [CustomerId] | Bentley | Continental | 2010 |
 

@@ -16,12 +16,12 @@
 
         public string Get(string key)
         {
-            return _scenarioContext.Get<string>(TrimAngleBrackets(key));
+            return _scenarioContext.Get<string>(TrimSquareBrackets(key));
         }
 
         public void Set(string key, object value)
         {
-            _scenarioContext[TrimAngleBrackets(key)] = value.ToString();
+            _scenarioContext[TrimSquareBrackets(key)] = value.ToString();
         }
 
         [StepArgumentTransformation]
@@ -52,11 +52,11 @@
 
         private string TransformVariable(string value)
         {
-            if (value.Contains("<"))
+            if (value.Contains("["))
             {
                 _scenarioContext.ToList().ForEach(kvp =>
                 {
-                    string bracketedKey = $"<{kvp.Key}>";
+                    string bracketedKey = $"[{kvp.Key}]";
                     value = value.Replace(bracketedKey, (string)kvp.Value);
                 });
             }
@@ -64,9 +64,9 @@
             return value;
         }
 
-        private static string TrimAngleBrackets(string value)
+        private static string TrimSquareBrackets(string value)
         {
-            return value.Replace("<", string.Empty).Replace(">", string.Empty);
+            return value.Replace("[", string.Empty).Replace("]", string.Empty);
         }
     }
 
