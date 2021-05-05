@@ -95,7 +95,7 @@
         public void WhenISearchFor(string searchText)
         {
             _customerMaintenancePage.Open();
-            _customerMaintenancePage.TypeName(searchText);
+            _customerMaintenancePage.EnterName(searchText);
         }
 
         [When(@"I select the option to create a new car for the customer")]

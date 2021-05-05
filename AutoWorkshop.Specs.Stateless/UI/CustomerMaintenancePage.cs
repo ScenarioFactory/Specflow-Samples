@@ -69,7 +69,7 @@
                 Driver.FindElement(Mobile).GetAttribute("value"));
         }
 
-        public void TypeName(string searchText)
+        public void EnterName(string searchText)
         {
             Driver.FindElement(Name).SendKeys(searchText);
         }

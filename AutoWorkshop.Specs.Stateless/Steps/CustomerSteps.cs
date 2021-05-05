@@ -96,7 +96,7 @@
         public void WhenISearchFor(string searchText)
         {
             _customerMaintenancePage.Open();
-            _customerMaintenancePage.TypeName(searchText);
+            _customerMaintenancePage.EnterName(searchText);
         }
 
         [Then(@"a customer is present in the system with the following details")]
