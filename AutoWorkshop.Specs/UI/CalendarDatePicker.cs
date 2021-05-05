@@ -14,10 +14,10 @@
             _webElement = webElement;
         }
 
-        public void SetValue(DateTime date)
+        public void SetValue(DateTime value)
         {
             ((IJavaScriptExecutor) _driver).ExecuteScript("arguments[0].value = arguments[1]",
-                _webElement, date.ToString("dd MMMM yyyy"));
+                _webElement, value.ToString("dd MMMM yyyy"));
         }
     }
 }

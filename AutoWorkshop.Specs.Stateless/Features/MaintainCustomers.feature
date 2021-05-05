@@ -2,7 +2,7 @@
 Feature: Maintain Customers
 	Create, view and update customers.
 
-	*** These scenarios are written to illustrate largely stateless step files which allow maximum step reusability by non-programming QAs. ***
+	*** These scenarios are written to illustrate largely stateless step files to allow maximum step reusability by non-programming QAs. ***
 
 @WebTest
 Scenario: Create a new customer with default invoicing

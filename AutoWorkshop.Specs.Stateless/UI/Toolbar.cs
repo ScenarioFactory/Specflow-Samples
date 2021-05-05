@@ -28,5 +28,15 @@
         {
             return Buttons.Any(l => l.AltText == altText);
         }
+
+        public void Click(string altText)
+        {
+            var anchors = _driver.FindElements(By.XPath("//fieldset//a"));
+
+            IWebElement toolbarButtonToClick = anchors
+                .Single(a => a.FindElement(By.TagName("img")).GetAttribute("Alt").Contains(altText));
+
+            toolbarButtonToClick.Click();
+        }
     }
 }

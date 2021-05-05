@@ -12,11 +12,13 @@
     [Binding]
     public class CustomerSteps
     {
+        private readonly ScenarioVariables _scenarioVariables;
         private readonly CustomerMaintenancePage _customerMaintenancePage;
         private readonly CustomerRepository _customerRepository;
 
-        public CustomerSteps(CustomerMaintenancePage customerMaintenancePage, CustomerRepository customerRepository)
+        public CustomerSteps(ScenarioVariables scenarioVariables, CustomerMaintenancePage customerMaintenancePage, CustomerRepository customerRepository)
         {
+            _scenarioVariables = scenarioVariables;
             _customerMaintenancePage = customerMaintenancePage;
             _customerRepository = customerRepository;
         }
@@ -44,6 +46,14 @@
                 1);
 
             _customerRepository.Create(customer);
+        }
+
+        [Given(@"'(.*)' is the customer ID of '(.*)'")]
+        public void GivenVariableIsSetToTheCustomerIdOf(string variableName, string customerName)
+        {
+            int customerId = _customerRepository.GetIdByName(customerName);
+
+            _scenarioVariables.Set(variableName, customerId);
         }
 
         [When(@"I create a new customer with the following details")]
