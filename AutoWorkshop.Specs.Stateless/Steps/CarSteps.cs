@@ -46,8 +46,8 @@
             _carMaintenancePage.CreateCar(uiViewInfo);
         }
 
-        [Then(@"a car is added to the system with the following details")]
-        public void ThenACarIsAddedToTheSystemWithTheFollowingDetails(TransformedTable table)
+        [Then(@"a car is present in the system with the following details")]
+        public void ThenACarIsPresentInTheSystemWithTheFollowingDetails(TransformedTable table)
         {
             var expectedValues = table.Rows.Single();
 

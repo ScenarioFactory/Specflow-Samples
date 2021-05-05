@@ -24,7 +24,7 @@ Scenario: User journey to create a new customer with a new car
 	| V8MEL        | Bentley | Continental | 2010 |
 	
 	# use the scenario variable as a value in the table
-	Then a car is added to the system with the following details
+	Then a car is present in the system with the following details
 	| Registration | Customer     | Make    | Model       | Year |
 	| V8MEL        | <CustomerId> | Bentley | Continental | 2010 |
 
