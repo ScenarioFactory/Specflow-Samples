@@ -24,5 +24,10 @@
                     .ToArray();
             }
         }
+
+        public ToolbarButton FindButtonByAltText(string startsWith)
+        {
+            return Buttons.SingleOrDefault(b => b.AltText.StartsWith(startsWith));
+        }
     }
 }

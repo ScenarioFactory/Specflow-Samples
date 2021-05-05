@@ -86,7 +86,7 @@
 
         public void AddNewCar()
         {
-            Toolbar.Buttons.Single(b => b.Matches("Add a new car")).Click();
+            Toolbar.FindButtonByAltText("Add a new car").Click();
         }
     }
 }

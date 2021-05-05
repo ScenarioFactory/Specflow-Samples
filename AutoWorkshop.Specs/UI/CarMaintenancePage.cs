@@ -1,6 +1,5 @@
 ﻿namespace AutoWorkshop.Specs.UI
 {
-    using System.Linq;
     using Dto;
     using OpenQA.Selenium;
 
@@ -29,7 +28,7 @@
 
         public void AddNewJob()
         {
-            Toolbar.Buttons.Single(b => b.Matches("Add a new job")).Click();
+            Toolbar.FindButtonByAltText("Add a new job").Click();
         }
     }
 }

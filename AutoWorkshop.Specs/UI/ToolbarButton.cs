@@ -11,9 +11,7 @@
             _anchor = anchor;
         }
 
-        private string AltText => _anchor.FindElement(By.TagName("img")).GetAttribute("Alt");
-
-        public bool Matches(string matchText) => AltText.Contains(matchText);
+        public string AltText => _anchor.FindElement(By.TagName("img")).GetAttribute("Alt");
 
         public void Click() => _anchor.Click();
     }
