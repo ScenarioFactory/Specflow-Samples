@@ -1,10 +1,8 @@
 ﻿namespace AutoWorkshop.Specs.Dto
 {
-    using System;
-
     public class CarInfo
     {
-        public CarInfo(string registration, uint customerId, string make, string model)
+        public CarInfo(string registration, int customerId, string make, string model)
         {
             Registration = registration;
             CustomerId = customerId;
@@ -12,9 +10,14 @@
             Model = model;
         }
 
+        private CarInfo(string registration, uint customerId, string make, string model)
+            : this(registration, (int)customerId, make, model)
+        {
+        }
+
         public string Registration { get; }
 
-        public uint CustomerId { get; }
+        public int CustomerId { get; }
 
         public string Make { get; }
 

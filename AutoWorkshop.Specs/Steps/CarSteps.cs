@@ -34,13 +34,15 @@
 
         [Given(@"this existing car")]
         [Given(@"these existing cars")]
+        [Given(@"these cars")]
         public void GivenTheseExistingCars(Table table)
         {
             table.Rows.ForEach(values =>
             {
                 _carRepository.RemoveByRegistration(values["Registration"]);
 
-                uint customerId = _customerRepository.GetFirstCustomerId();
+                int customerId = values.ContainsKey("Customer") ?
+                    _customerRepository.GetIdByName(values["Customer"]) : _customerRepository.GetFirstCustomerId();
 
                 var car = new CarInfo(
                     values["Registration"],

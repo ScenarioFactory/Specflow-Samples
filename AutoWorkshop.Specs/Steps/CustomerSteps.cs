@@ -30,24 +30,26 @@
         }
 
         [Given(@"this existing customer")]
+        [Given(@"these customers")]
         public void GivenThisExistingCustomer(Table table)
         {
-            var values = table.Rows.Single();
+            table.Rows.ForEach(values =>
+            {
+                _customerRepository.RemoveByName(values["Name"]);
 
-            _customerRepository.RemoveByName(values["Name"]);
+                _storedCustomer = new CustomerInfo(
+                    values["Title"],
+                    values["Name"],
+                    values["Address Line 1"],
+                    values["Address Line 2"],
+                    values["Address Line 3"],
+                    values["Postcode"],
+                    values["Home Phone"],
+                    values["Mobile"],
+                    1);
 
-            _storedCustomer = new CustomerInfo(
-                values["Title"],
-                values["Name"],
-                values["Address Line 1"],
-                values["Address Line 2"],
-                values["Address Line 3"],
-                values["Postcode"],
-                values["Home Phone"],
-                values["Mobile"],
-                1);
-
-            _customerRepository.Create(_storedCustomer);
+                _customerRepository.Create(_storedCustomer);
+            });
         }
 
         [When(@"I create a new customer with the following details")]

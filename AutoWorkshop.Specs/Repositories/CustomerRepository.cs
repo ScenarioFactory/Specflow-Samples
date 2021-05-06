@@ -1,6 +1,5 @@
 ﻿namespace AutoWorkshop.Specs.Repositories
 {
-    using System.Linq;
     using Dapper;
     using Dto;
     using MySql.Data.MySqlClient;
@@ -38,7 +37,7 @@
         {
             using var connection = new MySqlConnection(_appSettings.ConnectionString);
 
-            return connection.Query<CustomerInfo>(@"
+            return connection.QuerySingle<CustomerInfo>(@"
                 SELECT
                     cus_title title,
                     cus_name name,
@@ -53,8 +52,7 @@
                     customers
                 WHERE
                     cus_name = @name",
-                    new { name })
-                .Single();
+                    new { name });
         }
 
         public void RemoveByName(string name)
@@ -64,11 +62,11 @@
             connection.Execute("DELETE FROM customers WHERE cus_name = @name", new { name });
         }
 
-        public uint GetFirstCustomerId()
+        public int GetFirstCustomerId()
         {
             using var connection = new MySqlConnection(_appSettings.ConnectionString);
 
-            return connection.ExecuteScalar<uint>("SELECT cus_custid FROM customers ORDER BY cus_custid LIMIT 1");
+            return connection.ExecuteScalar<int>("SELECT cus_custid FROM customers ORDER BY cus_custid LIMIT 1");
         }
     }
 }

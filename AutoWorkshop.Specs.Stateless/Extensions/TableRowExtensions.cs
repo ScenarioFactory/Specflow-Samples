@@ -6,11 +6,6 @@
 
     public static class TableRowExtensions
     {
-        public static uint ParseUint(this TableRow row, string column)
-        {
-            return uint.Parse(row[column]);
-        }
-
         public static void ForEach(this IEnumerable<TableRow> rows, Action<TableRow> action)
         {
             foreach (TableRow row in rows)
@@ -25,6 +20,11 @@
             {
                 action(cell);
             }
+        }
+
+        public static int ParseInt(this TableRow row, string column)
+        {
+            return int.Parse(row[column]);
         }
     }
 }

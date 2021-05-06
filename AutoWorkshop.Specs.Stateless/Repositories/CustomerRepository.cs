@@ -38,7 +38,7 @@
         {
             using var connection = new MySqlConnection(_appSettings.ConnectionString);
 
-            return connection.Query<CustomerInfo>(@"
+            return connection.QuerySingle<CustomerInfo>(@"
                 SELECT
                     cus_title title,
                     cus_name name,
@@ -53,8 +53,7 @@
                     customers
                 WHERE
                     cus_name = @name",
-                    new { name })
-                .Single();
+                    new { name });
         }
 
         public void RemoveByName(string name)

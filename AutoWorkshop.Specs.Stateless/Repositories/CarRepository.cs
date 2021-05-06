@@ -1,6 +1,5 @@
 ﻿namespace AutoWorkshop.Specs.Stateless.Repositories
 {
-    using System.Linq;
     using Dapper;
     using Dto;
     using MySql.Data.MySqlClient;
@@ -25,7 +24,7 @@
         {
             using var connection = new MySqlConnection(_appSettings.ConnectionString);
 
-            return connection.Query<CarInfo>(@"
+            return connection.QuerySingleOrDefault<CarInfo>(@"
                 SELECT
                     car_regis registration,
                     car_custid customerId,
@@ -35,8 +34,7 @@
                     cars
                 WHERE
                     car_regis = @registration",
-                    new { registration })
-                .SingleOrDefault();
+                    new { registration });
         }
     }
 }
