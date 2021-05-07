@@ -9,6 +9,9 @@
 # App settings
 appsettings.json
 
+# Temporary database changes
+database.sql
+
 # User-specific files
 *.rsuser
 *.suo

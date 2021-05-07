@@ -16,6 +16,7 @@
 
             Url = _appSettings.BaseUrl;
             Manage().Cookies.AddCookie(new Cookie(_appSettings.AuthenticationCookieName, _appSettings.AuthenticationCookieValue));
+            Url = _appSettings.BaseUrl;
         }
 
         public void NavigateTo(string path)

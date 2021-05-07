@@ -47,7 +47,9 @@
                     car_regis registration,
                     car_custid customerId,
                     car_make make,
-                    car_model model
+                    car_model model,
+                    DATE_FORMAT(car_motexpiry, '%Y-%m-%d') motExpiry,
+                    car_motsuppress suppressMotReminder
                 FROM
                     cars
                 WHERE

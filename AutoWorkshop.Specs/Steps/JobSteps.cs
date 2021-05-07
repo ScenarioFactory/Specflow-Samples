@@ -29,9 +29,9 @@
             _uiViewInfo = new JobUiViewInfo(
                 registration,
                 values["Description"],
-                values.ParseDate("Date"),
-                values.ParseDecimal("Hours"),
-                values.ParseInt("Mileage"));
+                values.GetDate("Date"),
+                values.GetDecimal("Hours"),
+                values.GetInt("Mileage"));
 
             _jobMaintenancePage.CreateJob(_uiViewInfo);
         }

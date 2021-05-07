@@ -30,7 +30,7 @@
         }
 
         [Given(@"this existing customer")]
-        [Given(@"these customers")]
+        [Given(@"the following customers")]
         public void GivenThisExistingCustomer(Table table)
         {
             table.Rows.ForEach(values =>

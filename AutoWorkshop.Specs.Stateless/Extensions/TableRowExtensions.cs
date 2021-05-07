@@ -22,7 +22,7 @@
             }
         }
 
-        public static int ParseInt(this TableRow row, string column)
+        public static int GetInt(this TableRow row, string column)
         {
             return int.Parse(row[column]);
         }

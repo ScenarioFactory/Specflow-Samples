@@ -5,7 +5,6 @@
 
     public class CarMaintenancePage : Page
     {
-        private const string PageUrl = "carmaint.php";
         private static readonly By Registration = By.Name("regis");
         private static readonly By Make = By.Name("make");
         private static readonly By Model = By.Name("model");

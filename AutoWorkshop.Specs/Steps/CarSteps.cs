@@ -16,6 +16,7 @@
         private readonly CarRepository _carRepository;
         private readonly CustomerRepository _customerRepository;
         private readonly JobRepository _jobRepository;
+        private readonly MotReminderRepository _motReminderRepository;
         private CarUiViewInfo _uiViewInfo;
 
         public CarSteps(
@@ -23,6 +24,7 @@
             ChangeCarRegistrationPage changeCarRegistrationPage,
             CarRepository carRepository,
             CustomerRepository customerRepository,
+            MotReminderRepository motReminderRepository,
             JobRepository jobRepository)
         {
             _carMaintenancePage = carMaintenancePage;
@@ -30,11 +32,12 @@
             _carRepository = carRepository;
             _customerRepository = customerRepository;
             _jobRepository = jobRepository;
+            _motReminderRepository = motReminderRepository;
         }
 
         [Given(@"this existing car")]
         [Given(@"these existing cars")]
-        [Given(@"these cars")]
+        [Given(@"the following cars")]
         public void GivenTheseExistingCars(Table table)
         {
             table.Rows.ForEach(values =>
@@ -42,13 +45,16 @@
                 _carRepository.RemoveByRegistration(values["Registration"]);
 
                 int customerId = values.ContainsKey("Customer") ?
-                    _customerRepository.GetIdByName(values["Customer"]) : _customerRepository.GetFirstCustomerId();
+                    _customerRepository.GetIdByName(values["Customer"]) :
+                    _customerRepository.GetFirstCustomerId();
 
                 var car = new CarInfo(
                     values["Registration"],
                     customerId,
                     values["Make"],
-                    values["Model"]);
+                    values["Model"],
+                    values.GetDateOrDefault("MOT Expiry"),
+                    values.GetBoolOrDefault("Suppress MOT Reminder"));
 
                 _carRepository.Create(car);
             });
@@ -59,6 +65,12 @@
         {
             _carRepository.RemoveByRegistration(registration);
             _jobRepository.RemoveByRegistration(registration);
+        }
+
+        [Given(@"there have been no MOT Reminders issued")]
+        public void GivenThereHaveBeenNoMotRemindersIssued()
+        {
+            _motReminderRepository.Clear();
         }
 
         [When(@"I change the registration of '(.*)' to '(.*)'")]

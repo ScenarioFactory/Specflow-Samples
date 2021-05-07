@@ -54,7 +54,7 @@
             CarInfo storedCar = _carRepository.GetInfoByRegistration(expectedValues["Registration"]);
 
             storedCar.Registration.Should().Be(expectedValues["Registration"]);
-            storedCar.CustomerId.Should().Be(expectedValues.ParseInt("Customer"));
+            storedCar.CustomerId.Should().Be(expectedValues.GetInt("Customer"));
             storedCar.Make.Should().Be(expectedValues["Make"]);
             storedCar.Model.Should().Be(expectedValues["Model"]);
         }
