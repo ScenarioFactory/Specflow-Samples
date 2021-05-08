@@ -1,6 +1,5 @@
 ﻿namespace AutoWorkshop.Specs.Steps
 {
-    using System;
     using Framework;
     using Repositories;
     using TechTalk.SpecFlow;

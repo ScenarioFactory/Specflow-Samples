@@ -16,14 +16,14 @@
 
         public void RemoveByRegistration(string registration)
         {
-            using var connection = new MySqlConnection(_appSettings.ConnectionString);
+            using var connection = new MySqlConnection(_appSettings.MySqlConnectionString);
 
             connection.Execute("DELETE FROM jobs WHERE job_regis = @registration", new { registration });
         }
 
         public JobInfo[] GetByRegistration(string registration)
         {
-            using var connection = new MySqlConnection(_appSettings.ConnectionString);
+            using var connection = new MySqlConnection(_appSettings.MySqlConnectionString);
 
             return connection.Query<JobInfo>(@"
                 SELECT

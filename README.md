@@ -2,6 +2,8 @@
 
 **AutoWorkshop.DomainModel** - sample domain model to write scenarios against directly.
 
+**AutoWorkshop.SharedKernel** - sample shared messaging types for sending from tests.
+
 **AutoWorkshop.Specs.DomainModel** - sample domain model tests.
 
 **AutoWorkshop.Specs.Stateless** - sample tests using a stateless step file approach to allow maximum step re-use by non-programming QAs. See thoughts below.

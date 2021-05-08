@@ -15,7 +15,7 @@
 
         public void Create(CustomerInfo customer)
         {
-            using var connection = new MySqlConnection(_appSettings.ConnectionString);
+            using var connection = new MySqlConnection(_appSettings.MySqlConnectionString);
 
             connection.Execute(@"
                 INSERT INTO customers
@@ -28,14 +28,14 @@
 
         public int GetIdByName(string name)
         {
-            using var connection = new MySqlConnection(_appSettings.ConnectionString);
+            using var connection = new MySqlConnection(_appSettings.MySqlConnectionString);
 
             return connection.ExecuteScalar<int>("SELECT cus_custid FROM customers WHERE cus_name = @name", new { name });
         }
 
         public CustomerInfo GetInfoByName(string name)
         {
-            using var connection = new MySqlConnection(_appSettings.ConnectionString);
+            using var connection = new MySqlConnection(_appSettings.MySqlConnectionString);
 
             return connection.QuerySingle<CustomerInfo>(@"
                 SELECT
@@ -57,14 +57,14 @@
 
         public void RemoveByName(string name)
         {
-            using var connection = new MySqlConnection(_appSettings.ConnectionString);
+            using var connection = new MySqlConnection(_appSettings.MySqlConnectionString);
 
             connection.Execute("DELETE FROM customers WHERE cus_name = @name", new { name });
         }
 
         public int GetFirstCustomerId()
         {
-            using var connection = new MySqlConnection(_appSettings.ConnectionString);
+            using var connection = new MySqlConnection(_appSettings.MySqlConnectionString);
 
             return connection.ExecuteScalar<int>("SELECT cus_custid FROM customers ORDER BY cus_custid LIMIT 1");
         }

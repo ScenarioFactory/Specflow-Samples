@@ -15,7 +15,7 @@
 
         public void SetCurrentDate(DateTime currentDate)
         {
-            using var connection = new MySqlConnection(_appSettings.ConnectionString);
+            using var connection = new MySqlConnection(_appSettings.MySqlConnectionString);
 
             connection.Execute("DELETE FROM overridedate");
             connection.Execute("INSERT INTO overridedate VALUES (@currentDate)", new { currentDate });

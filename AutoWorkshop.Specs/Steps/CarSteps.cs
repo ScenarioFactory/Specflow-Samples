@@ -5,6 +5,8 @@
     using Extensions;
     using FluentAssertions;
     using Repositories;
+    using Services;
+    using SharedKernel.Commands;
     using TechTalk.SpecFlow;
     using UI;
 
@@ -17,6 +19,7 @@
         private readonly CustomerRepository _customerRepository;
         private readonly JobRepository _jobRepository;
         private readonly MotReminderRepository _motReminderRepository;
+        private readonly ServiceBus _serviceBus;
         private CarUiViewInfo _uiViewInfo;
 
         public CarSteps(
@@ -25,13 +28,15 @@
             CarRepository carRepository,
             CustomerRepository customerRepository,
             MotReminderRepository motReminderRepository,
-            JobRepository jobRepository)
+            JobRepository jobRepository,
+            ServiceBus serviceBus)
         {
             _carMaintenancePage = carMaintenancePage;
             _changeCarRegistrationPage = changeCarRegistrationPage;
             _carRepository = carRepository;
             _customerRepository = customerRepository;
             _jobRepository = jobRepository;
+            _serviceBus = serviceBus;
             _motReminderRepository = motReminderRepository;
         }
 
@@ -98,6 +103,13 @@
         public void WhenISelectTheOptionToCreateANewJobForTheCar()
         {
             _carMaintenancePage.AddNewJob();
+        }
+
+        [When(@"I issue MOT Reminders")]
+        public async void WhenIIssueMotReminders()
+        {
+            var command = new InitiateMotReminderGeneration();
+            await _serviceBus.SendAsync("cars.initiatemotremindergeneration", command);
         }
 
         [Then(@"the car is added to the system with the details provided")]

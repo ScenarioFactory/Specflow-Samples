@@ -16,12 +16,12 @@
                 .Build();
         }
 
-        public string ConnectionString => Configuration["AutoWorkshop:MySqlConnectionString"];
-
-        public string BaseUrl => Configuration["AutoWorkshop:Url"];
-
         public string AuthenticationCookieName => Configuration["AutoWorkshop:AuthenticationCookie:Name"];
 
         public string AuthenticationCookieValue => Configuration["AutoWorkshop:AuthenticationCookie:Value"];
+
+        public string BaseUrl => Configuration["AutoWorkshop:Url"];
+
+        public string MySqlConnectionString => Configuration["AutoWorkshop:MySqlConnectionString"];
     }
 }

@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoWorkshop.Specs", "AutoW
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoWorkshop.Specs.DomainModel", "AutoWorkshop.Specs.DomainModel\AutoWorkshop.Specs.DomainModel.csproj", "{AEDA3A5F-181F-40E8-B6F2-8D6795B1AFFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoWorkshop.Specs.Stateless", "AutoWorkshop.Specs.Stateless\AutoWorkshop.Specs.Stateless.csproj", "{CF763E6B-6DB7-4934-AA1C-0B03807A88ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoWorkshop.Specs.Stateless", "AutoWorkshop.Specs.Stateless\AutoWorkshop.Specs.Stateless.csproj", "{CF763E6B-6DB7-4934-AA1C-0B03807A88ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoWorkshop.SharedKernel", "AutoWorkshop.SharedKernel\AutoWorkshop.SharedKernel.csproj", "{255A1C65-FA6A-4F11-8C4B-EF1BFC019F26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{CF763E6B-6DB7-4934-AA1C-0B03807A88ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF763E6B-6DB7-4934-AA1C-0B03807A88ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF763E6B-6DB7-4934-AA1C-0B03807A88ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{255A1C65-FA6A-4F11-8C4B-EF1BFC019F26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{255A1C65-FA6A-4F11-8C4B-EF1BFC019F26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{255A1C65-FA6A-4F11-8C4B-EF1BFC019F26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{255A1C65-FA6A-4F11-8C4B-EF1BFC019F26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

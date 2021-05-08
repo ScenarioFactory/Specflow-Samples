@@ -15,7 +15,7 @@
 
         public void Create(CarInfo car)
         {
-            using var connection = new MySqlConnection(_appSettings.ConnectionString);
+            using var connection = new MySqlConnection(_appSettings.MySqlConnectionString);
 
             connection.Execute(@"
                 INSERT INTO cars
@@ -33,14 +33,14 @@
 
         public void RemoveByRegistration(string registration)
         {
-            using var connection = new MySqlConnection(_appSettings.ConnectionString);
+            using var connection = new MySqlConnection(_appSettings.MySqlConnectionString);
 
             connection.Execute("DELETE FROM cars WHERE car_regis = @registration", new { registration });
         }
 
         public CarInfo GetInfoByRegistration(string registration)
         {
-            using var connection = new MySqlConnection(_appSettings.ConnectionString);
+            using var connection = new MySqlConnection(_appSettings.MySqlConnectionString);
 
             return connection.QuerySingleOrDefault<CarInfo>(@"
                 SELECT

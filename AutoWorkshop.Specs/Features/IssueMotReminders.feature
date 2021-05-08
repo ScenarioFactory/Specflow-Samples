@@ -17,9 +17,9 @@ Scenario: Create MOT Reminders for certificates expiring in the next 21 days
 	And there have been no MOT Reminders issued
 	And the date is '01/05/2021'
 
-Scenario: Continues..
 	When I issue MOT Reminders
 
+Scenario: Continues..
 	Then the following MOT Reminders should be issued
 	| Registration | MOT Expiry | Make        | Model       | Title | Name           | Address Line 1   | Address Line 2  | Address Line 3 | Postcode |
 	| AY16CPD      | 10/05/2021 | Range Rover | Vogue       | Mrs   | Jane Jones     | 72 Acacia Avenue | Shepherds Bush  | London         | W12 8QT  |
