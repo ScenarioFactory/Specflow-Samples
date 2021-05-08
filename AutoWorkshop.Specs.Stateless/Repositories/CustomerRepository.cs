@@ -1,6 +1,5 @@
 ﻿namespace AutoWorkshop.Specs.Stateless.Repositories
 {
-    using System.Linq;
     using Dapper;
     using Dto;
     using MySql.Data.MySqlClient;
