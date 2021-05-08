@@ -1,9 +1,9 @@
 ﻿namespace AutoWorkshop.Specs.Steps
 {
-    using System.Linq;
     using Dto;
     using Extensions;
     using FluentAssertions;
+    using Framework;
     using Repositories;
     using Services;
     using SharedKernel.Commands;
@@ -16,13 +16,20 @@
         private readonly CustomerRepository _customerRepository;
         private readonly MotReminderRepository _motReminderRepository;
         private readonly ServiceBus _serviceBus;
+        private readonly BlobStorage _blobStorage;
 
-        public CarSteps(CarRepository carRepository, CustomerRepository customerRepository, MotReminderRepository motReminderRepository, ServiceBus serviceBus)
+        public CarSteps(
+            CarRepository carRepository,
+            CustomerRepository customerRepository,
+            MotReminderRepository motReminderRepository,
+            ServiceBus serviceBus,
+            BlobStorage blobStorage)
         {
             _carRepository = carRepository;
             _customerRepository = customerRepository;
             _motReminderRepository = motReminderRepository;
             _serviceBus = serviceBus;
+            _blobStorage = blobStorage;
         }
 
         [Given(@"this existing car")]
@@ -87,6 +94,25 @@
                 IsMatchingRow);
 
             unmatchedRows.Should().BeEmpty();
+        }
+
+        [Then(@"the following MOT Reminder documents have been generated")]
+        public void ThenTheFollowingMotReminderDocumentsHaveBeenGenerated(Table table)
+        {
+            table.Rows.ForEach(row =>
+            {
+                bool IsDocumentInBlobStorage()
+                {
+                    const string blobContainerName = "motreminders";
+                    string blobFileName = row["Document Name"];
+
+                    return _blobStorage.Exists(blobContainerName, blobFileName);
+                }
+
+                bool documentGenerated = Poller.PollForResult(IsDocumentInBlobStorage);
+
+                documentGenerated.Should().BeTrue($"document {row["Document Name"]} should be present in blob storage");
+            });
         }
     }
 }
