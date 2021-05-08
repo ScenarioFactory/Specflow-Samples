@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
+    using Framework;
     using TechTalk.SpecFlow;
 
     public static class TableRowExtensions
@@ -47,12 +49,41 @@
             return int.Parse(row[column]);
         }
 
-        public static void ForEach(this IEnumerable<TableRow> rows, Action<TableRow> action)
+        public static void ForEach(this TableRows rows, Action<TableRow> action)
         {
             foreach (var row in rows)
             {
                 action(row);
             }
+        }
+
+        public static TableRow[] PollForUnmatchedRows<TKey, TComparisonItem>(
+            this TableRows rows,
+            Func<TKey, TComparisonItem> getComparisonData,
+            Func<TableRow, TKey> selectKey,
+            Func<TComparisonItem, TableRow, bool> isMatchingRow,
+            int pollingLimit = 10,
+            int pollingIntervalSeconds = 1)
+        {
+            var unmatchedRows = new List<TableRow>();
+
+            bool FindUnmatchedRows()
+            {
+                unmatchedRows = rows
+                    .Where(row =>
+                    {
+                        TKey key = selectKey(row);
+                        TComparisonItem comparisonItem = getComparisonData(key);
+                        return comparisonItem == null || !isMatchingRow(comparisonItem, row);
+                    })
+                    .ToList();
+
+                return unmatchedRows.None();
+            }
+
+            Poller.PollForResult(FindUnmatchedRows, pollingLimit, pollingIntervalSeconds);
+
+            return unmatchedRows.ToArray();
         }
     }
 }
