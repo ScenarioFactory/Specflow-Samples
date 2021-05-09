@@ -8,11 +8,11 @@
     using TechTalk.SpecFlow;
 
     [Binding]
-    public class CustomerWebSteps
+    public class CustomerUiSteps
     {
         private readonly Actor _actor;
 
-        public CustomerWebSteps(AutoWorkshopDriver driver)
+        public CustomerUiSteps(AutoWorkshopDriver driver)
         {
             _actor = new Actor();
             _actor.Can(UseAutoWorkshop.With(driver));
