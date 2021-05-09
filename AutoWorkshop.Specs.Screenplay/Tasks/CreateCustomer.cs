@@ -1,7 +1,6 @@
 ﻿namespace AutoWorkshop.Specs.Screenplay.Tasks
 {
     using Drivers;
-    using OpenQA.Selenium.Support.UI;
     using Pages;
     using Screenplay;
 
@@ -21,10 +20,7 @@
             _name = name;
         }
 
-        public static CreateCustomer Named(string name)
-        {
-            return new CreateCustomer(name);
-        }
+        public static CreateCustomer Named(string name) => new CreateCustomer(name);
 
         public CreateCustomer WithTitle(string title)
         {
@@ -55,18 +51,16 @@
 
         public override void PerformAs(Actor actor, AutoWorkshopDriver driver)
         {
-            var titleSelectElement = new SelectElement(driver.WaitForElement(CustomerMaintenancePage.Title));
-            titleSelectElement.SelectByText(_title);
-
-            driver.FindElement(CustomerMaintenancePage.Name).SendKeys(_name);
-            driver.FindElement(CustomerMaintenancePage.AddressLine1).SendKeys(_addressLine1);
-            driver.FindElement(CustomerMaintenancePage.AddressLine2).SendKeys(_addressLine2);
-            driver.FindElement(CustomerMaintenancePage.AddressLine3).SendKeys(_addressLine3);
-            driver.FindElement(CustomerMaintenancePage.Postcode).SendKeys(_postcode);
-            driver.FindElement(CustomerMaintenancePage.HomePhone).SendKeys(_homePhone);
-            driver.FindElement(CustomerMaintenancePage.Mobile).SendKeys(_mobile);
-
-            driver.FindElement(CustomerMaintenancePage.Save).Click();
+            actor.AttemptsTo(
+                Select.ByText(CustomerMaintenancePage.Title, _title),
+                SendKeys.To(CustomerMaintenancePage.Name, _name),
+                SendKeys.To(CustomerMaintenancePage.AddressLine1, _addressLine1),
+                SendKeys.To(CustomerMaintenancePage.AddressLine2, _addressLine2),
+                SendKeys.To(CustomerMaintenancePage.AddressLine3, _addressLine3),
+                SendKeys.To(CustomerMaintenancePage.Postcode, _postcode),
+                SendKeys.To(CustomerMaintenancePage.HomePhone, _homePhone),
+                SendKeys.To(CustomerMaintenancePage.Mobile, _mobile),
+                Submit.On(CustomerMaintenancePage.Save));
         }
     }
 }

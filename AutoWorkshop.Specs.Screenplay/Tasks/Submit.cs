@@ -1,0 +1,23 @@
+﻿namespace AutoWorkshop.Specs.Screenplay.Tasks
+{
+    using Drivers;
+    using OpenQA.Selenium;
+    using Screenplay;
+
+    public class Submit : WebTask
+    {
+        private readonly By _locator;
+
+        private Submit(By locator)
+        {
+            _locator = locator;
+        }
+
+        public static Submit On(By locator) => new Submit(locator);
+
+        public override void PerformAs(Actor actor, AutoWorkshopDriver driver)
+        {
+            driver.WaitForElement(_locator).Click();
+        }
+    }
+}
