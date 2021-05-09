@@ -6,7 +6,7 @@
 
 **AutoWorkshop.Specs.DomainModel** - sample domain model tests.
 
-**AutoWorkshop.Specs.Screenplay** - An implementation using the Screenplay pattern.
+**AutoWorkshop.Specs.Screenplay** - implementation using the screenplay pattern - in progress.
 
 **AutoWorkshop.Specs.Stateless** - sample tests using a stateless step file approach to allow maximum step re-use by non-programming QAs. See thoughts below.
 
