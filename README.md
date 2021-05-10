@@ -6,17 +6,17 @@
 
 **AutoWorkshop.Specs.DomainModel** - sample domain model tests.
 
-**AutoWorkshop.Specs.Screenplay** - implementation using the screenplay pattern.
+**AutoWorkshop.Specs.Screenplay** - sample tests using the screenplay pattern.
 
 **AutoWorkshop.Specs.Stateless** - sample tests using a stateless step file approach to allow maximum step re-use by non-programming QAs. See thoughts below.
 
-**AutoWorkshop.Specs** - sample web and non-UI tests with highly readable Gherkin using stateful steps.
+**AutoWorkshop.Specs** - sample web and non-UI tests using stateful steps for highly readable Gherkin.
 
 ### SpecFlow test suite principles
 
 - Provide database and other infrastructure access via stateless repositories and services.
-- Retain all SpecFlow types and parsing of SpecFlow parameters within step files.
-- Avoid coupling steps to infrastructure methods. Pass DTOs or primitive types between them.
+- Retain SpecFlow types and parsing of SpecFlow parameters within step files.
+- Avoid coupling steps to infrastructure methods. Pass DTOs or primitives between them.
 - Only perform assertions in steps.
 - Only perform polling for eventually consistent values in steps, not infrastructure methods.
 - Use hooks very sparingly and with explicit method names and file locations.
@@ -43,7 +43,7 @@ Scenario: Create new customer
 
 To aid readability some state has to be maintained in step files and ideally the Gherkin and steps are written by the same person. As complexity increases it may be necessary to scope step files to specific feature files to maintain readable scenarios, moving common parts of user journeys into separate, stateless classes. Infrastructure access should already be stateless and highly reusable.
 
-As an alternative where maximum step re-usability is needed, perhaps where scenarios are to be written by non-programmer QAs, the Gherkin can be rewritten to pass much of the state to the steps. This is more verbose and less readable, but allows QAs to compose steps more easily. e.g.
+As an alternative where maximum step re-usability is needed, perhaps where scenarios are to be written by non-programming QAs, the Gherkin can be rewritten to pass much of the state to the steps. This is more verbose and less readable, but allows QAs to compose steps more easily. e.g.
 
 ```
 @WebTest
