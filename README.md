@@ -43,7 +43,7 @@ Scenario: Create new customer
 
 To aid readability some state has to be maintained in step files and ideally the Gherkin and steps are written by the same person. As complexity increases it may be necessary to scope step files to specific feature files to maintain readable scenarios, moving common parts of user journeys into separate, stateless classes. Infrastructure access should already be stateless and highly reusable.
 
-As an alternative where maximum step re-usability is needed, perhaps where scenarios are to be written by non-programming QAs, the Gherkin can be rewritten to pass much of the state to the steps. This is more verbose and less readable, but allows QAs to compose steps more easily. e.g.
+As an alternative where maximum step re-usability is needed, perhaps where scenarios are to be written by non-programming QAs, the Gherkin can be rewritten to pass much of the state to the steps. This is more verbose and less readable, but allows QAs to re-use steps more easily. e.g.
 
 ```
 @WebTest
