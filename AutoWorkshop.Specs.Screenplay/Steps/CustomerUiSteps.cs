@@ -7,6 +7,7 @@
     using Dto;
     using Extensions;
     using FluentAssertions;
+    using Framework;
     using Pages;
     using Questions;
     using Repositories;
@@ -89,6 +90,27 @@
             _actor.AttemptsTo(ViewCustomer.WithId(customerId));
         }
 
+        [When(@"I update the customer with a new mobile number of '(.*)'")]
+        public void WhenIUpdateTheCustomerWithANewMobileNumberOf(string newMobileNumber)
+        {
+            _storedCustomer.Should().NotBeNull();
+
+            int customerId = _customerRepository.GetIdByName(_storedCustomer.Name);
+
+            _actor.AttemptsTo(
+                ViewCustomer.WithId(customerId),
+                SendKeys.To(CustomerMaintenancePage.Mobile, newMobileNumber),
+                Submit.On(CustomerMaintenancePage.Save));
+        }
+
+        [When(@"I search for '(.*)'")]
+        public void WhenISearchFor(string searchText)
+        {
+            _actor.AttemptsTo(
+                Navigate.ToCustomerMaintenance(),
+                SendKeys.To(CustomerMaintenancePage.Name, searchText).KeyByKey());
+        }
+
         [Then(@"the customer is added to the system with the details provided")]
         public void ThenTheCustomerIsAddedToTheSystemWithTheDetailsProvided()
         {
@@ -140,6 +162,30 @@
                 bool buttonIsVisible = toolbarButtons.Any(b => b.AltText == row["Option"]);
                 buttonIsVisible.Should().BeTrue($"button for '{row["Option"]}' should be visible");
             });
+        }
+
+        [Then(@"the stored customer should be updated with mobile '(.*)'")]
+        public void ThenTheStoredCustomerShouldBeUpdatedWithMobile(string expectedMobileNumber)
+        {
+            _storedCustomer.Should().NotBeNull();
+
+            var latestStoredCustomer = _customerRepository.GetInfoByName(_storedCustomer.Name);
+
+            latestStoredCustomer.Mobile.Should().Be(expectedMobileNumber);
+        }
+
+        [Then(@"I should see the customer in the list of as-you-type results")]
+        public void ThenIShouldSeeTheCustomerInTheListOfAsYouTypeResults()
+        {
+            _storedCustomer.Should().NotBeNull();
+
+            bool foundExpectedCustomerInSearchResults = Poller.PollForResult(() =>
+            {
+                string[] searchResults = _actor.AsksFor(AsYouTypeSearchResults.For(CustomerMaintenancePage.AsYouTypeSearchResults));
+                return searchResults.Contains(_storedCustomer.Name);
+            });
+
+            foundExpectedCustomerInSearchResults.Should().BeTrue();
         }
     }
 }

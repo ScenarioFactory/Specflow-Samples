@@ -13,5 +13,6 @@
         public static readonly By HomePhone = By.Name("homephone");
         public static readonly By Mobile = By.Name("mobile");
         public static readonly By Save = By.Name("save");
+        public static readonly By AsYouTypeSearchResults = By.XPath("//div[@id='matchingPanel']//a");
     }
 }

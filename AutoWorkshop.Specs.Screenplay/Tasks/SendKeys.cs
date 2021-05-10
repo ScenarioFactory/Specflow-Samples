@@ -8,6 +8,8 @@
     {
         private readonly By _locator;
         private readonly string _keys;
+        private bool _clearElement = true;
+        private bool _keyByKey;
 
         private SendKeys(By locator, string keys)
         {
@@ -20,9 +22,38 @@
             return new SendKeys(locator, keys);
         }
 
+        public SendKeys WithoutClearing()
+        {
+            _clearElement = false;
+            return this;
+        }
+
+        public SendKeys KeyByKey()
+        {
+            _keyByKey = true;
+            return this;
+        }
+
         public override void PerformAs(IActor actor, AutoWorkshopDriver driver)
         {
-            driver.WaitForElement(_locator).SendKeys(_keys);
+            IWebElement element = driver.WaitForElement(_locator);
+            
+            if (_clearElement)
+            {
+                element.Clear();
+            }
+
+            if (_keyByKey)
+            {
+                foreach (char ch in _keys)
+                {
+                    element.SendKeys(new string(new[] {ch}));
+                }
+            }
+            else
+            {
+                element.SendKeys(_keys);
+            }
         }
     }
 }
