@@ -10,6 +10,9 @@
             Model = model;
         }
 
+        /// <summary>
+        /// MySql constructor used by Dapper.
+        /// </summary>
         private CarInfo(string registration, uint customerId, string make, string model)
             : this(registration, (int)customerId, make, model)
         {

@@ -1,6 +1,6 @@
 ﻿Feature: Scenario Variables Example
 	*** Illustration of 'scenario variables' which can help non-programming QAs retrieve and work with system-generated values. ***
-	*** This scenario is using largely stateless step files to allow maximum step reusability by non-programming QAs. ***
+	*** This scenario is using largely stateless step files to allow maximum step reusability by non-programming QAs.           ***
 
 Scenario: User journey to create a new customer with a new car
 	Given there are no customers named 'Melanie Morgan'

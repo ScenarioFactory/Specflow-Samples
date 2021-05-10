@@ -6,7 +6,7 @@
     public class MotReminderInfo
     {
         /// <summary>
-        /// MySql type-specific constructor used by Dapper.
+        /// MySql constructor used by Dapper.
         /// </summary>
         public MotReminderInfo(
             string registration,

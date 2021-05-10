@@ -1,6 +1,5 @@
 ﻿namespace AutoWorkshop.Specs.Screenplay.Tasks
 {
-    using System;
     using Drivers;
     using Pattern;
 
@@ -20,8 +19,7 @@
 
         public override void PerformAs(IActor actor, AutoWorkshopDriver driver)
         {
-            var appSettings = new AppSettings();
-            driver.Navigate().GoToUrl(Uri.EscapeUriString($"{appSettings.BaseUrl}/{_path}"));
+            driver.NavigateTo(_path);
         }
     }
 }

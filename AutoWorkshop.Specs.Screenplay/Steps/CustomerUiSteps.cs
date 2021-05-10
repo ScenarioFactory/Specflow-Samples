@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using Abilities;
+    using Actors;
     using Drivers;
     using Dto;
     using Extensions;

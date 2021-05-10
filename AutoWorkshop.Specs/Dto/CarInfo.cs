@@ -16,7 +16,7 @@
         }
 
         /// <summary>
-        /// MySql type-specific constructor used by Dapper.
+        /// MySql constructor used by Dapper.
         /// </summary>
         private CarInfo(string registration, uint customerId, string make, string model, string motExpiry, byte suppressMotReminder)
             : this(registration, (int)customerId, make, model, motExpiry.FromMySqlDate(), suppressMotReminder == 1)

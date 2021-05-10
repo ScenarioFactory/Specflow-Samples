@@ -1,4 +1,4 @@
-﻿namespace AutoWorkshop.Specs.Screenplay
+﻿namespace AutoWorkshop.Specs.Screenplay.Actors
 {
     using System;
     using System.Collections.Generic;

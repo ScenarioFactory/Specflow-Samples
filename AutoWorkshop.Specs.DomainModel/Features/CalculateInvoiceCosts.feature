@@ -1,5 +1,6 @@
 ﻿Feature: Calculate Invoice Costs
 	Calculate invoice costs from the parts, labour, MOT and VAT costs of a job.
+	*** These scenarios run directly against the C# domain model. ***
 
 @DomainModelTest
 Scenario: Calculate invoice and VAT costs for a job with parts, labour and MOT

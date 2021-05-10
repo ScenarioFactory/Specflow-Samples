@@ -12,6 +12,9 @@
 
         public AutoWorkshopDriver Driver { get; }
 
-        public static UseAutoWorkshop With(AutoWorkshopDriver driver) => new UseAutoWorkshop(driver);
+        public static UseAutoWorkshop With(AutoWorkshopDriver driver)
+        {
+            return new UseAutoWorkshop(driver);
+        }
     }
 }

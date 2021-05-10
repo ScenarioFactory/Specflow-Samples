@@ -1,6 +1,6 @@
 ﻿namespace AutoWorkshop.Specs.Screenplay.Pattern
 {
-    public interface IQuestion<TAnswer>
+    public interface IQuestion<out TAnswer>
     {
         TAnswer AskAs(IActor actor);
     }

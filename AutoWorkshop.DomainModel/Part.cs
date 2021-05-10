@@ -14,9 +14,5 @@
         public string Description { get; }
 
         public decimal Cost { get; }
-
-        public string SupplierCode { get; set; }
-
-        public string SupplierReference { get; set; }
     }
 }

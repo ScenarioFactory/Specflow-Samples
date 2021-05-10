@@ -11,9 +11,9 @@
             return bool.Parse(row[column]);
         }
 
-        public static DateTime ParseDate(this TableRow row, string column, string format = "dd/MM/yyyy")
+        public static DateTime ParseDate(this TableRow row, string column)
         {
-            return DateTime.SpecifyKind(DateTime.ParseExact(row[column], format, CultureInfo.InvariantCulture), DateTimeKind.Utc);
+            return DateTime.SpecifyKind(DateTime.ParseExact(row[column], "dd/MM/yyyy", CultureInfo.InvariantCulture), DateTimeKind.Utc);
         }
 
         public static decimal ParseDecimal(this TableRow row, string column)

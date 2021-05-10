@@ -1,5 +1,5 @@
 ﻿Feature: Issue MOT Reminders
-	Issue MOT reminders in bulk.
+	Issue MOT reminders in a batch run.
 	*** A non-UI test using Azure Service Bus and Blob Storage. ***
 
 @ServiceBus @BlobStorage

@@ -29,11 +29,11 @@
             return DateTime.SpecifyKind(DateTime.ParseExact(row[column], "dd/MM/yyyy", CultureInfo.InvariantCulture), DateTimeKind.Utc);
         }
 
-        public static DateTime? GetDateOrDefault(this TableRow row, string column, string format = "dd/MM/yyyy")
+        public static DateTime? GetDateOrDefault(this TableRow row, string column)
         {
             if (row.ContainsKey(column))
             {
-                return DateTime.SpecifyKind(DateTime.ParseExact(row[column], format, CultureInfo.InvariantCulture), DateTimeKind.Utc);
+                return row.GetDate(column);
             }
 
             return null;
@@ -47,14 +47,6 @@
         public static int GetInt(this TableRow row, string column)
         {
             return int.Parse(row[column]);
-        }
-
-        public static void ForEach(this TableRows rows, Action<TableRow> action)
-        {
-            foreach (var row in rows)
-            {
-                action(row);
-            }
         }
 
         public static TableRow[] PollForUnmatchedRows<TKey, TComparisonItem>(
