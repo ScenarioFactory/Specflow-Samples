@@ -3,7 +3,7 @@
     using Drivers;
     using OpenQA.Selenium;
     using OpenQA.Selenium.Support.UI;
-    using Screenplay;
+    using Pattern;
 
     public class Select : WebTask
     {
@@ -16,9 +16,12 @@
             _text = text;
         }
 
-        public static Select ByText(By locator, string text) => new Select(locator, text);
+        public static Select ByText(By locator, string text)
+        {
+            return new Select(locator, text);
+        }
 
-        public override void PerformAs(Actor actor, AutoWorkshopDriver driver)
+        public override void PerformAs(IActor actor, AutoWorkshopDriver driver)
         {
             new SelectElement(driver.WaitForElement(_locator)).SelectByText(_text);
         }

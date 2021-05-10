@@ -2,7 +2,7 @@
 {
     using Drivers;
     using Pages;
-    using Screenplay;
+    using Pattern;
 
     public class CreateCustomer : WebTask
     {
@@ -20,7 +20,10 @@
             _name = name;
         }
 
-        public static CreateCustomer Named(string name) => new CreateCustomer(name);
+        public static CreateCustomer Named(string name)
+        {
+            return new CreateCustomer(name);
+        }
 
         public CreateCustomer WithTitle(string title)
         {
@@ -49,7 +52,7 @@
             return this;
         }
 
-        public override void PerformAs(Actor actor, AutoWorkshopDriver driver)
+        public override void PerformAs(IActor actor, AutoWorkshopDriver driver)
         {
             actor.AttemptsTo(
                 Select.ByText(CustomerMaintenancePage.Title, _title),

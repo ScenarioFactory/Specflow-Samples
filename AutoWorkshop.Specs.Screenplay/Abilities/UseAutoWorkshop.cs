@@ -1,7 +1,7 @@
 ﻿namespace AutoWorkshop.Specs.Screenplay.Abilities
 {
     using Drivers;
-    using Screenplay;
+    using Pattern;
 
     public class UseAutoWorkshop : IAbility
     {

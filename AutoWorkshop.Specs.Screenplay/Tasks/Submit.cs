@@ -2,7 +2,7 @@
 {
     using Drivers;
     using OpenQA.Selenium;
-    using Screenplay;
+    using Pattern;
 
     public class Submit : WebTask
     {
@@ -13,9 +13,12 @@
             _locator = locator;
         }
 
-        public static Submit On(By locator) => new Submit(locator);
+        public static Submit On(By locator)
+        {
+            return new Submit(locator);
+        }
 
-        public override void PerformAs(Actor actor, AutoWorkshopDriver driver)
+        public override void PerformAs(IActor actor, AutoWorkshopDriver driver)
         {
             driver.WaitForElement(_locator).Click();
         }

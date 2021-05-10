@@ -1,12 +1,18 @@
-﻿namespace AutoWorkshop.Specs.Screenplay.Screenplay
+﻿namespace AutoWorkshop.Specs.Screenplay
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Pattern;
 
-    public class Actor
+    public class Actor : IActor
     {
         private readonly IDictionary<Type, IAbility> _abilities = new Dictionary<Type, IAbility>();
+
+        public TAnswer AsksFor<TAnswer>(IQuestion<TAnswer> question)
+        {
+            return question.AskAs(this);
+        }
 
         public void AttemptsTo(params ITask[] tasks)
         {

@@ -13,11 +13,34 @@
             _appSettings = appSettings;
         }
 
-        public void RemoveByName(string name)
+        public void Create(CustomerInfo customer)
         {
             using var connection = new MySqlConnection(_appSettings.MySqlConnectionString);
 
-            connection.Execute("DELETE FROM customers WHERE cus_name = @name", new { name });
+            connection.Execute(@"
+                INSERT INTO customers
+                    (cus_title, cus_name, cus_address1, cus_address2, cus_address3, cus_postcode, cus_homephone, cus_mobile, cus_accountinv)
+                VALUES
+                    (@title, @name, @addressLine1, @addressLine2, @addressLine3, @postcode, @homephone, @mobile, @accountInvoicing)",
+                new
+                {
+                    customer.Title,
+                    customer.Name,
+                    customer.AddressLine1,
+                    customer.AddressLine2,
+                    customer.AddressLine3,
+                    customer.Postcode,
+                    customer.HomePhone,
+                    customer.Mobile,
+                    customer.AccountInvoicing
+                });
+        }
+
+        public int GetIdByName(string name)
+        {
+            using var connection = new MySqlConnection(_appSettings.MySqlConnectionString);
+
+            return connection.ExecuteScalar<int>("SELECT cus_custid FROM customers WHERE cus_name = @name", new { name });
         }
 
         public CustomerInfo GetInfoByName(string name)
@@ -40,6 +63,13 @@
                 WHERE
                     cus_name = @name",
                 new { name });
+        }
+
+        public void RemoveByName(string name)
+        {
+            using var connection = new MySqlConnection(_appSettings.MySqlConnectionString);
+
+            connection.Execute("DELETE FROM customers WHERE cus_name = @name", new { name });
         }
     }
 }

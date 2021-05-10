@@ -2,7 +2,7 @@
 {
     using Drivers;
     using OpenQA.Selenium;
-    using Screenplay;
+    using Pattern;
 
     public class SendKeys : WebTask
     {
@@ -15,9 +15,12 @@
             _keys = keys;
         }
 
-        public static SendKeys To(By locator, string keys) => new SendKeys(locator, keys);
+        public static SendKeys To(By locator, string keys)
+        {
+            return new SendKeys(locator, keys);
+        }
 
-        public override void PerformAs(Actor actor, AutoWorkshopDriver driver)
+        public override void PerformAs(IActor actor, AutoWorkshopDriver driver)
         {
             driver.WaitForElement(_locator).SendKeys(_keys);
         }
