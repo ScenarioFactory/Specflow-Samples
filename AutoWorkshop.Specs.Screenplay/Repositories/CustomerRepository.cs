@@ -36,6 +36,13 @@
                 });
         }
 
+        public int GetFirstCustomerId()
+        {
+            using var connection = new MySqlConnection(_appSettings.MySqlConnectionString);
+
+            return connection.ExecuteScalar<int>("SELECT cus_custid FROM customers ORDER BY cus_custid LIMIT 1");
+        }
+
         public int GetIdByName(string name)
         {
             using var connection = new MySqlConnection(_appSettings.MySqlConnectionString);

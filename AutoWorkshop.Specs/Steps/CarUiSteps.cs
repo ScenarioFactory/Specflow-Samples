@@ -14,26 +14,16 @@
         private readonly CarMaintenancePage _carMaintenancePage;
         private readonly ChangeCarRegistrationPage _changeCarRegistrationPage;
         private readonly CarRepository _carRepository;
-        private readonly JobRepository _jobRepository;
         private CarUiViewInfo _uiViewInfo;
 
         public CarUiSteps(
             CarMaintenancePage carMaintenancePage,
             ChangeCarRegistrationPage changeCarRegistrationPage,
-            CarRepository carRepository,
-            JobRepository jobRepository)
+            CarRepository carRepository)
         {
             _carMaintenancePage = carMaintenancePage;
             _changeCarRegistrationPage = changeCarRegistrationPage;
             _carRepository = carRepository;
-            _jobRepository = jobRepository;
-        }
-
-        [Given(@"there is no existing car with registration '(.*)'")]
-        public void GivenThereIsNoExistingCarWithRegistration(string registration)
-        {
-            _carRepository.RemoveByRegistration(registration);
-            _jobRepository.RemoveByRegistration(registration);
         }
 
         [When(@"I change the registration of '(.*)' to '(.*)'")]
@@ -89,29 +79,6 @@
             string errorMessage = _changeCarRegistrationPage.GetErrorMessage();
 
             errorMessage.Should().Be(expectedMessage);
-        }
-
-        [Then(@"the following car should be present in the system")]
-        [Then(@"the following cars should be present in the system")]
-        public void ThenTheFollowingCarsShouldBePresentInTheSystem(Table table)
-        {
-            table.Rows.ForEach(expectedValues =>
-            {
-                CarInfo storedCar = _carRepository.GetInfoByRegistration(expectedValues["Registration"]);
-
-                storedCar.Should().NotBeNull();
-                storedCar.Registration.Should().Be(expectedValues["Registration"]);
-                storedCar.Make.Should().Be(expectedValues["Make"]);
-                storedCar.Model.Should().Be(expectedValues["Model"]);
-            });
-        }
-
-        [Then(@"there should be no car with registration '(.*)'")]
-        public void ThenThereShouldBeNoCarWithRegistration(string registration)
-        {
-            CarInfo storedCar = _carRepository.GetInfoByRegistration(registration);
-
-            storedCar.Should().BeNull();
         }
     }
 }

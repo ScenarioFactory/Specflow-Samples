@@ -12,9 +12,14 @@
             _path = path;
         }
 
-        public static Navigate ToCustomerMaintenance()
+        public static Navigate ToMaintainCustomers()
         {
             return new Navigate("custmaint.php");
+        }
+
+        public static Navigate ToChangeRegistration()
+        {
+            return new Navigate("changereg.php");
         }
 
         public override void PerformAs(IActor actor, AutoWorkshopDriver driver)

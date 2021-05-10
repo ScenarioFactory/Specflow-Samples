@@ -67,7 +67,7 @@
                 values["Mobile"]);
 
             _actor.AttemptsTo(
-                Navigate.ToCustomerMaintenance(),
+                Navigate.ToMaintainCustomers(),
                 CreateCustomer
                     .Named(values["Name"])
                     .WithTitle(values["Title"])
@@ -107,7 +107,7 @@
         public void WhenISearchFor(string searchText)
         {
             _actor.AttemptsTo(
-                Navigate.ToCustomerMaintenance(),
+                Navigate.ToMaintainCustomers(),
                 SendKeys.To(CustomerMaintenancePage.Name, searchText).KeyByKey());
         }
 

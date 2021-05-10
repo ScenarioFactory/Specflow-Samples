@@ -14,6 +14,7 @@
     {
         private readonly CarRepository _carRepository;
         private readonly CustomerRepository _customerRepository;
+        private readonly JobRepository _jobRepository;
         private readonly MotReminderRepository _motReminderRepository;
         private readonly ServiceBus _serviceBus;
         private readonly BlobStorage _blobStorage;
@@ -21,12 +22,14 @@
         public CarSteps(
             CarRepository carRepository,
             CustomerRepository customerRepository,
+            JobRepository jobRepository,
             MotReminderRepository motReminderRepository,
             ServiceBus serviceBus,
             BlobStorage blobStorage)
         {
             _carRepository = carRepository;
             _customerRepository = customerRepository;
+            _jobRepository = jobRepository;
             _motReminderRepository = motReminderRepository;
             _serviceBus = serviceBus;
             _blobStorage = blobStorage;
@@ -55,6 +58,13 @@
 
                 _carRepository.Create(car);
             });
+        }
+
+        [Given(@"there is no existing car with registration '(.*)'")]
+        public void GivenThereIsNoExistingCarWithRegistration(string registration)
+        {
+            _carRepository.RemoveByRegistration(registration);
+            _jobRepository.RemoveByRegistration(registration);
         }
 
         [Given(@"there have been no MOT Reminders issued")]
@@ -113,6 +123,29 @@
 
                 documentGenerated.Should().BeTrue($"document {row["Document Name"]} should be present in blob storage");
             });
+        }
+
+        [Then(@"the following car should be present in the system")]
+        [Then(@"the following cars should be present in the system")]
+        public void ThenTheFollowingCarsShouldBePresentInTheSystem(Table table)
+        {
+            table.Rows.ForEach(expectedValues =>
+            {
+                CarInfo storedCar = _carRepository.GetInfoByRegistration(expectedValues["Registration"]);
+
+                storedCar.Should().NotBeNull();
+                storedCar.Registration.Should().Be(expectedValues["Registration"]);
+                storedCar.Make.Should().Be(expectedValues["Make"]);
+                storedCar.Model.Should().Be(expectedValues["Model"]);
+            });
+        }
+
+        [Then(@"there should be no car with registration '(.*)'")]
+        public void ThenThereShouldBeNoCarWithRegistration(string registration)
+        {
+            CarInfo storedCar = _carRepository.GetInfoByRegistration(registration);
+
+            storedCar.Should().BeNull();
         }
     }
 }

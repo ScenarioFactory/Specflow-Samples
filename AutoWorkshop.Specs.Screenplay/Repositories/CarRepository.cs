@@ -1,4 +1,4 @@
-﻿namespace AutoWorkshop.Specs.Repositories
+﻿namespace AutoWorkshop.Specs.Screenplay.Repositories
 {
     using Dapper;
     using Dto;
@@ -47,7 +47,7 @@
                     cars
                 WHERE
                     car_regis = @registration",
-                    new { registration });
+                new { registration });
         }
 
         public void RemoveByRegistration(string registration)
