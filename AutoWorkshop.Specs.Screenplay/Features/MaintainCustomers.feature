@@ -21,9 +21,9 @@ Scenario: View an existing customer
 	When I view the customer
 
 	Then I should see the stored customer details
-	#And I should see the following toolbar options
-	#| Option                                  |
-	#| Maintain account for Jane Jones         |
-	#| Add a new car for Jane Jones            |
-	#| Add a new parts-only job for Jane Jones |
-	#| Add a new quote for Jane Jones          |
+	And I should see the following toolbar options
+	| Option                                  |
+	| Maintain account for Jane Jones         |
+	| Add a new car for Jane Jones            |
+	| Add a new parts-only job for Jane Jones |
+	| Add a new quote for Jane Jones          |

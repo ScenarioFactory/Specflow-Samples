@@ -4,6 +4,7 @@
     using Abilities;
     using Drivers;
     using Dto;
+    using Extensions;
     using FluentAssertions;
     using Pages;
     using Questions;
@@ -126,6 +127,18 @@
             _actor.AsksFor(Text.Of(CustomerMaintenancePage.Postcode)).Should().Be(_storedCustomer.Postcode);
             _actor.AsksFor(Text.Of(CustomerMaintenancePage.HomePhone)).Should().Be(_storedCustomer.HomePhone);
             _actor.AsksFor(Text.Of(CustomerMaintenancePage.Mobile)).Should().Be(_storedCustomer.Mobile);
+        }
+
+        [Then(@"I should see the following toolbar options")]
+        public void ThenIShouldSeeTheFollowingToolbarOptions(Table table)
+        {
+            ToolbarButtonInfo[] toolbarButtons = _actor.AsksFor(ToolbarButtons.CurrentlyVisible());
+
+            table.Rows.ForEach(row =>
+            {
+                bool buttonIsVisible = toolbarButtons.Any(b => b.AltText == row["Option"]);
+                buttonIsVisible.Should().BeTrue($"button for '{row["Option"]}' should be visible");
+            });
         }
     }
 }
