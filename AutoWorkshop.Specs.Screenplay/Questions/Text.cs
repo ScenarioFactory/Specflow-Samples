@@ -20,7 +20,7 @@
 
         public override string AskAs(IActor actor, AutoWorkshopDriver driver)
         {
-            return driver.WaitForElement(_locator).GetAttribute("value");
+            return driver.WaitForElement(_locator).Text;
         }
     }
 }

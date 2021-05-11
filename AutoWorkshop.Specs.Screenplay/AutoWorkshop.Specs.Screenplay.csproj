@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\ChangeCarRegistration.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\CreateJobs.feature.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +42,9 @@
     <Compile Update="Features\ChangeCarRegistration.feature.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
+    <Compile Update="Features\CreateJobs.feature.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -51,6 +55,10 @@
 
   <ItemGroup>
     <SpecFlowFeatureFiles Update="Features\ChangeCarRegistration.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\CreateJobs.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>

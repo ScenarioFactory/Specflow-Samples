@@ -35,5 +35,15 @@
 
             return null;
         }
+
+        public static decimal GetDecimal(this TableRow row, string column)
+        {
+            return decimal.Parse(row[column]);
+        }
+
+        public static int GetInt(this TableRow row, string column)
+        {
+            return int.Parse(row[column]);
+        }
     }
 }

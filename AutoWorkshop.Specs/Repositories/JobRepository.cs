@@ -14,13 +14,6 @@
             _appSettings = appSettings;
         }
 
-        public void RemoveByRegistration(string registration)
-        {
-            using var connection = new MySqlConnection(_appSettings.MySqlConnectionString);
-
-            connection.Execute("DELETE FROM jobs WHERE job_regis = @registration", new { registration });
-        }
-
         public JobInfo[] GetByRegistration(string registration)
         {
             using var connection = new MySqlConnection(_appSettings.MySqlConnectionString);
@@ -38,6 +31,13 @@
                     job_regis = @registration",
                     new { registration })
                 .ToArray();
+        }
+
+        public void RemoveByRegistration(string registration)
+        {
+            using var connection = new MySqlConnection(_appSettings.MySqlConnectionString);
+
+            connection.Execute("DELETE FROM jobs WHERE job_regis = @registration", new { registration });
         }
     }
 }

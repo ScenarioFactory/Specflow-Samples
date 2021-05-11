@@ -32,7 +32,7 @@
                 SendKeys.To(ChangeCarRegistrationPage.CurrentRegistration, _currentRegistration),
                 SendKeys.To(ChangeCarRegistrationPage.NewRegistration, _newRegistration),
                 Submit.On(ChangeCarRegistrationPage.UpdateRegistration),
-                Alert.Accept());
+                AcceptAlert.WithText($"Change registration {_currentRegistration} to registration {_newRegistration}?"));
         }
     }
 }

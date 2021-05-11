@@ -4,23 +4,23 @@
     using OpenQA.Selenium;
     using Pattern;
 
-    public class SuccessMessage : WebQuestion<string>
+    public class Value : WebQuestion<string>
     {
         private readonly By _locator;
 
-        private SuccessMessage(By locator)
+        private Value(By locator)
         {
             _locator = locator;
         }
 
-        public static SuccessMessage For(By locator)
+        public static Value Of(By locator)
         {
-            return new SuccessMessage(locator);
+            return new Value(locator);
         }
 
         public override string AskAs(IActor actor, AutoWorkshopDriver driver)
         {
-            return driver.WaitForElement(_locator).Text;
+            return driver.WaitForElement(_locator).GetAttribute("value");
         }
     }
 }

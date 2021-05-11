@@ -14,7 +14,7 @@
             _locator = locator;
         }
 
-        public static AsYouTypeSearchResults For(By locator)
+        public static AsYouTypeSearchResults Of(By locator)
         {
             return new AsYouTypeSearchResults(locator);
         }

@@ -17,8 +17,8 @@
     [Binding]
     public class CustomerUiSteps
     {
-        private readonly Actor _actor;
         private readonly  CustomerRepository _customerRepository;
+        private readonly Actor _actor;
         private CustomerUiViewInfo _uiViewInfo;
         private CustomerInfo _storedCustomer;
 
@@ -108,7 +108,13 @@
         {
             _actor.AttemptsTo(
                 Navigate.ToMaintainCustomers(),
-                SendKeys.To(CustomerMaintenancePage.Name, searchText).KeyByKey());
+                SendKeys.To(CustomerMaintenancePage.Name, searchText).OneAtATime());
+        }
+
+        [When(@"I select the option to create a new car for the customer")]
+        public void WhenISelectTheOptionToCreateANewCarForTheCustomer()
+        {
+            _actor.AttemptsTo(ClickToolbarButton.WithAltText("Add a new car"));
         }
 
         [Then(@"the customer is added to the system with the details provided")]
@@ -143,13 +149,13 @@
             _storedCustomer.Should().NotBeNull();
 
             _actor.AsksFor(SelectedOptionText.Of(CustomerMaintenancePage.Title)).Should().Be(_storedCustomer.Title);
-            _actor.AsksFor(Text.Of(CustomerMaintenancePage.Name)).Should().Be(_storedCustomer.Name);
-            _actor.AsksFor(Text.Of(CustomerMaintenancePage.AddressLine1)).Should().Be(_storedCustomer.AddressLine1);
-            _actor.AsksFor(Text.Of(CustomerMaintenancePage.AddressLine2)).Should().Be(_storedCustomer.AddressLine2);
-            _actor.AsksFor(Text.Of(CustomerMaintenancePage.AddressLine3)).Should().Be(_storedCustomer.AddressLine3);
-            _actor.AsksFor(Text.Of(CustomerMaintenancePage.Postcode)).Should().Be(_storedCustomer.Postcode);
-            _actor.AsksFor(Text.Of(CustomerMaintenancePage.HomePhone)).Should().Be(_storedCustomer.HomePhone);
-            _actor.AsksFor(Text.Of(CustomerMaintenancePage.Mobile)).Should().Be(_storedCustomer.Mobile);
+            _actor.AsksFor(Value.Of(CustomerMaintenancePage.Name)).Should().Be(_storedCustomer.Name);
+            _actor.AsksFor(Value.Of(CustomerMaintenancePage.AddressLine1)).Should().Be(_storedCustomer.AddressLine1);
+            _actor.AsksFor(Value.Of(CustomerMaintenancePage.AddressLine2)).Should().Be(_storedCustomer.AddressLine2);
+            _actor.AsksFor(Value.Of(CustomerMaintenancePage.AddressLine3)).Should().Be(_storedCustomer.AddressLine3);
+            _actor.AsksFor(Value.Of(CustomerMaintenancePage.Postcode)).Should().Be(_storedCustomer.Postcode);
+            _actor.AsksFor(Value.Of(CustomerMaintenancePage.HomePhone)).Should().Be(_storedCustomer.HomePhone);
+            _actor.AsksFor(Value.Of(CustomerMaintenancePage.Mobile)).Should().Be(_storedCustomer.Mobile);
         }
 
         [Then(@"I should see the following toolbar options")]
@@ -181,7 +187,7 @@
 
             bool foundExpectedCustomerInSearchResults = Poller.PollForResult(() =>
             {
-                string[] searchResults = _actor.AsksFor(AsYouTypeSearchResults.For(CustomerMaintenancePage.AsYouTypeSearchResults));
+                string[] searchResults = _actor.AsksFor(AsYouTypeSearchResults.Of(CustomerMaintenancePage.AsYouTypeSearchResults));
                 return searchResults.Contains(_storedCustomer.Name);
             });
 
