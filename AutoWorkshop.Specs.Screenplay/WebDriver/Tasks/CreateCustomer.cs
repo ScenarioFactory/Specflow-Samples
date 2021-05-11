@@ -1,6 +1,5 @@
-﻿namespace AutoWorkshop.Specs.Screenplay.Tasks
+﻿namespace AutoWorkshop.Specs.Screenplay.WebDriver.Tasks
 {
-    using Drivers;
     using Pages;
     using Pattern;
 

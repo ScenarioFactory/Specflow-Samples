@@ -1,4 +1,4 @@
-﻿namespace AutoWorkshop.Specs.Screenplay.Drivers
+﻿namespace AutoWorkshop.Specs.Screenplay.WebDriver
 {
     using System;
     using OpenQA.Selenium;

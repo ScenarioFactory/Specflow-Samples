@@ -1,7 +1,6 @@
-﻿namespace AutoWorkshop.Specs.Screenplay.Tasks
+﻿namespace AutoWorkshop.Specs.Screenplay.WebDriver.Tasks
 {
     using Abilities;
-    using Drivers;
     using Pattern;
 
     public abstract class WebTask : ITask

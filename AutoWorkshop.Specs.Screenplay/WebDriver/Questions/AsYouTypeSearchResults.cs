@@ -1,7 +1,6 @@
-﻿namespace AutoWorkshop.Specs.Screenplay.Questions
+﻿namespace AutoWorkshop.Specs.Screenplay.WebDriver.Questions
 {
     using System.Linq;
-    using Drivers;
     using OpenQA.Selenium;
     using Pattern;
 

@@ -1,7 +1,6 @@
-﻿namespace AutoWorkshop.Specs.Screenplay.Tasks
+﻿namespace AutoWorkshop.Specs.Screenplay.WebDriver.Tasks
 {
     using System;
-    using Drivers;
     using OpenQA.Selenium;
     using Pattern;
 

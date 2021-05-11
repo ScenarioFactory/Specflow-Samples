@@ -3,16 +3,16 @@
     using System.Linq;
     using Abilities;
     using Actors;
-    using Drivers;
     using Dto;
     using Extensions;
     using FluentAssertions;
     using Framework;
     using Pages;
-    using Questions;
     using Repositories;
-    using Tasks;
     using TechTalk.SpecFlow;
+    using WebDriver;
+    using WebDriver.Questions;
+    using WebDriver.Tasks;
 
     [Binding]
     public class CustomerUiSteps

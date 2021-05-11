@@ -1,8 +1,7 @@
-﻿namespace AutoWorkshop.Specs.Screenplay.Questions
+﻿namespace AutoWorkshop.Specs.Screenplay.WebDriver.Questions
 {
     using System.Collections.ObjectModel;
     using System.Linq;
-    using Drivers;
     using Dto;
     using OpenQA.Selenium;
     using Pattern;

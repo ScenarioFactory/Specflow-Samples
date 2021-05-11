@@ -3,14 +3,14 @@
     using System.Linq;
     using Abilities;
     using Actors;
-    using Drivers;
     using Dto;
     using FluentAssertions;
     using Pages;
-    using Questions;
     using Repositories;
-    using Tasks;
     using TechTalk.SpecFlow;
+    using WebDriver;
+    using WebDriver.Questions;
+    using WebDriver.Tasks;
 
     [Binding]
     public class CarUiSteps

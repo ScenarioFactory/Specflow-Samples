@@ -1,7 +1,5 @@
-﻿namespace AutoWorkshop.Specs.Screenplay.Tasks
+﻿namespace AutoWorkshop.Specs.Screenplay.WebDriver.Tasks
 {
-    using Drivers;
-    using Org.BouncyCastle.Crypto.Tls;
     using Pages;
     using Pattern;
 

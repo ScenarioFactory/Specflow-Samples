@@ -3,13 +3,13 @@
     using System.Linq;
     using Abilities;
     using Actors;
-    using Drivers;
     using Dto;
     using Extensions;
     using FluentAssertions;
     using Repositories;
-    using Tasks;
     using TechTalk.SpecFlow;
+    using WebDriver;
+    using WebDriver.Tasks;
 
     [Binding]
     public class JobUiSteps

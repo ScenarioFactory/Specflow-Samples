@@ -1,7 +1,6 @@
-﻿namespace AutoWorkshop.Specs.Screenplay.Questions
+﻿namespace AutoWorkshop.Specs.Screenplay.WebDriver.Questions
 {
     using Abilities;
-    using Drivers;
     using Pattern;
 
     public abstract class WebQuestion<TAnswer> : IQuestion<TAnswer>
