@@ -8,7 +8,7 @@
         private readonly By _locator;
         private readonly string _keys;
         private bool _clearElement = true;
-        private bool _oneAtATime;
+        private bool _oneKeyAtATime;
 
         private SendKeys(By locator, string keys)
         {
@@ -27,9 +27,9 @@
             return this;
         }
 
-        public SendKeys OneAtATime()
+        public SendKeys OneKeyAtATime()
         {
-            _oneAtATime = true;
+            _oneKeyAtATime = true;
             return this;
         }
 
@@ -42,7 +42,7 @@
                 element.Clear();
             }
 
-            if (_oneAtATime)
+            if (_oneKeyAtATime)
             {
                 foreach (char ch in _keys)
                 {

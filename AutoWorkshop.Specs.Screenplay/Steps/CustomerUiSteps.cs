@@ -3,12 +3,13 @@
     using System.Linq;
     using Abilities;
     using Actors;
+    using Database.Questions;
+    using Database.Tasks;
     using Dto;
     using Extensions;
     using FluentAssertions;
     using Framework;
     using Pages;
-    using Repositories;
     using TechTalk.SpecFlow;
     using WebDriver;
     using WebDriver.Questions;
@@ -17,17 +18,15 @@
     [Binding]
     public class CustomerUiSteps
     {
-        private readonly  CustomerRepository _customerRepository;
         private readonly Actor _actor;
         private CustomerUiViewInfo _uiViewInfo;
         private CustomerInfo _storedCustomer;
 
-        public CustomerUiSteps(AutoWorkshopDriver driver, CustomerRepository customerRepository)
+        public CustomerUiSteps(AppSettings appSettings, AutoWorkshopDriver driver)
         {
-            _customerRepository = customerRepository;
-
             _actor = new Actor();
             _actor.Can(UseAutoWorkshop.With(driver));
+            _actor.Can(UseMySqlDatabase.With(appSettings.MySqlConnectionString));
         }
 
         [Given(@"this existing customer")]
@@ -35,7 +34,7 @@
         {
             var values = table.Rows.Single();
 
-            _customerRepository.RemoveByName(values["Name"]);
+            _actor.AttemptsTo(DeleteCustomers.ByName(values["Name"]));
 
             _storedCustomer = new CustomerInfo(
                 values["Title"],
@@ -48,7 +47,16 @@
                 values["Mobile"],
                 1);
 
-            _customerRepository.Create(_storedCustomer);
+            _actor.AttemptsTo(
+                InsertCustomer.Named(values["Name"])
+                    .WithTitle(values["Title"])
+                    .WithAddress(
+                        values["Address Line 1"],
+                        values["Address Line 2"],
+                        values["Address Line 3"],
+                        values["Postcode"])
+                    .WithHomePhone(values["Home Phone"])
+                    .WithMobile(values["Mobile"]));
         }
 
         [When(@"I create a new customer with the following details")]
@@ -68,8 +76,7 @@
 
             _actor.AttemptsTo(
                 Navigate.ToMaintainCustomers(),
-                CreateCustomer
-                    .Named(values["Name"])
+                CreateCustomer.Named(values["Name"])
                     .WithTitle(values["Title"])
                     .WithAddress(
                         values["Address Line 1"],
@@ -85,7 +92,7 @@
         {
             _storedCustomer.Should().NotBeNull();
 
-            int customerId = _customerRepository.GetIdByName(_storedCustomer.Name);
+            int customerId = _actor.AsksFor(StoredCustomerId.ForName(_storedCustomer.Name));
 
             _actor.AttemptsTo(ViewCustomer.WithId(customerId));
         }
@@ -95,7 +102,7 @@
         {
             _storedCustomer.Should().NotBeNull();
 
-            int customerId = _customerRepository.GetIdByName(_storedCustomer.Name);
+            int customerId = _actor.AsksFor(StoredCustomerId.ForName(_storedCustomer.Name));
 
             _actor.AttemptsTo(
                 ViewCustomer.WithId(customerId),
@@ -108,7 +115,7 @@
         {
             _actor.AttemptsTo(
                 Navigate.ToMaintainCustomers(),
-                SendKeys.To(CustomerMaintenancePage.Name, searchText).OneAtATime());
+                SendKeys.To(CustomerMaintenancePage.Name, searchText).OneKeyAtATime());
         }
 
         [When(@"I select the option to create a new car for the customer")]
@@ -122,7 +129,7 @@
         {
             _uiViewInfo.Should().NotBeNull();
 
-            _storedCustomer = _customerRepository.GetInfoByName(_uiViewInfo.Name);
+            _storedCustomer = _actor.AsksFor(StoredCustomer.WithName(_uiViewInfo.Name));
 
             _storedCustomer.Should().NotBeNull();
             _storedCustomer.Title.Should().Be(_uiViewInfo.Title);
@@ -175,7 +182,7 @@
         {
             _storedCustomer.Should().NotBeNull();
 
-            var latestStoredCustomer = _customerRepository.GetInfoByName(_storedCustomer.Name);
+            var latestStoredCustomer = _actor.AsksFor(StoredCustomer.WithName(_storedCustomer.Name));
 
             latestStoredCustomer.Mobile.Should().Be(expectedMobileNumber);
         }

@@ -1,22 +1,25 @@
 ﻿namespace AutoWorkshop.Specs.Screenplay.Steps
 {
-    using Repositories;
+    using Abilities;
+    using Actors;
+    using Database.Tasks;
     using TechTalk.SpecFlow;
 
     [Binding]
     public class CustomerSteps
     {
-        private readonly CustomerRepository _customerRepository;
+        private readonly Actor _actor;
 
-        public CustomerSteps(CustomerRepository customerRepository)
+        public CustomerSteps(AppSettings appSettings)
         {
-            _customerRepository = customerRepository;
+            _actor = new Actor();
+            _actor.Can(UseMySqlDatabase.With(appSettings.MySqlConnectionString));
         }
 
         [Given(@"there are no customers named '(.*)'")]
         public void GivenThereAreNoCustomersNamed(string customerName)
         {
-            _customerRepository.RemoveByName(customerName);
+            _actor.AttemptsTo(DeleteCustomers.ByName(customerName));
         }
     }
 }

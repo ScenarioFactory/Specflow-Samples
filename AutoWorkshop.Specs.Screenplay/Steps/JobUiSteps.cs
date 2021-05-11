@@ -3,10 +3,10 @@
     using System.Linq;
     using Abilities;
     using Actors;
+    using Database.Questions;
     using Dto;
     using Extensions;
     using FluentAssertions;
-    using Repositories;
     using TechTalk.SpecFlow;
     using WebDriver;
     using WebDriver.Tasks;
@@ -14,16 +14,14 @@
     [Binding]
     public class JobUiSteps
     {
-        private readonly JobRepository _jobRepository;
         private JobUiViewInfo _uiViewInfo;
         private readonly Actor _actor;
 
-        public JobUiSteps(AutoWorkshopDriver driver, JobRepository jobRepository)
+        public JobUiSteps(AppSettings appSettings, AutoWorkshopDriver driver)
         {
-            _jobRepository = jobRepository;
-
             _actor = new Actor();
             _actor.Can(UseAutoWorkshop.With(driver));
+            _actor.Can(UseMySqlDatabase.With(appSettings.MySqlConnectionString));
         }
 
         [When(@"I create the following job for car '(.*)'")]
@@ -50,7 +48,7 @@
         {
             _uiViewInfo.Should().NotBeNull();
 
-            JobInfo[] storedJobs = _jobRepository.GetByRegistration(_uiViewInfo.Registration);
+            JobInfo[] storedJobs = _actor.AsksFor(StoredJobs.ForRegistration(_uiViewInfo.Registration));
 
             JobInfo matchingJob = storedJobs.SingleOrDefault(j =>
                 j.Registration == _uiViewInfo.Registration &&

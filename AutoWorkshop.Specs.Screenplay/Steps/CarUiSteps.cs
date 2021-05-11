@@ -3,10 +3,10 @@
     using System.Linq;
     using Abilities;
     using Actors;
+    using Database.Questions;
     using Dto;
     using FluentAssertions;
     using Pages;
-    using Repositories;
     using TechTalk.SpecFlow;
     using WebDriver;
     using WebDriver.Questions;
@@ -15,16 +15,14 @@
     [Binding]
     public class CarUiSteps
     {
-        private readonly CarRepository _carRepository;
         private readonly Actor _actor;
         private CarUiViewInfo _uiViewInfo;
 
-        public CarUiSteps(AutoWorkshopDriver driver, CarRepository carRepository)
+        public CarUiSteps(AppSettings appSettings, AutoWorkshopDriver driver)
         {
-            _carRepository = carRepository;
-
             _actor = new Actor();
             _actor.Can(UseAutoWorkshop.With(driver));
+            _actor.Can(UseMySqlDatabase.With(appSettings.MySqlConnectionString));
         }
 
         [When(@"I change the registration of '(.*)' to '(.*)'")]
@@ -80,7 +78,7 @@
         {
             _uiViewInfo.Should().NotBeNull();
 
-            CarInfo storedCar = _carRepository.GetInfoByRegistration(_uiViewInfo.Registration);
+            CarInfo storedCar = _actor.AsksFor(StoredCar.WithRegistration(_uiViewInfo.Registration));
 
             storedCar.Registration.Should().Be(_uiViewInfo.Registration);
             storedCar.Make.Should().Be(_uiViewInfo.Make);

@@ -1,23 +1,23 @@
 ﻿namespace AutoWorkshop.Specs.Screenplay.Steps
 {
+    using Abilities;
+    using Actors;
+    using Database.Questions;
+    using Database.Tasks;
     using Dto;
     using Extensions;
     using FluentAssertions;
-    using Repositories;
     using TechTalk.SpecFlow;
 
     [Binding]
     public class CarSteps
     {
-        private readonly CarRepository _carRepository;
-        private readonly CustomerRepository _customerRepository;
-        private readonly JobRepository _jobRepository;
+        private readonly Actor _actor;
 
-        public CarSteps(CarRepository carRepository, CustomerRepository customerRepository, JobRepository jobRepository)
+        public CarSteps(AppSettings appSettings)
         {
-            _carRepository = carRepository;
-            _customerRepository = customerRepository;
-            _jobRepository = jobRepository;
+            _actor = new Actor();
+            _actor.Can(UseMySqlDatabase.With(appSettings.MySqlConnectionString));
         }
 
         [Given(@"this existing car")]
@@ -27,29 +27,23 @@
         {
             table.Rows.ForEach(values =>
             {
-                _carRepository.RemoveByRegistration(values["Registration"]);
+                _actor.AttemptsTo(DeleteCar.ByRegistration(values["Registration"]));
 
-                int customerId = values.ContainsKey("Customer") ?
-                    _customerRepository.GetIdByName(values["Customer"]) :
-                    _customerRepository.GetFirstCustomerId();
+                int customerId = _actor.AsksFor(
+                    values.ContainsKey("Customer") ? StoredCustomerId.ForName(values["Customer"]) : StoredCustomerId.First());
 
-                var car = new CarInfo(
-                    values["Registration"],
-                    customerId,
-                    values["Make"],
-                    values["Model"],
-                    values.GetDateOrDefault("MOT Expiry"),
-                    values.GetBoolOrDefault("Suppress MOT Reminder"));
-
-                _carRepository.Create(car);
+                _actor.AttemptsTo(
+                    InsertCar.WithRegistration(values["Registration"])
+                        .ForCustomer(customerId)
+                        .WithMake(values["Make"])
+                        .WithModel(values["Model"]));
             });
         }
 
         [Given(@"there is no existing car with registration '(.*)'")]
         public void GivenThereIsNoExistingCarWithRegistration(string registration)
         {
-            _carRepository.RemoveByRegistration(registration);
-            _jobRepository.RemoveByRegistration(registration);
+            _actor.AttemptsTo(DeleteCar.ByRegistration(registration));
         }
 
         [Then(@"the following car should be present in the system")]
@@ -58,7 +52,7 @@
         {
             table.Rows.ForEach(expectedValues =>
             {
-                CarInfo storedCar = _carRepository.GetInfoByRegistration(expectedValues["Registration"]);
+                CarInfo storedCar = _actor.AsksFor(StoredCar.WithRegistration(expectedValues["Registration"]));
 
                 storedCar.Should().NotBeNull();
                 storedCar.Registration.Should().Be(expectedValues["Registration"]);
@@ -70,7 +64,7 @@
         [Then(@"there should be no car with registration '(.*)'")]
         public void ThenThereShouldBeNoCarWithRegistration(string registration)
         {
-            CarInfo storedCar = _carRepository.GetInfoByRegistration(registration);
+            CarInfo storedCar = _actor.AsksFor(StoredCar.WithRegistration(registration));
 
             storedCar.Should().BeNull();
         }
