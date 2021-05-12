@@ -2,22 +2,29 @@
 {
     using Abilities;
     using Actors;
+    using BlobStorage.Questions;
     using Database.Questions;
     using Database.Tasks;
     using Dto;
     using Extensions;
     using FluentAssertions;
+    using Framework;
+    using Pattern;
+    using ServiceBus.Tasks;
+    using SharedKernel.Commands;
     using TechTalk.SpecFlow;
 
     [Binding]
     public class CarSteps
     {
-        private readonly Actor _actor;
+        private readonly IActor _actor;
 
         public CarSteps(AppSettings appSettings)
         {
-            _actor = new Actor();
-            _actor.Can(UseMySqlDatabase.With(appSettings.MySqlConnectionString));
+            _actor = new Actor().WhoCan(
+                UseMySqlDatabase.With(appSettings.MySqlConnectionString),
+                UseServiceBus.With(appSettings.ServiceBusConnectionString),
+                UseBlobStorage.With(appSettings.BlobStorageConnectionString));
         }
 
         [Given(@"this existing car")]
@@ -46,6 +53,19 @@
             _actor.AttemptsTo(DeleteCar.ByRegistration(registration));
         }
 
+        [Given(@"there have been no MOT Reminders issued")]
+        public void GivenThereHaveBeenNoMotRemindersIssued()
+        {
+            _actor.AttemptsTo(DeleteMotReminders.ForAll());
+        }
+
+        [When(@"I issue MOT Reminders")]
+        public void WhenIIssueMotReminders()
+        {
+            var command = new InitiateMotReminderGeneration();
+            _actor.AttemptsTo(SendCommand.To("cars.initiatemotremindergeneration", command));
+        }
+
         [Then(@"the following car should be present in the system")]
         [Then(@"the following cars should be present in the system")]
         public void ThenTheFollowingCarsShouldBePresentInTheSystem(Table table)
@@ -67,6 +87,51 @@
             CarInfo storedCar = _actor.AsksFor(StoredCar.WithRegistration(registration));
 
             storedCar.Should().BeNull();
+        }
+
+        [Then(@"the following MOT Reminders should be issued")]
+        public void ThenTheFollowingMotRemindersShouldBeIssued(Table table)
+        {
+            static bool IsMatchingRow(MotReminderInfo actual, TableRow expected)
+            {
+                return
+                    actual.Registration == expected["Registration"] &&
+                    actual.MotExpiry == expected.GetDate("MOT Expiry") &&
+                    actual.Make == expected["Make"] &&
+                    actual.Model == expected["Model"] &&
+                    actual.Title == expected["Title"] &&
+                    actual.Name == expected["Name"] &&
+                    actual.AddressLine1 == expected["Address Line 1"] &&
+                    actual.AddressLine2 == expected["Address Line 2"] &&
+                    actual.AddressLine3 == expected["Address Line 3"] &&
+                    actual.Postcode == expected["Postcode"];
+            }
+
+            var unmatchedRows = table.Rows.PollForUnmatchedRows(
+                registration => _actor.AsksFor(StoredMotReminder.ForRegistration(registration)),
+                row => row["Registration"],
+                IsMatchingRow);
+
+            unmatchedRows.Should().BeEmpty();
+        }
+
+        [Then(@"the following MOT Reminder documents have been generated")]
+        public void ThenTheFollowingMotReminderDocumentsHaveBeenGenerated(Table table)
+        {
+            table.Rows.ForEach(row =>
+            {
+                bool IsDocumentInBlobStorage()
+                {
+                    const string blobContainerName = "motreminders";
+                    string blobFileName = row["Document Name"];
+
+                    return _actor.AsksFor(StoredBlobExists.WithName(blobFileName).InContainer(blobContainerName));
+                }
+
+                bool documentGenerated = Poller.PollForResult(IsDocumentInBlobStorage);
+
+                documentGenerated.Should().BeTrue($"document {row["Document Name"]} should be present in blob storage");
+            });
         }
     }
 }

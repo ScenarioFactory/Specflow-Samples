@@ -22,6 +22,10 @@
 
         public string BaseUrl => Configuration["AutoWorkshop:Url"];
 
+        public string BlobStorageConnectionString => Configuration["AutoWorkshop:BlobStorageConnectionString"];
+
         public string MySqlConnectionString => Configuration["AutoWorkshop:MySqlConnectionString"];
+
+        public string ServiceBusConnectionString => Configuration["AutoWorkshop:ServiceBusConnectionString"];
     }
 }

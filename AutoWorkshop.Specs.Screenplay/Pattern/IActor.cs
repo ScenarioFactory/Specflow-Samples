@@ -6,7 +6,7 @@
 
         void AttemptsTo(params ITask[] tasks);
 
-        void Can(IAbility ability);
+        IActor WhoCan(params IAbility[] abilities);
 
         TAbility Using<TAbility>() where TAbility : IAbility;
     }

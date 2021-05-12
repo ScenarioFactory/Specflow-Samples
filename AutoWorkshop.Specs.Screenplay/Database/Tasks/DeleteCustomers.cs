@@ -13,7 +13,7 @@
             _name = name;
         }
 
-        public static DeleteCustomers ByName(string name)
+        public static DeleteCustomers WithName(string name)
         {
             return new DeleteCustomers(name);
         }

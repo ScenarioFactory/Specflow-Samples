@@ -7,6 +7,7 @@
     using Dto;
     using FluentAssertions;
     using Pages;
+    using Pattern;
     using TechTalk.SpecFlow;
     using WebDriver;
     using WebDriver.Questions;
@@ -15,14 +16,14 @@
     [Binding]
     public class CarUiSteps
     {
-        private readonly Actor _actor;
+        private readonly IActor _actor;
         private CarUiViewInfo _uiViewInfo;
 
         public CarUiSteps(AppSettings appSettings, AutoWorkshopDriver driver)
         {
-            _actor = new Actor();
-            _actor.Can(UseAutoWorkshop.With(driver));
-            _actor.Can(UseMySqlDatabase.With(appSettings.MySqlConnectionString));
+            _actor = new Actor().WhoCan(
+                UseAutoWorkshop.With(driver),
+                UseMySqlDatabase.With(appSettings.MySqlConnectionString));
         }
 
         [When(@"I change the registration of '(.*)' to '(.*)'")]

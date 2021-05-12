@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public static class EnumerableExtensions
     {
@@ -11,6 +12,11 @@
             {
                 action(element);
             }
+        }
+
+        public static bool None<T>(this IEnumerable<T> source)
+        {
+            return !source.Any();
         }
     }
 }

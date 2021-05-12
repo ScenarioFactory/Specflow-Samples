@@ -10,6 +10,7 @@
     using FluentAssertions;
     using Framework;
     using Pages;
+    using Pattern;
     using TechTalk.SpecFlow;
     using WebDriver;
     using WebDriver.Questions;
@@ -18,15 +19,15 @@
     [Binding]
     public class CustomerUiSteps
     {
-        private readonly Actor _actor;
+        private readonly IActor _actor;
         private CustomerUiViewInfo _uiViewInfo;
         private CustomerInfo _storedCustomer;
 
         public CustomerUiSteps(AppSettings appSettings, AutoWorkshopDriver driver)
         {
-            _actor = new Actor();
-            _actor.Can(UseAutoWorkshop.With(driver));
-            _actor.Can(UseMySqlDatabase.With(appSettings.MySqlConnectionString));
+            _actor = new Actor().WhoCan(
+                UseAutoWorkshop.With(driver),
+                UseMySqlDatabase.With(appSettings.MySqlConnectionString));
         }
 
         [Given(@"this existing customer")]
@@ -34,7 +35,7 @@
         {
             var values = table.Rows.Single();
 
-            _actor.AttemptsTo(DeleteCustomers.ByName(values["Name"]));
+            _actor.AttemptsTo(DeleteCustomers.WithName(values["Name"]));
 
             _storedCustomer = new CustomerInfo(
                 values["Title"],

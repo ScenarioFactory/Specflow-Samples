@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
+    using Extensions;
     using Pattern;
 
     public class Actor : IActor
@@ -16,12 +16,13 @@
 
         public void AttemptsTo(params ITask[] tasks)
         {
-            tasks.ToList().ForEach(t => t.PerformAs(this));
+            tasks.ForEach(t => t.PerformAs(this));
         }
 
-        public void Can(IAbility ability)
+        public IActor WhoCan(params IAbility[] abilities)
         {
-            _abilities.Add(ability.GetType(), ability);
+            abilities.ForEach(a => _abilities.Add(a.GetType(), a));
+            return this;
         }
 
         public TAbility Using<TAbility>() where TAbility : IAbility

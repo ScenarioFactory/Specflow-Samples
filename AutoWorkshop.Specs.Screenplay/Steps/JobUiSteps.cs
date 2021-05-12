@@ -7,6 +7,7 @@
     using Dto;
     using Extensions;
     using FluentAssertions;
+    using Pattern;
     using TechTalk.SpecFlow;
     using WebDriver;
     using WebDriver.Tasks;
@@ -14,14 +15,14 @@
     [Binding]
     public class JobUiSteps
     {
+        private readonly IActor _actor;
         private JobUiViewInfo _uiViewInfo;
-        private readonly Actor _actor;
 
         public JobUiSteps(AppSettings appSettings, AutoWorkshopDriver driver)
         {
-            _actor = new Actor();
-            _actor.Can(UseAutoWorkshop.With(driver));
-            _actor.Can(UseMySqlDatabase.With(appSettings.MySqlConnectionString));
+            _actor = new Actor().WhoCan(
+                UseAutoWorkshop.With(driver),
+                UseMySqlDatabase.With(appSettings.MySqlConnectionString));
         }
 
         [When(@"I create the following job for car '(.*)'")]
