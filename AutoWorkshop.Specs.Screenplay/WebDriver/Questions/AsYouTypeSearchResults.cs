@@ -20,7 +20,7 @@
 
         public override string[] AskAs(IActor actor, AutoWorkshopDriver driver)
         {
-            var anchors = driver.FindElements(_locator);
+            var anchors = driver.WaitForElements(_locator);
 
             return anchors
                 .Where((a, i) => i % 2 != 0)

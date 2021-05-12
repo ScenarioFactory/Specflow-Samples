@@ -21,7 +21,7 @@
 
         public override void PerformAs(IActor actor, AutoWorkshopDriver driver)
         {
-            ReadOnlyCollection<IWebElement> anchors = driver.FindElements(By.XPath("//fieldset//a"));
+            ReadOnlyCollection<IWebElement> anchors = driver.WaitForElements(By.XPath("//fieldset//a"));
 
             var anchor = anchors
                 .Single(a => a.FindElement(By.TagName("img")).GetAttribute("Alt").StartsWith(_altTextStartsWith));

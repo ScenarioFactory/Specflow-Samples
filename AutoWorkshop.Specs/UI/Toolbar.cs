@@ -17,7 +17,7 @@
         {
             get
             {
-                ReadOnlyCollection<IWebElement> anchors = _driver.FindElements(By.XPath("//fieldset//a"));
+                ReadOnlyCollection<IWebElement> anchors = _driver.WaitForElements(By.XPath("//fieldset//a"));
 
                 return anchors
                     .Select(anchor => new ToolbarButton(anchor))

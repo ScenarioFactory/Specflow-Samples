@@ -19,7 +19,7 @@
 
         public override ToolbarButtonInfo[] AskAs(IActor actor, AutoWorkshopDriver driver)
         {
-            ReadOnlyCollection<IWebElement> anchors = driver.FindElements(By.XPath("//fieldset//a"));
+            ReadOnlyCollection<IWebElement> anchors = driver.WaitForElements(By.XPath("//fieldset//a"));
 
             return anchors
                 .Select(anchor => new ToolbarButtonInfo(anchor))

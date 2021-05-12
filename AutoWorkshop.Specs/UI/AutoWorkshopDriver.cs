@@ -1,6 +1,8 @@
 ﻿namespace AutoWorkshop.Specs.UI
 {
     using System;
+    using System.Collections.ObjectModel;
+    using System.Linq;
     using OpenQA.Selenium;
     using OpenQA.Selenium.Chrome;
     using OpenQA.Selenium.Support.UI;
@@ -29,7 +31,16 @@
             return Wait().Until(d =>
             {
                 IWebElement element = d.FindElement(findBy);
-                return element is { Displayed: true } ? element : null;
+                return element is {Displayed: true} ? element : null;
+            });
+        }
+
+        public ReadOnlyCollection<IWebElement> WaitForElements(By findBy)
+        {
+            return Wait().Until(d =>
+            {
+                ReadOnlyCollection<IWebElement> elements = d.FindElements(findBy);
+                return elements.Count > 0 && elements.All(e => e.Displayed) ? elements : null;
             });
         }
 

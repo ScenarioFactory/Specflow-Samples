@@ -76,7 +76,7 @@
 
         public string[] GetAsYouTypeSearchResults()
         {
-            var anchors = Driver.FindElements(AsYouTypeSearchResultAnchors);
+            var anchors = Driver.WaitForElements(AsYouTypeSearchResultAnchors);
 
             return anchors
                 .Where((a, i) => i % 2 != 0)
