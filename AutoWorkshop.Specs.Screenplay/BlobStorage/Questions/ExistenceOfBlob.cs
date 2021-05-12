@@ -1,25 +1,24 @@
 ﻿namespace AutoWorkshop.Specs.Screenplay.BlobStorage.Questions
 {
-    using Abilities;
     using Azure.Storage.Blobs;
     using Pattern;
 
-    public class StoredBlobExists : IQuestion<bool>
+    public class ExistenceOfBlob : IQuestion<bool>
     {
         private readonly string _fileName;
         private string _containerName;
 
-        private StoredBlobExists(string fileName)
+        private ExistenceOfBlob(string fileName)
         {
             _fileName = fileName;
         }
 
-        public static StoredBlobExists WithName(string fileName)
+        public static ExistenceOfBlob WithName(string fileName)
         {
-            return new StoredBlobExists(fileName);
+            return new ExistenceOfBlob(fileName);
         }
 
-        public StoredBlobExists InContainer(string containerName)
+        public ExistenceOfBlob InContainer(string containerName)
         {
             _containerName = containerName;
             return this;

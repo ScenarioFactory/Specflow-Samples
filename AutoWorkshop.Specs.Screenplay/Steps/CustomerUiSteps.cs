@@ -1,8 +1,7 @@
 ﻿namespace AutoWorkshop.Specs.Screenplay.Steps
 {
     using System.Linq;
-    using Abilities;
-    using Actors;
+    using Database;
     using Database.Questions;
     using Database.Tasks;
     using Dto;

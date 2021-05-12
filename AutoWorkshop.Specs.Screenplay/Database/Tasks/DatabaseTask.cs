@@ -1,6 +1,5 @@
 ﻿namespace AutoWorkshop.Specs.Screenplay.Database.Tasks
 {
-    using Abilities;
     using Pattern;
 
     public abstract class DatabaseTask : ITask

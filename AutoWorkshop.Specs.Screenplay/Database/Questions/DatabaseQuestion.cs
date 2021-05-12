@@ -1,6 +1,5 @@
 ﻿namespace AutoWorkshop.Specs.Screenplay.Database.Questions
 {
-    using Abilities;
     using Pattern;
 
     public abstract class DatabaseQuestion<TAnswer> : IQuestion<TAnswer>

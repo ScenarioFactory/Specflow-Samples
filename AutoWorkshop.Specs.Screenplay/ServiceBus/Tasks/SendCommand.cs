@@ -1,25 +1,29 @@
 ﻿namespace AutoWorkshop.Specs.Screenplay.ServiceBus.Tasks
 {
     using System.Threading.Tasks;
-    using Abilities;
     using Azure.Messaging.ServiceBus;
     using Extensions;
     using Pattern;
 
     public class SendCommand : ITask
     {
-        private readonly string _queue;
         private readonly object _command;
+        private string _queue;
 
-        private SendCommand(string queue, object command)
+        private SendCommand(object command)
         {
-            _queue = queue;
             _command = command;
         }
 
-        public static SendCommand To(string queue, object command)
+        public static SendCommand Of(object command)
         {
-            return new SendCommand(queue, command);
+            return new SendCommand(command);
+        }
+
+        public SendCommand To(string queue)
+        {
+            _queue = queue;
+            return this;
         }
 
         public void PerformAs(IActor actor)

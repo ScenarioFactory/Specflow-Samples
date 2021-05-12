@@ -1,8 +1,8 @@
 ﻿namespace AutoWorkshop.Specs.Screenplay.Steps
 {
-    using Abilities;
-    using Actors;
+    using BlobStorage;
     using BlobStorage.Questions;
+    using Database;
     using Database.Questions;
     using Database.Tasks;
     using Dto;
@@ -10,6 +10,7 @@
     using FluentAssertions;
     using Framework;
     using Pattern;
+    using ServiceBus;
     using ServiceBus.Tasks;
     using SharedKernel.Commands;
     using TechTalk.SpecFlow;
@@ -62,8 +63,7 @@
         [When(@"I issue MOT Reminders")]
         public void WhenIIssueMotReminders()
         {
-            var command = new InitiateMotReminderGeneration();
-            _actor.AttemptsTo(SendCommand.To("cars.initiatemotremindergeneration", command));
+            _actor.AttemptsTo(SendCommand.Of(new InitiateMotReminderGeneration()).To("cars.initiatemotremindergeneration"));
         }
 
         [Then(@"the following car should be present in the system")]
@@ -125,7 +125,7 @@
                     const string blobContainerName = "motreminders";
                     string blobFileName = row["Document Name"];
 
-                    return _actor.AsksFor(StoredBlobExists.WithName(blobFileName).InContainer(blobContainerName));
+                    return _actor.AsksFor(ExistenceOfBlob.WithName(blobFileName).InContainer(blobContainerName));
                 }
 
                 bool documentGenerated = Poller.PollForResult(IsDocumentInBlobStorage);

@@ -1,4 +1,4 @@
-﻿namespace AutoWorkshop.Specs.Screenplay.Abilities
+﻿namespace AutoWorkshop.Specs.Screenplay.BlobStorage
 {
     using Pattern;
 

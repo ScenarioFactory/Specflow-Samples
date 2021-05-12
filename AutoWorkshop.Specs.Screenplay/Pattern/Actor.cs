@@ -1,9 +1,8 @@
-﻿namespace AutoWorkshop.Specs.Screenplay.Actors
+﻿namespace AutoWorkshop.Specs.Screenplay.Pattern
 {
     using System;
     using System.Collections.Generic;
     using Extensions;
-    using Pattern;
 
     public class Actor : IActor
     {

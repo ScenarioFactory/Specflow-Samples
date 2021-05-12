@@ -1,7 +1,6 @@
 ﻿namespace AutoWorkshop.Specs.Screenplay.Steps
 {
-    using Abilities;
-    using Actors;
+    using Database;
     using Database.Tasks;
     using Extensions;
     using Pattern;
