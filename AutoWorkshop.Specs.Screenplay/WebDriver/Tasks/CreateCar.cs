@@ -45,7 +45,7 @@
                 SendKeys.To(CarMaintenancePage.Make, _make),
                 SendKeys.To(CarMaintenancePage.Model, _model),
                 SendKeys.To(CarMaintenancePage.Year, _year),
-                Submit.On(CarMaintenancePage.Save));
+                Click.On(CarMaintenancePage.Save));
         }
     }
 }

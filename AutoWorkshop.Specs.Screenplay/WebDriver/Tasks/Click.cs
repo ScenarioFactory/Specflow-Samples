@@ -3,18 +3,18 @@
     using OpenQA.Selenium;
     using Pattern;
 
-    public class Submit : WebTask
+    public class Click : WebTask
     {
         private readonly By _locator;
 
-        private Submit(By locator)
+        private Click(By locator)
         {
             _locator = locator;
         }
 
-        public static Submit On(By locator)
+        public static Click On(By locator)
         {
-            return new Submit(locator);
+            return new Click(locator);
         }
 
         public override void PerformAs(IActor actor, AutoWorkshopDriver driver)

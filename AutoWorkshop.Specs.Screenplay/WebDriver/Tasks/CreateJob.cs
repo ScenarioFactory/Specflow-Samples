@@ -46,7 +46,7 @@
                 ChooseDate.For(JobMaintenancePage.Start, _date),
                 SendKeys.To(JobMaintenancePage.Hours, _hours.ToString("0.##")),
                 SendKeys.To(JobMaintenancePage.Mileage, _mileage.ToString()),
-                Submit.On(JobMaintenancePage.Save));
+                Click.On(JobMaintenancePage.Save));
         }
     }
 }

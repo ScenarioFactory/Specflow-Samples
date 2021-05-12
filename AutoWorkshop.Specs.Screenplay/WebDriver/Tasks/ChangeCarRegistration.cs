@@ -29,7 +29,7 @@
             actor.AttemptsTo(
                 SendKeys.To(ChangeCarRegistrationPage.CurrentRegistration, _currentRegistration),
                 SendKeys.To(ChangeCarRegistrationPage.NewRegistration, _newRegistration),
-                Submit.On(ChangeCarRegistrationPage.UpdateRegistration),
+                Click.On(ChangeCarRegistrationPage.UpdateRegistration),
                 AcceptAlert.WithText($"Change registration {_currentRegistration} to registration {_newRegistration}?"));
         }
     }

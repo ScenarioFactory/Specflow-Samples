@@ -107,7 +107,7 @@
             _actor.AttemptsTo(
                 ViewCustomer.WithId(customerId),
                 SendKeys.To(CustomerMaintenancePage.Mobile, newMobileNumber),
-                Submit.On(CustomerMaintenancePage.Save));
+                Click.On(CustomerMaintenancePage.Save));
         }
 
         [When(@"I search for '(.*)'")]

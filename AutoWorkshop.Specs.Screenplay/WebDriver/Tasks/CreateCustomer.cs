@@ -62,7 +62,7 @@
                 SendKeys.To(CustomerMaintenancePage.Postcode, _postcode),
                 SendKeys.To(CustomerMaintenancePage.HomePhone, _homePhone),
                 SendKeys.To(CustomerMaintenancePage.Mobile, _mobile),
-                Submit.On(CustomerMaintenancePage.Save));
+                Click.On(CustomerMaintenancePage.Save));
         }
     }
 }
