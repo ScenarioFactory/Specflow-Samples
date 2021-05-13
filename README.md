@@ -10,7 +10,7 @@
 
 **AutoWorkshop.Specs.Stateless** - sample tests using a stateless step file approach to allow maximum step re-use by non-programming QAs. See thoughts below.
 
-**AutoWorkshop.Specs** - sample web and non-UI tests using stateful steps for highly readable Gherkin.
+**AutoWorkshop.Specs** - sample tests using stateful steps for highly readable Gherkin.
 
 ### SpecFlow test suite principles
 
