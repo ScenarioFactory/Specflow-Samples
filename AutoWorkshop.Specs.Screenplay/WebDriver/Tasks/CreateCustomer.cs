@@ -24,13 +24,13 @@
             return new CreateCustomer(name);
         }
 
-        public CreateCustomer WithTitle(string title)
+        public CreateCustomer Titled(string title)
         {
             _title = title;
             return this;
         }
 
-        public CreateCustomer WithAddress(string addressLine1, string addressLine2, string addressLine3, string postcode)
+        public CreateCustomer OfAddress(string addressLine1, string addressLine2, string addressLine3, string postcode)
         {
             _addressLine1 = addressLine1;
             _addressLine2 = addressLine2;

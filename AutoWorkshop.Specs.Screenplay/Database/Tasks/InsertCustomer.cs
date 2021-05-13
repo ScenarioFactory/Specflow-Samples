@@ -25,13 +25,13 @@
             return new InsertCustomer(name);
         }
 
-        public InsertCustomer WithTitle(string title)
+        public InsertCustomer Titled(string title)
         {
             _title = title;
             return this;
         }
 
-        public InsertCustomer WithAddress(string addressLine1, string addressLine2, string addressLine3, string postcode)
+        public InsertCustomer OfAddress(string addressLine1, string addressLine2, string addressLine3, string postcode)
         {
             _addressLine1 = addressLine1;
             _addressLine2 = addressLine2;

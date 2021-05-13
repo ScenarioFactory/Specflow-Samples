@@ -4,6 +4,7 @@
 
     public static class ChangeCarRegistrationPage
     {
+        public static readonly string Path = "changereg.php";
         public static readonly By CurrentRegistration = By.Name("regis");
         public static readonly By NewRegistration = By.Name("newregis");
         public static readonly By UpdateRegistration = By.Name("change");

@@ -29,7 +29,7 @@
         public void WhenIChangeTheRegistrationOfTo(string currentRegistration, string newRegistration)
         {
             _actor.AttemptsTo(
-                Navigate.ToChangeRegistration(),
+                Navigate.To(ChangeCarRegistrationPage.Path),
                 ChangeCarRegistration.From(currentRegistration).To(newRegistration));
         }
 
@@ -46,9 +46,9 @@
 
             _actor.AttemptsTo(
                 CreateCar.WithRegistration(_uiViewInfo.Registration)
-                    .WithMake(_uiViewInfo.Make)
-                    .WithModel(_uiViewInfo.Model)
-                    .WithYear(_uiViewInfo.Year));
+                    .AndMake(_uiViewInfo.Make)
+                    .AndModel(_uiViewInfo.Model)
+                    .ForYear(_uiViewInfo.Year));
         }
 
         [When(@"I select the option to create a new job for the car")]

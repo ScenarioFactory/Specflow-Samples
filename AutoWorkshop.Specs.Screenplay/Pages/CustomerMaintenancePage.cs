@@ -4,6 +4,7 @@
 
     public static class CustomerMaintenancePage
     {
+        public static readonly string Path = "custmaint.php";
         public static readonly By Title = By.Name("title");
         public static readonly By Name = By.Name("name");
         public static readonly By AddressLine1 = By.Name("address1");

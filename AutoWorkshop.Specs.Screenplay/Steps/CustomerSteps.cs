@@ -31,8 +31,8 @@
                 _actor.AttemptsTo(
                     DeleteCustomers.WithName(values["Name"]),
                     InsertCustomer.Named(values["Name"])
-                        .WithTitle(values["Title"])
-                        .WithAddress(
+                        .Titled(values["Title"])
+                        .OfAddress(
                             values["Address Line 1"],
                             values["Address Line 2"],
                             values["Address Line 3"],

@@ -11,14 +11,9 @@
             _path = path;
         }
 
-        public static Navigate ToMaintainCustomers()
+        public static Navigate To(string path)
         {
-            return new Navigate("custmaint.php");
-        }
-
-        public static Navigate ToChangeRegistration()
-        {
-            return new Navigate("changereg.php");
+            return new Navigate(path);
         }
 
         public override void PerformAs(IActor actor, AutoWorkshopDriver driver)

@@ -49,8 +49,8 @@
 
             _actor.AttemptsTo(
                 InsertCustomer.Named(values["Name"])
-                    .WithTitle(values["Title"])
-                    .WithAddress(
+                    .Titled(values["Title"])
+                    .OfAddress(
                         values["Address Line 1"],
                         values["Address Line 2"],
                         values["Address Line 3"],
@@ -75,10 +75,10 @@
                 values["Mobile"]);
 
             _actor.AttemptsTo(
-                Navigate.ToMaintainCustomers(),
+                Navigate.To(CustomerMaintenancePage.Path),
                 CreateCustomer.Named(values["Name"])
-                    .WithTitle(values["Title"])
-                    .WithAddress(
+                    .Titled(values["Title"])
+                    .OfAddress(
                         values["Address Line 1"],
                         values["Address Line 2"],
                         values["Address Line 3"],
@@ -114,7 +114,7 @@
         public void WhenISearchFor(string searchText)
         {
             _actor.AttemptsTo(
-                Navigate.ToMaintainCustomers(),
+                Navigate.To(CustomerMaintenancePage.Path),
                 SendKeys.To(CustomerMaintenancePage.Name, searchText).OneKeyAtATime());
         }
 
@@ -168,7 +168,7 @@
         [Then(@"I should see the following toolbar options")]
         public void ThenIShouldSeeTheFollowingToolbarOptions(Table table)
         {
-            ToolbarButtonInfo[] toolbarButtons = _actor.AsksFor(ToolbarButtons.CurrentlyVisible());
+            ToolbarButtonInfo[] toolbarButtons = _actor.AsksFor(ToolbarButtons.WhichAreVisible());
 
             table.Rows.ForEach(row =>
             {

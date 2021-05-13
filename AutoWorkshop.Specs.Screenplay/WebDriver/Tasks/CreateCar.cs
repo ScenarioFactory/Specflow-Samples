@@ -20,19 +20,19 @@
             return new CreateCar(registration);
         }
 
-        public CreateCar WithMake(string make)
+        public CreateCar AndMake(string make)
         {
             _make = make;
             return this;
         }
 
-        public CreateCar WithModel(string model)
+        public CreateCar AndModel(string model)
         {
             _model = model;
             return this;
         }
 
-        public CreateCar WithYear(string year)
+        public CreateCar ForYear(string year)
         {
             _year = year;
             return this;

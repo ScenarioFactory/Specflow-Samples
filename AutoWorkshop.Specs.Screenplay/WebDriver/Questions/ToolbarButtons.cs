@@ -12,7 +12,7 @@
         {
         }
 
-        public static ToolbarButtons CurrentlyVisible()
+        public static ToolbarButtons WhichAreVisible()
         {
             return new ToolbarButtons();
         }
