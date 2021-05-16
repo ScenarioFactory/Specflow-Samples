@@ -6,20 +6,20 @@
 
     public class Put : RestCall
     {
-        private readonly string _body;
+        private readonly string _resource;
         private string _uri;
 
-        private Put(string body)
+        private Put(string resource)
         {
-            _body = body;
+            _resource = resource;
         }
 
-        public static Put Body<T>(T body)
+        public static Put Resource<T>(T resource)
         {
-            return new Put(body.ToJson());
+            return new Put(resource.ToJson());
         }
 
-        public Put To(string uri)
+        public Put At(string uri)
         {
             _uri = uri;
             return this;
@@ -28,7 +28,7 @@
         protected override IRestResponse AskAs(IActor actor, IRestClient restClient)
         {
             var request = new RestRequest(_uri, DataFormat.Json)
-                .AddJsonBody(_body);
+                .AddJsonBody(_resource);
 
             return restClient.Put(request);
         }

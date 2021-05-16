@@ -46,14 +46,14 @@
 
             _actor.AttemptsTo(
                 InsertCustomer.Named(values["Name"])
-                    .Titled(values["Title"])
+                    .Titled(values.GetStringOrDefault("Title"))
                     .OfAddress(
-                        values["Address Line 1"],
-                        values["Address Line 2"],
-                        values["Address Line 3"],
-                        values["Postcode"])
-                    .WithHomePhone(values["Home Phone"])
-                    .WithMobile(values["Mobile"])
+                        values.GetStringOrDefault("Address Line 1"),
+                        values.GetStringOrDefault("Address Line 2"),
+                        values.GetStringOrDefault("Address Line 3"),
+                        values.GetStringOrDefault("Postcode"))
+                    .WithHomePhone(values.GetStringOrDefault("Home Phone"))
+                    .WithMobile(values.GetStringOrDefault("Mobile"))
                     .WithAccountInvoicingSetTo(values.GetBoolOrDefault("Account Invoicing")));
 
             _storedCustomer = _actor.AsksFor(StoredCustomer.WithName(values["Name"]));
@@ -77,7 +77,7 @@
                 HasAccountInvoicing = values.GetBoolOrDefault("Account Invoicing")
             };
 
-            _response = _actor.Calls(Post.Body(_newCustomerInput).To("api/customer"));
+            _response = _actor.Calls(Post.Resource(_newCustomerInput).To("api/customer"));
         }
 
         [When(@"I request the customer resource via REST")]
@@ -85,7 +85,7 @@
         {
             _storedCustomer.Should().NotBeNull();
 
-            _response = _actor.Calls(Get.From($"api/customer/{_storedCustomer.CustomerId}"));
+            _response = _actor.Calls(Get.ResourceAt($"api/customer/{_storedCustomer.CustomerId}"));
         }
 
         [When(@"I update the customer resource with the following changes via REST")]
@@ -106,7 +106,15 @@
                 HasAccountInvoicing = values.GetBoolOrDefault("Account Invoicing")
             };
 
-            _response = _actor.Calls(Put.Body(_updatedCustomerInput).To($"api/customer/{_storedCustomer.CustomerId}"));
+            _response = _actor.Calls(Put.Resource(_updatedCustomerInput).At($"api/customer/{_storedCustomer.CustomerId}"));
+        }
+
+        [When(@"I delete the customer resource via REST")]
+        public void WhenIDeleteTheCustomerResourceViaRest()
+        {
+            _storedCustomer.Should().NotBeNull();
+
+            _response = _actor.Calls(Delete.ResourceAt($"api/customer/{_storedCustomer.CustomerId}"));
         }
 
         [Then(@"I should receive an HTTP 201 Created response")]
@@ -193,6 +201,15 @@
             storedCustomer.Postcode.Should().Be(_updatedCustomerInput.Postcode);
             storedCustomer.HomePhone.Should().Be(_updatedCustomerInput.HomePhone);
             storedCustomer.Mobile.Should().Be(_updatedCustomerInput.Mobile);
+        }
+
+        [Then(@"the customer should be removed from the system")]
+        public void ThenTheCustomerShouldBeRemovedFromTheSystem()
+        {
+            _storedCustomer.Should().NotBeNull();
+
+            bool customerPresentInStorage = _actor.AsksFor(StoredCustomerExists.WithId(_storedCustomer.CustomerId));
+            customerPresentInStorage.Should().BeFalse();
         }
     }
 }

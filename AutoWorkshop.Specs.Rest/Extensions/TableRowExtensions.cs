@@ -18,5 +18,15 @@
                 _ => bool.Parse(row[column])
             };
         }
+
+        public static string GetStringOrDefault(this TableRow row, string column)
+        {
+            if (row.ContainsKey(column))
+            {
+                return row[column];
+            }
+
+            return null;
+        }
     }
 }

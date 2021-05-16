@@ -3,23 +3,23 @@
     using RestSharp;
     using Screenplay;
 
-    public class Get : RestCall
+    public class Delete : RestCall
     {
         private readonly string _uri;
 
-        private Get(string uri)
+        private Delete(string uri)
         {
             _uri = uri;
         }
 
-        public static Get ResourceAt(string uri)
+        public static Delete ResourceAt(string uri)
         {
-            return new Get(uri);
+            return new Delete(uri);
         }
 
         protected override IRestResponse AskAs(IActor actor, IRestClient restClient)
         {
-            return restClient.Get(new RestRequest(_uri));
+            return restClient.Delete(new RestRequest(_uri));
         }
     }
 }

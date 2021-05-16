@@ -35,3 +35,14 @@ Scenario: Update a customer via REST
 
 	Then I should receive an HTTP 204 No Content response
 	And the changes should be made to the customer in the system
+
+@RestApi
+Scenario: Delete a customer via REST
+	Given this existing customer
+	| Title | Name          |
+	| Miss  | Holly Henshaw |
+
+	When I delete the customer resource via REST
+
+	Then I should receive an HTTP 204 No Content response
+	And the customer should be removed from the system

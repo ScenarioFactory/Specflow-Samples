@@ -6,17 +6,17 @@
 
     public class Post : RestCall
     {
-        private readonly string _body;
+        private readonly string _resource;
         private string _uri;
 
-        private Post(string body)
+        private Post(string resource)
         {
-            _body = body;
+            _resource = resource;
         }
 
-        public static Post Body<T>(T body)
+        public static Post Resource<T>(T resource)
         {
-            return new Post(body.ToJson());
+            return new Post(resource.ToJson());
         }
 
         public Post To(string uri)
@@ -28,7 +28,7 @@
         protected override IRestResponse AskAs(IActor actor, IRestClient restClient)
         {
             var request = new RestRequest(_uri, DataFormat.Json)
-                .AddJsonBody(_body);
+                .AddJsonBody(_resource);
 
             return restClient.Post(request);
         }
