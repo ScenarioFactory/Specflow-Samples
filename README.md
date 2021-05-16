@@ -6,6 +6,8 @@
 
 **AutoWorkshop.Specs.DomainModel** - sample domain model tests.
 
+**AutoWorkshop.Specs.Rest** - sample REST API tests.
+
 **AutoWorkshop.Specs.Screenplay** - sample tests using the screenplay pattern.
 
 **AutoWorkshop.Specs.Stateless** - sample tests using a stateless step file approach to allow maximum step re-use by non-programming QAs. See thoughts below.
