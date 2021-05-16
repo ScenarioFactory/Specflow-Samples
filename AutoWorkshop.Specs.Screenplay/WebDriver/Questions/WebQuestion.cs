@@ -4,7 +4,7 @@
 
     public abstract class WebQuestion<TAnswer> : IQuestion<TAnswer>
     {
-        public abstract TAnswer AskAs(IActor actor, AutoWorkshopDriver driver);
+        protected abstract TAnswer AskAs(IActor actor, AutoWorkshopDriver driver);
 
         public TAnswer AskAs(IActor actor)
         {

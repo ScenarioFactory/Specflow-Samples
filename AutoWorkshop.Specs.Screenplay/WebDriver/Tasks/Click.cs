@@ -17,7 +17,7 @@
             return new Click(locator);
         }
 
-        public override void PerformAs(IActor actor, AutoWorkshopDriver driver)
+        protected override void PerformAs(IActor actor, AutoWorkshopDriver driver)
         {
             driver.WaitForElement(_locator).Click();
         }

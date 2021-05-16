@@ -17,7 +17,7 @@
             return new Text(locator);
         }
 
-        public override string AskAs(IActor actor, AutoWorkshopDriver driver)
+        protected override string AskAs(IActor actor, AutoWorkshopDriver driver)
         {
             return driver.WaitForElement(_locator).Text;
         }

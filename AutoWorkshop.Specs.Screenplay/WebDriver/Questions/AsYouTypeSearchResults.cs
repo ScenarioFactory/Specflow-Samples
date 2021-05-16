@@ -18,7 +18,7 @@
             return new AsYouTypeSearchResults(locator);
         }
 
-        public override string[] AskAs(IActor actor, AutoWorkshopDriver driver)
+        protected override string[] AskAs(IActor actor, AutoWorkshopDriver driver)
         {
             var anchors = driver.WaitForElements(_locator);
 

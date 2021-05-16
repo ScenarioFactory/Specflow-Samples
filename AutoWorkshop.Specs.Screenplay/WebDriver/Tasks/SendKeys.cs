@@ -33,7 +33,7 @@
             return this;
         }
 
-        public override void PerformAs(IActor actor, AutoWorkshopDriver driver)
+        protected override void PerformAs(IActor actor, AutoWorkshopDriver driver)
         {
             IWebElement element = driver.WaitForElement(_locator);
             

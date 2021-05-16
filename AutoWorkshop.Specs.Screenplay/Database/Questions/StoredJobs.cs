@@ -20,7 +20,7 @@
             return new StoredJobs(registration);
         }
 
-        public override JobInfo[] AskAs(IActor actor, string connectionString)
+        protected override JobInfo[] AskAs(IActor actor, string connectionString)
         {
             using var connection = new MySqlConnection(connectionString);
 

@@ -19,7 +19,7 @@
             return new StoredCar(registration);
         }
 
-        public override CarInfo AskAs(IActor actor, string connectionString)
+        protected override CarInfo AskAs(IActor actor, string connectionString)
         {
             using var connection = new MySqlConnection(connectionString);
 

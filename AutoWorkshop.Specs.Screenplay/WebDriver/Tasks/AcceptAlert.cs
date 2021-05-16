@@ -17,7 +17,7 @@
             return new AcceptAlert(text);
         }
 
-        public override void PerformAs(IActor actor, AutoWorkshopDriver driver)
+        protected override void PerformAs(IActor actor, AutoWorkshopDriver driver)
         {
             IAlert alert = driver.SwitchTo().Alert();
 

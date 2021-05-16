@@ -18,7 +18,7 @@
             return new SelectedOptionText(locator);
         }
 
-        public override string AskAs(IActor actor, AutoWorkshopDriver driver)
+        protected override string AskAs(IActor actor, AutoWorkshopDriver driver)
         {
             return new SelectElement(driver.WaitForElement(_locator)).SelectedOption.Text;
         }

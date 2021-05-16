@@ -4,7 +4,7 @@
 
     public abstract class WebTask : ITask
     {
-        public abstract void PerformAs(IActor actor, AutoWorkshopDriver driver);
+        protected abstract void PerformAs(IActor actor, AutoWorkshopDriver driver);
 
         public void PerformAs(IActor actor)
         {

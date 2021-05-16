@@ -38,7 +38,7 @@
             return this;
         }
 
-        public override void PerformAs(IActor actor, AutoWorkshopDriver driver)
+        protected override void PerformAs(IActor actor, AutoWorkshopDriver driver)
         {
             actor.AttemptsTo(
                 SendKeys.To(CarMaintenancePage.Registration, _registration),

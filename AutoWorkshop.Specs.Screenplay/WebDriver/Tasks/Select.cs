@@ -20,7 +20,7 @@
             return new Select(locator, text);
         }
 
-        public override void PerformAs(IActor actor, AutoWorkshopDriver driver)
+        protected override void PerformAs(IActor actor, AutoWorkshopDriver driver)
         {
             new SelectElement(driver.WaitForElement(_locator)).SelectByText(_text);
         }

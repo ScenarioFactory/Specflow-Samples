@@ -16,7 +16,7 @@
             return new Navigate(path);
         }
 
-        public override void PerformAs(IActor actor, AutoWorkshopDriver driver)
+        protected override void PerformAs(IActor actor, AutoWorkshopDriver driver)
         {
             driver.NavigateTo(_path);
         }

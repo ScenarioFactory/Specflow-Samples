@@ -19,7 +19,7 @@
             return new StoredMotReminder(registration);
         }
 
-        public override MotReminderInfo AskAs(IActor actor, string connectionString)
+        protected override MotReminderInfo AskAs(IActor actor, string connectionString)
         {
             using var connection = new MySqlConnection(connectionString);
 

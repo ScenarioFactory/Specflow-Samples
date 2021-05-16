@@ -51,7 +51,7 @@
             return this;
         }
 
-        public override void PerformAs(IActor actor, AutoWorkshopDriver driver)
+        protected override void PerformAs(IActor actor, AutoWorkshopDriver driver)
         {
             actor.AttemptsTo(
                 Select.ByText(CustomerMaintenancePage.Title, _title),

@@ -17,7 +17,7 @@
             return new ToolbarButtons();
         }
 
-        public override ToolbarButtonInfo[] AskAs(IActor actor, AutoWorkshopDriver driver)
+        protected override ToolbarButtonInfo[] AskAs(IActor actor, AutoWorkshopDriver driver)
         {
             ReadOnlyCollection<IWebElement> anchors = driver.WaitForElements(By.XPath("//fieldset//a"));
 

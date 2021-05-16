@@ -19,7 +19,7 @@
             return new StoredCustomer(name);
         }
 
-        public override CustomerInfo AskAs(IActor actor, string connectionString)
+        protected override CustomerInfo AskAs(IActor actor, string connectionString)
         {
             using var connection = new MySqlConnection(connectionString);
 

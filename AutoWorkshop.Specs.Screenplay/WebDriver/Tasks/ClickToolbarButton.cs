@@ -19,7 +19,7 @@
             return new ClickToolbarButton(altTextStartsWith);
         }
 
-        public override void PerformAs(IActor actor, AutoWorkshopDriver driver)
+        protected override void PerformAs(IActor actor, AutoWorkshopDriver driver)
         {
             ReadOnlyCollection<IWebElement> anchors = driver.WaitForElements(By.XPath("//fieldset//a"));
 

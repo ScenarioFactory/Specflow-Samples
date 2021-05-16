@@ -15,7 +15,7 @@
             return new DeleteMotReminders();
         }
 
-        public override void PerformAs(IActor actor, string connectionString)
+        protected override void PerformAs(IActor actor, string connectionString)
         {
             using var connection = new MySqlConnection(connectionString);
 

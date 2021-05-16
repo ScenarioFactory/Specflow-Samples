@@ -4,7 +4,7 @@
 
     public abstract class DatabaseTask : ITask
     {
-        public abstract void PerformAs(IActor actor, string connectionString);
+        protected abstract void PerformAs(IActor actor, string connectionString);
 
         public void PerformAs(IActor actor)
         {

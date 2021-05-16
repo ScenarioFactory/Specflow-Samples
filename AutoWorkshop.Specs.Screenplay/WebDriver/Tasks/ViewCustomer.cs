@@ -16,7 +16,7 @@
             return new ViewCustomer(customerId);
         }
 
-        public override void PerformAs(IActor actor, AutoWorkshopDriver driver)
+        protected override void PerformAs(IActor actor, AutoWorkshopDriver driver)
         {
             driver.NavigateTo($"custmaint.php?custid={_customerId}");
         }
