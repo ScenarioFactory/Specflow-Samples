@@ -29,7 +29,7 @@ Scenario: Update a customer via REST
 	| Title | Name          | Address Line 1 | Address Line 2 | Address Line 3 | Postcode | Home Phone   | Mobile       | Account Invoicing |
 	| Miss  | Holly Henshaw | 101 Highfields | Duston         | Northampton    | NN5 6HH  | 01604 789456 | 07777 987654 | No                |
 
-	When I update the customer with the following changes
+	When I update the customer resource with the following changes via REST
 	| Mobile       | Account Invoicing |
 	| 07771 123456 | Yes               |
 

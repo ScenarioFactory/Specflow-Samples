@@ -88,8 +88,8 @@
             _response = _actor.Calls(Get.From($"api/customer/{_storedCustomer.CustomerId}"));
         }
 
-        [When(@"I update the customer with the following changes")]
-        public void WhenIUpdateTheCustomerWithTheFollowingChanges(Table table)
+        [When(@"I update the customer resource with the following changes via REST")]
+        public void WhenIUpdateTheCustomerResourceWithTheFollowingChangesViaRest(Table table)
         {
             var values = table.Rows.Single();
 
