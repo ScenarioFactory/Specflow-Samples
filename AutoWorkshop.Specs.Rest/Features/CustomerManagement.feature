@@ -51,6 +51,6 @@ Scenario: Delete a customer via REST
 Scenario: Attempting to retrieve a non existent customer returns Not Found
 	Given there is no customer with ID 100
 
-	When I request the customer resource with ID 100 via REST
+	When I request a customer resource with ID 100 via REST
 
 	Then I should receive an HTTP 404 Not Found response

@@ -95,8 +95,8 @@
             _response = _actor.Calls(Get.ResourceAt($"api/customer/{_storedCustomer.CustomerId}"));
         }
 
-        [When(@"I request the customer resource with ID (.*) via REST")]
-        public void WhenIRequestTheCustomerResourceWithIdViaRest(int customerId)
+        [When(@"I request a customer resource with ID (.*) via REST")]
+        public void WhenIRequestACustomerResourceWithIdViaRest(int customerId)
         {
             _response = _actor.Calls(Get.ResourceAt($"api/customer/{customerId}"));
         }
