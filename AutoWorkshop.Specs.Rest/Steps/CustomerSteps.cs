@@ -37,6 +37,13 @@
                 DeleteCustomers.WithName(customerName));
         }
 
+        [Given(@"there is no customer with ID (.*)")]
+        public void GivenThereIsNoCustomerWithId(int customerId)
+        {
+            _actor.AttemptsTo(
+                DeleteCustomer.WithId(customerId));
+        }
+
         [Given(@"this existing customer")]
         public void GivenThisExistingCustomer(Table table)
         {
@@ -86,6 +93,12 @@
             _storedCustomer.Should().NotBeNull();
 
             _response = _actor.Calls(Get.ResourceAt($"api/customer/{_storedCustomer.CustomerId}"));
+        }
+
+        [When(@"I request the customer resource with ID (.*) via REST")]
+        public void WhenIRequestTheCustomerResourceWithIdViaRest(int customerId)
+        {
+            _response = _actor.Calls(Get.ResourceAt($"api/customer/{customerId}"));
         }
 
         [When(@"I update the customer resource with the following changes via REST")]
@@ -139,6 +152,14 @@
             _response.Should().NotBeNull();
 
             _response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        }
+
+        [Then(@"I should receive an HTTP 404 Not Found response")]
+        public void ThenIShouldReceiveAnHttpNotFoundResponse()
+        {
+            _response.Should().NotBeNull();
+
+            _response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
         [Then(@"I should receive the location of the created resource")]

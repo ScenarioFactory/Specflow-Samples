@@ -46,3 +46,11 @@ Scenario: Delete a customer via REST
 
 	Then I should receive an HTTP 204 No Content response
 	And the customer should be removed from the system
+
+@RestApi
+Scenario: Attempting to retrieve a non existent customer returns Not Found
+	Given there is no customer with ID 100
+
+	When I request the customer resource with ID 100 via REST
+
+	Then I should receive an HTTP 404 Not Found response
