@@ -36,8 +36,8 @@
             _jobMaintenancePage.CreateJob(_uiViewInfo);
         }
 
-        [Then(@"the job is added to the system with the details provided")]
-        public void ThenTheJobIsAddedToTheSystemWithTheDetailsProvided()
+        [Then(@"the job should be added to the system with the details provided")]
+        public void ThenTheJobShouldBeAddedToTheSystemWithTheDetailsProvided()
         {
             _uiViewInfo.Should().NotBeNull();
 

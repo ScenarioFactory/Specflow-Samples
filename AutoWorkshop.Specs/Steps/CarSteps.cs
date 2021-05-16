@@ -106,8 +106,8 @@
             unmatchedRows.Should().BeEmpty();
         }
 
-        [Then(@"the following MOT Reminder documents have been generated")]
-        public void ThenTheFollowingMotReminderDocumentsHaveBeenGenerated(Table table)
+        [Then(@"the following MOT Reminder documents should be generated")]
+        public void ThenTheFollowingMotReminderDocumentsShouldBeGenerated(Table table)
         {
             table.Rows.ForEach(row =>
             {

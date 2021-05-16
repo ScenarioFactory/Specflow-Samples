@@ -11,8 +11,8 @@ Scenario: User journey to book in a new customer with a new car and create a wor
 	| Title | Name           | Address Line 1  | Address Line 2  | Address Line 3 | Postcode | Home Phone   | Mobile        |
 	| Miss  | Melanie Morgan | 100 High Street | Chipping Norton | Oxfordshire    | OX15 2YH | 01865 715621 | 07779 5647889 |
 
-	Then the customer is added to the system with the details provided
-	And the customer is marked as manually invoiced
+	Then the customer should be added to the system with the details provided
+	And the customer should be marked as manually invoiced
 
 	# create new car
 	When I select the option to create a new car for the customer
@@ -20,7 +20,7 @@ Scenario: User journey to book in a new customer with a new car and create a wor
 	| Registration | Make    | Model       | Year |
 	| V8MEL        | Bentley | Continental | 2010 |
 	
-	Then the car is added to the system with the details provided
+	Then the car should be added to the system with the details provided
 
 	# create new job
 	When I select the option to create a new job for the car
@@ -28,5 +28,5 @@ Scenario: User journey to book in a new customer with a new car and create a wor
 	| Description              | Date       | Hours | Mileage |
 	| Full service and cambelt | 30/04/2021 | 6.5   | 42500   |
 
-	Then the job is added to the system with the details provided
+	Then the job should be added to the system with the details provided
 

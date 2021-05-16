@@ -23,7 +23,7 @@ Scenario: Create MOT Reminders for certificates expiring in the next 21 days
 	| Registration | MOT Expiry | Make        | Model       | Title | Name           | Address Line 1   | Address Line 2  | Address Line 3 | Postcode |
 	| AY16CPD      | 10/05/2021 | Range Rover | Vogue       | Mrs   | Jane Jones     | 72 Acacia Avenue | Shepherds Bush  | London         | W12 8QT  |
 	| V8MEL        | 15/05/2021 | Bentley     | Continental | Miss  | Melanie Morgan | 100 High Street  | Chipping Norton | Oxfordshire    | OX15 2YH |
-	And the following MOT Reminder documents have been generated
+	And the following MOT Reminder documents should be generated
 	| Document Name |
 	| AY16CPD.pdf   |
 	| V8MEL.pdf     |

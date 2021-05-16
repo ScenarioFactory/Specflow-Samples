@@ -53,8 +53,8 @@
             _carMaintenancePage.AddNewJob();
         }
 
-        [Then(@"the car is added to the system with the details provided")]
-        public void ThenTheCarIsAddedToTheSystemWithTheDetailsProvided()
+        [Then(@"the car should be added to the system with the details provided")]
+        public void ThenTheCarShouldBeAddedToTheSystemWithTheDetailsProvided()
         {
             _uiViewInfo.Should().NotBeNull();
 

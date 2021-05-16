@@ -124,8 +124,8 @@
             _actor.AttemptsTo(ClickToolbarButton.WithAltText("Add a new car"));
         }
 
-        [Then(@"the customer is added to the system with the details provided")]
-        public void ThenTheCustomerIsAddedToTheSystemWithTheDetailsProvided()
+        [Then(@"the customer should be added to the system with the details provided")]
+        public void ThenTheCustomerShouldBeAddedToTheSystemWithTheDetailsProvided()
         {
             _uiViewInfo.Should().NotBeNull();
 
@@ -142,8 +142,8 @@
             _storedCustomer.Mobile.Should().Be(_uiViewInfo.Mobile);
         }
 
-        [Then(@"the customer is marked as manually invoiced")]
-        public void ThenTheCustomerIsMarkedAsManuallyInvoiced()
+        [Then(@"the customer should be marked as manually invoiced")]
+        public void ThenTheCustomerShouldBeMarkedAsManuallyInvoiced()
         {
             _storedCustomer.Should().NotBeNull();
 
