@@ -2,7 +2,7 @@
 
 **AutoWorkshop.DomainModel** - sample domain model to write scenarios against directly.
 
-**AutoWorkshop.SharedKernel** - sample shared messaging types for sending from tests.
+**AutoWorkshop.SharedKernel** - sample shared messaging types to send from tests into a deployed system.
 
 **AutoWorkshop.Specs.DomainModel** - sample domain model tests.
 
