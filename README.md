@@ -18,7 +18,7 @@
 
 - Provide database and other infrastructure access via stateless components.
 - Retain SpecFlow types and parsing of SpecFlow parameters within step files.
-- Avoid coupling steps to infrastructure methods. Pass DTOs or primitives between them.
+- Avoid coupling steps to infrastructure methods. Pass DTOs or primitive types between them.
 - Only perform assertions in steps.
 - Perform polling for eventually consistent values in steps, not infrastructure methods.
 - Use hooks very sparingly and with explicit method names and file locations.
