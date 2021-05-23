@@ -28,7 +28,7 @@
 
         public static DateTime? GetDateOrDefault(this TableRow row, string column)
         {
-            if (row.ContainsKey(column))
+            if (row.ContainsKey(column) && !row[column].Empty())
             {
                 return row.GetDate(column);
             }

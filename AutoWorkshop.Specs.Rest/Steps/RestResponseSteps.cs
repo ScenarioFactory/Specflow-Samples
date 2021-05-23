@@ -16,20 +16,20 @@
             _lastResponse = lastResponse;
         }
 
-        [Then(@"I should receive an HTTP 201 Created response")]
-        public void ThenIShouldReceiveAnHttp201CreatedResponse()
-        {
-            _lastResponse.Response.Should().NotBeNull();
-
-            _lastResponse.Response.StatusCode.Should().Be(HttpStatusCode.Created);
-        }
-
         [Then(@"I should receive an HTTP 200 OK response")]
         public void ThenIShouldReceiveAnHttp200OkayResponse()
         {
             _lastResponse.Response.Should().NotBeNull();
 
             _lastResponse.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        [Then(@"I should receive an HTTP 201 Created response")]
+        public void ThenIShouldReceiveAnHttp201CreatedResponse()
+        {
+            _lastResponse.Response.Should().NotBeNull();
+
+            _lastResponse.Response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
 
         [Then(@"I should receive an HTTP 204 No Content response")]
@@ -46,6 +46,22 @@
             _lastResponse.Response.Should().NotBeNull();
 
             _lastResponse.Response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        }
+
+        [Then(@"I should receive an HTTP 409 Conflict response")]
+        public void ThenIShouldReceiveAnHttp409ConflictResponse()
+        {
+            _lastResponse.Response.Should().NotBeNull();
+
+            _lastResponse.Response.StatusCode.Should().Be(HttpStatusCode.Conflict);
+        }
+
+        [Then(@"the content should contain '(.*)'")]
+        public void ThenTheContentShouldContain(string expectedContent)
+        {
+            _lastResponse.Response.Should().NotBeNull();
+
+            _lastResponse.Response.Content.Should().Contain(expectedContent);
         }
 
         [Then(@"I should receive the location of the created resource")]

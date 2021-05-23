@@ -125,8 +125,7 @@
 
             CarInfo storedCar = _actor.AsksFor(StoredCar.WithRegistration(_newCarInput.Registration));
 
-            storedCar.CustomerId.Should().Be(_newCarInput.CustomerId
-                );
+            storedCar.CustomerId.Should().Be(_newCarInput.CustomerId);
             storedCar.Make.Should().Be(_newCarInput.Make);
             storedCar.Model.Should().Be(_newCarInput.Model);
             storedCar.MotExpiry.Should().Be(_newCarInput.MotExpiry);
@@ -169,6 +168,21 @@
 
             bool carPresentInStorage = _actor.AsksFor(StoredCarExists.WithRegistration(_storedCar.Registration));
             carPresentInStorage.Should().BeFalse();
+        }
+
+        [Then(@"the car should remain unchanged in the system")]
+        public void ThenTheCarShouldRemainUnchangedInTheSystem()
+        {
+            _storedCar.Should().NotBeNull();
+
+            CarInfo latestStoredCar = _actor.AsksFor(StoredCar.WithRegistration(_newCarInput.Registration));
+
+            latestStoredCar.Registration.Should().Be(_storedCar.Registration);
+            latestStoredCar.CustomerId.Should().Be(_storedCar.CustomerId);
+            latestStoredCar.Make.Should().Be(_storedCar.Make);
+            latestStoredCar.Model.Should().Be(_storedCar.Model);
+            latestStoredCar.MotExpiry.Should().Be(_storedCar.MotExpiry);
+            latestStoredCar.SuppressMotReminder.Should().Be(_storedCar.SuppressMotReminder);
         }
     }
 }

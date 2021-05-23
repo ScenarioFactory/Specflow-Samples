@@ -67,3 +67,20 @@ Scenario: Attempting to retrieve a non existent car via REST returns Not Found
 	When I request a car resource with registration 'V8RVR' via REST
 
 	Then I should receive an HTTP 404 Not Found response
+
+@RestApi
+Scenario: Cannot create a new car with an existing registration
+	Given the following existing customer
+	| Title | Name          |
+	| Miss  | Holly Henshaw |
+	And the following existing car
+	| Registration | Customer      | Make        | Model | MOT Expiry | Suppress MOT Reminder |
+	| V8RVR        | Holly Henshaw | Range Rover | Vogue | 31/12/2021 | No                    |
+
+	When I create a new car resource with the following details via REST
+	| Registration | Customer      | Make       | Model     | MOT Expiry | Suppress MOT Reminder |
+	| V8RVR        | Holly Henshaw | Land Rover | Discovery |            | No                    |
+
+	Then I should receive an HTTP 409 Conflict response
+	And the content should contain 'Registration already in use'
+	And the car should remain unchanged in the system
