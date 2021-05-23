@@ -17,14 +17,15 @@
     [Binding]
     public class CustomerSteps
     {
+        private readonly RestResponseInfo _lastResponse;
         private readonly IActor _actor;
         private CustomerInfo _newCustomerInput;
         private CustomerInfo _updatedCustomerInput;
         private CustomerInfo _storedCustomer;
-        private IRestResponse _response;
 
-        public CustomerSteps(AppSettings appSettings)
+        public CustomerSteps(AppSettings appSettings, RestResponseInfo lastResponse)
         {
+            _lastResponse = lastResponse;
             _actor = new Actor().WhoCan(
                 UseMySqlDatabase.With(appSettings.MySqlConnectionString),
                 CallRestApi.Using(new RestClient(appSettings.RestApiUrl)));
@@ -45,6 +46,7 @@
         }
 
         [Given(@"this existing customer")]
+        [Given(@"the following existing customer")]
         public void GivenThisExistingCustomer(Table table)
         {
             var values = table.Rows.Single();
@@ -84,7 +86,7 @@
                 HasAccountInvoicing = values.GetBoolOrDefault("Account Invoicing")
             };
 
-            _response = _actor.Calls(Post.Resource(_newCustomerInput).To("api/customer"));
+            _lastResponse.Response = _actor.Calls(Post.Resource(_newCustomerInput).To("api/customer"));
         }
 
         [When(@"I request the customer resource via REST")]
@@ -92,18 +94,20 @@
         {
             _storedCustomer.Should().NotBeNull();
 
-            _response = _actor.Calls(Get.ResourceAt($"api/customer/{_storedCustomer.CustomerId}"));
+            _lastResponse.Response = _actor.Calls(Get.ResourceAt($"api/customer/{_storedCustomer.CustomerId}"));
         }
 
         [When(@"I request a customer resource with ID (.*) via REST")]
         public void WhenIRequestACustomerResourceWithIdViaRest(int customerId)
         {
-            _response = _actor.Calls(Get.ResourceAt($"api/customer/{customerId}"));
+            _lastResponse.Response = _actor.Calls(Get.ResourceAt($"api/customer/{customerId}"));
         }
 
         [When(@"I update the customer resource with the following changes via REST")]
         public void WhenIUpdateTheCustomerResourceWithTheFollowingChangesViaRest(Table table)
         {
+            _storedCustomer.Should().NotBeNull();
+            
             var values = table.Rows.Single();
 
             _updatedCustomerInput = new CustomerInfo
@@ -119,7 +123,7 @@
                 HasAccountInvoicing = values.GetBoolOrDefault("Account Invoicing")
             };
 
-            _response = _actor.Calls(Put.Resource(_updatedCustomerInput).At($"api/customer/{_storedCustomer.CustomerId}"));
+            _lastResponse.Response = _actor.Calls(Put.Resource(_updatedCustomerInput).At($"api/customer/{_storedCustomer.CustomerId}"));
         }
 
         [When(@"I delete the customer resource via REST")]
@@ -127,50 +131,9 @@
         {
             _storedCustomer.Should().NotBeNull();
 
-            _response = _actor.Calls(Delete.ResourceAt($"api/customer/{_storedCustomer.CustomerId}"));
+            _lastResponse.Response = _actor.Calls(Delete.ResourceAt($"api/customer/{_storedCustomer.CustomerId}"));
         }
-
-        [Then(@"I should receive an HTTP 201 Created response")]
-        public void ThenIShouldReceiveAnHttp201CreatedResponse()
-        {
-            _response.Should().NotBeNull();
-
-            _response.StatusCode.Should().Be(HttpStatusCode.Created);
-        }
-
-        [Then(@"I should receive an HTTP 200 OK response")]
-        public void ThenIShouldReceiveAnHttp200OkayResponse()
-        {
-            _response.Should().NotBeNull();
-
-            _response.StatusCode.Should().Be(HttpStatusCode.OK);
-        }
-
-        [Then(@"I should receive an HTTP 204 No Content response")]
-        public void ThenIShouldReceiveAnHttp204NoContentResponse()
-        {
-            _response.Should().NotBeNull();
-
-            _response.StatusCode.Should().Be(HttpStatusCode.NoContent);
-        }
-
-        [Then(@"I should receive an HTTP 404 Not Found response")]
-        public void ThenIShouldReceiveAnHttpNotFoundResponse()
-        {
-            _response.Should().NotBeNull();
-
-            _response.StatusCode.Should().Be(HttpStatusCode.NotFound);
-        }
-
-        [Then(@"I should receive the location of the created resource")]
-        public void ThenIShouldReceiveTheLocationOfTheCreatedResource()
-        {
-            _response.Should().NotBeNull();
-
-            bool locationHeaderPresent = _response.Headers.Any(p => p.Name == "Location");
-            locationHeaderPresent.Should().BeTrue();
-        }
-
+        
         [Then(@"the customer should be added to the system with the details provided")]
         public void ThenTheCustomerShouldBeAddedToTheSystemWithTheDetailsProvided()
         {
@@ -191,10 +154,10 @@
         [Then(@"I should receive the full details of the customer")]
         public void ThenIShouldReceiveTheFullDetailsOfTheCustomer()
         {
-            _response.Should().NotBeNull();
+            _lastResponse.Response.Should().NotBeNull();
             _storedCustomer.Should().NotBeNull();
 
-            CustomerInfo responseCustomer = _response.Content.FromJson<CustomerInfo>();
+            CustomerInfo responseCustomer = _lastResponse.Response.Content.FromJson<CustomerInfo>();
 
             responseCustomer.CustomerId.Should().Be(_storedCustomer.CustomerId);
             responseCustomer.Title.Should().Be(_storedCustomer.Title);

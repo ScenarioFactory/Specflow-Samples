@@ -23,7 +23,7 @@
 - Perform polling for eventually consistent values in steps, not infrastructure methods.
 - Use hooks very sparingly and with explicit method names and file locations.
 - Avoid sharing state between step files.
-- When state is shared between steps in the same file, use local member variables, not injected types.
+- When state is shared between steps in the same file, use local member variables where possible over injected types.
 - Where state is shared between steps, assert the state with an explicit guard in dependent steps.
 
 ### Stateless v stateful step files philosophy

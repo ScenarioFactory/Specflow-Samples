@@ -10,6 +10,7 @@ Scenario: Create a new customer via REST
 
 	Then I should receive an HTTP 201 Created response
 	And I should receive the location of the created resource
+	And the response should be in JSON format
 	And the customer should be added to the system with the details provided
 
 @RestApi
@@ -21,6 +22,7 @@ Scenario: Retrieve a customer via REST
 	When I request the customer resource via REST
 
 	Then I should receive an HTTP 200 OK response
+	And the response should be in JSON format
 	And I should receive the full details of the customer
 
 @RestApi
@@ -48,7 +50,7 @@ Scenario: Delete a customer via REST
 	And the customer should be removed from the system
 
 @RestApi
-Scenario: Attempting to retrieve a non existent customer returns Not Found
+Scenario: Attempting to retrieve a non existent customer via REST returns Not Found
 	Given there is no customer with ID 100
 
 	When I request a customer resource with ID 100 via REST
