@@ -56,8 +56,8 @@
             _storedCar = _actor.AsksFor(StoredCar.WithRegistration(values["Registration"]));
         }
 
-        [When(@"I create a new car resource with the following details via REST")]
-        public void WhenICreateANewCarResourceWithTheFollowingDetailsViaRest(Table table)
+        [When(@"I create a new car resource with the following details")]
+        public void WhenICreateANewCarResourceWithTheFollowingDetails(Table table)
         {
             var values = table.Rows.Single();
 
@@ -76,22 +76,22 @@
             _lastResponse.Response = _actor.Calls(Post.Resource(_newCarInput).To("api/car"));
         }
 
-        [When(@"I request the car resource via REST")]
-        public void WhenIRequestTheCarResourceViaRest()
+        [When(@"I request the car resource")]
+        public void WhenIRequestTheCarResource()
         {
             _storedCar.Should().NotBeNull();
 
             _lastResponse.Response = _actor.Calls(Get.ResourceAt($"api/car/{_storedCar.Registration}"));
         }
 
-        [When(@"I request a car resource with registration (.*) via REST")]
-        public void WhenIRequestACarResourceWithRegistrationViaRest(string registration)
+        [When(@"I request a car resource with registration (.*)")]
+        public void WhenIRequestACarResourceWithRegistration(string registration)
         {
             _lastResponse.Response = _actor.Calls(Get.ResourceAt($"api/car/{registration}"));
         }
 
-        [When(@"I update the car resource with the following changes via REST")]
-        public void WhenIUpdateTheCarResourceWithTheFollowingChangesViaRest(Table table)
+        [When(@"I update the car resource with the following changes")]
+        public void WhenIUpdateTheCarResourceWithTheFollowingChanges(Table table)
         {
             _storedCar.Should().NotBeNull();
 
@@ -110,8 +110,8 @@
             _lastResponse.Response = _actor.Calls(Put.Resource(_updatedCarInput).At($"api/car/{_updatedCarInput.Registration}"));
         }
 
-        [When(@"I delete the car resource via REST")]
-        public void WhenIDeleteTheCarResourceViaRest()
+        [When(@"I delete the car resource")]
+        public void WhenIDeleteTheCarResource()
         {
             _storedCar.Should().NotBeNull();
 

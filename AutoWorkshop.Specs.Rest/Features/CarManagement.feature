@@ -7,7 +7,7 @@ Scenario: Create a new car via REST
 	| Title | Name          |
 	| Miss  | Holly Henshaw |
 
-	When I create a new car resource with the following details via REST
+	When I create a new car resource with the following details
 	| Registration | Customer      | Make        | Model | MOT Expiry | Suppress MOT Reminder |
 	| V8RVR        | Holly Henshaw | Range Rover | Vogue | 31/12/2021 | No                    |
 
@@ -24,7 +24,7 @@ Scenario: Retrieve a car via REST
 	| Registration | Customer      | Make        | Model | MOT Expiry | Suppress MOT Reminder |
 	| V8RVR        | Holly Henshaw | Range Rover | Vogue | 31/12/2021 | No                    |
 
-	When I request the car resource via REST
+	When I request the car resource
 
 	Then I should receive an HTTP 200 OK response
 	And the response should be in JSON format
@@ -39,7 +39,7 @@ Scenario: Update a car via REST
 	| Registration | Customer      | Make        | Model | MOT Expiry | Suppress MOT Reminder |
 	| V8RVR        | Holly Henshaw | Range Rover | Vogue | 31/12/2021 | No                    |
 
-	When I update the car resource with the following changes via REST
+	When I update the car resource with the following changes
 	| Model    | MOT Expiry |
 	| Vogue SE | 31/12/2022 |
 
@@ -55,7 +55,7 @@ Scenario: Delete a car via REST
 	| Registration | Customer      | Make        | Model | MOT Expiry | Suppress MOT Reminder |
 	| V8RVR        | Holly Henshaw | Range Rover | Vogue | 31/12/2021 | No                    |
 
-	When I delete the car resource via REST
+	When I delete the car resource
 
 	Then I should receive an HTTP 204 No Content response
 	And the car should be removed from the system
@@ -64,7 +64,7 @@ Scenario: Delete a car via REST
 Scenario: Attempting to retrieve a non existent car via REST returns Not Found
 	Given there is no car with registration 'V8RVR'
 
-	When I request a car resource with registration 'V8RVR' via REST
+	When I request a car resource with registration 'V8RVR'
 
 	Then I should receive an HTTP 404 Not Found response
 
@@ -77,7 +77,7 @@ Scenario: Cannot create a new car with an existing registration
 	| Registration | Customer      | Make        | Model | MOT Expiry | Suppress MOT Reminder |
 	| V8RVR        | Holly Henshaw | Range Rover | Vogue | 31/12/2021 | No                    |
 
-	When I create a new car resource with the following details via REST
+	When I create a new car resource with the following details
 	| Registration | Customer      | Make       | Model     | MOT Expiry | Suppress MOT Reminder |
 	| V8RVR        | Holly Henshaw | Land Rover | Discovery |            | No                    |
 

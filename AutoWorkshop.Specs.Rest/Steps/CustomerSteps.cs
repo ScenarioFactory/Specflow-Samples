@@ -68,8 +68,8 @@
             _storedCustomer = _actor.AsksFor(StoredCustomer.WithName(values["Name"]));
         }
 
-        [When(@"I create a new customer resource with the following details via REST")]
-        public void WhenICreateANewCustomerResourceWithTheFollowingDetailsViaRest(Table table)
+        [When(@"I create a new customer resource with the following details")]
+        public void WhenICreateANewCustomerResourceWithTheFollowingDetails(Table table)
         {
             var values = table.Rows.Single();
 
@@ -89,22 +89,22 @@
             _lastResponse.Response = _actor.Calls(Post.Resource(_newCustomerInput).To("api/customer"));
         }
 
-        [When(@"I request the customer resource via REST")]
-        public void WhenIRequestTheCustomerResourceViaRest()
+        [When(@"I request the customer resource")]
+        public void WhenIRequestTheCustomerResource()
         {
             _storedCustomer.Should().NotBeNull();
 
             _lastResponse.Response = _actor.Calls(Get.ResourceAt($"api/customer/{_storedCustomer.CustomerId}"));
         }
 
-        [When(@"I request a customer resource with ID (.*) via REST")]
-        public void WhenIRequestACustomerResourceWithIdViaRest(int customerId)
+        [When(@"I request a customer resource with ID (.*)")]
+        public void WhenIRequestACustomerResourceWithId(int customerId)
         {
             _lastResponse.Response = _actor.Calls(Get.ResourceAt($"api/customer/{customerId}"));
         }
 
-        [When(@"I update the customer resource with the following changes via REST")]
-        public void WhenIUpdateTheCustomerResourceWithTheFollowingChangesViaRest(Table table)
+        [When(@"I update the customer resource with the following changes")]
+        public void WhenIUpdateTheCustomerResourceWithTheFollowingChanges(Table table)
         {
             _storedCustomer.Should().NotBeNull();
             
@@ -126,8 +126,8 @@
             _lastResponse.Response = _actor.Calls(Put.Resource(_updatedCustomerInput).At($"api/customer/{_storedCustomer.CustomerId}"));
         }
 
-        [When(@"I delete the customer resource via REST")]
-        public void WhenIDeleteTheCustomerResourceViaRest()
+        [When(@"I delete the customer resource")]
+        public void WhenIDeleteTheCustomerResource()
         {
             _storedCustomer.Should().NotBeNull();
 
