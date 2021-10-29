@@ -21,6 +21,7 @@
 - Avoid coupling steps to infrastructure methods. Pass DTOs or primitive types between them.
 - Only perform assertions in steps.
 - Perform polling for eventually consistent values in steps, not infrastructure methods.
+- Perform waiting for UI spinners and page loads in the steps that triggered them, not the steps that follow.
 - Use hooks very sparingly and with explicit method names and file locations.
 - Avoid sharing state between step files.
 - When state is shared between steps in the same file, use local member variables where possible over injected types.
