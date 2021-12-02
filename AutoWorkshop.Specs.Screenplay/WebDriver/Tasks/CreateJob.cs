@@ -46,7 +46,8 @@
                 ChooseDate.For(JobMaintenancePage.Start, _date),
                 SendKeys.To(JobMaintenancePage.Hours, _hours.ToString("0.##")),
                 SendKeys.To(JobMaintenancePage.Mileage, _mileage.ToString()),
-                Click.On(JobMaintenancePage.Save));
+                Click.On(JobMaintenancePage.Save),
+                AcceptAlert.StartsWithText("Have you checked MOT"));
         }
     }
 }

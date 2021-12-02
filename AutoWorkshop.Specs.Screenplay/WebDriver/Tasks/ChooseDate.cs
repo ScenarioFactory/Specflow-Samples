@@ -23,7 +23,7 @@
         protected override void PerformAs(IActor actor, AutoWorkshopDriver driver)
         {
             IWebElement webElement = driver.WaitForElement(_locator);
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].value = arguments[1]", webElement, _date.ToString("dd MMMM yyyy"));
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].value = arguments[1]", webElement, _date.ToString("dd MMM yyyy"));
         }
     }
 }

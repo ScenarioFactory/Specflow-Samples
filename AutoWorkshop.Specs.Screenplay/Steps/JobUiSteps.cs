@@ -6,6 +6,7 @@
     using Dto;
     using Extensions;
     using FluentAssertions;
+    using Framework;
     using Pattern;
     using TechTalk.SpecFlow;
     using WebDriver;
@@ -48,14 +49,21 @@
         {
             _uiViewInfo.Should().NotBeNull();
 
-            JobInfo[] storedJobs = _actor.AsksFor(StoredJobs.ForRegistration(_uiViewInfo.Registration));
+            JobInfo matchingJob = null;
 
-            JobInfo matchingJob = storedJobs.SingleOrDefault(j =>
-                j.Registration == _uiViewInfo.Registration &&
-                j.Description == _uiViewInfo.Description &&
-                j.Date == _uiViewInfo.Date &&
-                j.Hours == _uiViewInfo.Hours &&
-                j.Mileage == _uiViewInfo.Mileage);
+            Poller.PollForSuccess(() =>
+            {
+                JobInfo[] storedJobs = _actor.AsksFor(StoredJobs.ForRegistration(_uiViewInfo.Registration));
+
+                matchingJob = storedJobs.SingleOrDefault(j =>
+                    j.Registration == _uiViewInfo.Registration &&
+                    j.Description == _uiViewInfo.Description &&
+                    j.Date == _uiViewInfo.Date &&
+                    j.Hours == _uiViewInfo.Hours &&
+                    j.Mileage == _uiViewInfo.Mileage);
+
+                return matchingJob != null;
+            });
 
             matchingJob.Should().NotBeNull();
         }

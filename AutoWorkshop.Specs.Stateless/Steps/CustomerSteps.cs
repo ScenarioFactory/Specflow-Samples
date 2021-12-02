@@ -160,7 +160,7 @@
         [Then(@"I should see '(.*)' in the list of as-you-type results")]
         public void ThenIShouldSeeInTheListOfAs_You_TypeResults(string customerName)
         {
-            bool foundExpectedCustomerInSearchResults = Poller.PollForResult(() =>
+            bool foundExpectedCustomerInSearchResults = Poller.PollForSuccess(() =>
                 _customerMaintenancePage.GetAsYouTypeSearchResults().Contains(customerName));
 
             foundExpectedCustomerInSearchResults.Should().BeTrue();

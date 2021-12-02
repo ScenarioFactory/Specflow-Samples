@@ -163,7 +163,7 @@
         {
             _storedCustomer.Should().NotBeNull();
 
-            bool foundExpectedCustomerInSearchResults = Poller.PollForResult(() =>
+            bool foundExpectedCustomerInSearchResults = Poller.PollForSuccess(() =>
                 _customerMaintenancePage.GetAsYouTypeSearchResults().Contains(_storedCustomer.Name));
 
             foundExpectedCustomerInSearchResults.Should().BeTrue();

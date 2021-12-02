@@ -73,7 +73,7 @@
                 return unmatchedRows.None();
             }
 
-            Poller.PollForResult(FindUnmatchedRows, pollingLimit, pollingIntervalSeconds);
+            Poller.PollForSuccess(FindUnmatchedRows, pollingLimit, pollingIntervalSeconds);
 
             return unmatchedRows.ToArray();
         }

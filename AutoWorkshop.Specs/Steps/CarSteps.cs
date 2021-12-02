@@ -119,7 +119,7 @@
                     return _blobStorage.Exists(blobContainerName, blobFileName);
                 }
 
-                bool documentGenerated = Poller.PollForResult(IsDocumentInBlobStorage);
+                bool documentGenerated = Poller.PollForSuccess(IsDocumentInBlobStorage);
 
                 documentGenerated.Should().BeTrue($"document {row["Document Name"]} should be present in blob storage");
             });

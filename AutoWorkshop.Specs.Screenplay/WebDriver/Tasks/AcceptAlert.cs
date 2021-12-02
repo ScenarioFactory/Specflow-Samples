@@ -12,18 +12,23 @@
             _text = text;
         }
 
-        public static AcceptAlert WithText(string text)
+        public static AcceptAlert StartsWithText(string text)
         {
             return new AcceptAlert(text);
         }
 
         protected override void PerformAs(IActor actor, AutoWorkshopDriver driver)
         {
-            IAlert alert = driver.SwitchTo().Alert();
+            IAlert alert = driver.Wait(5).Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
 
-            if (alert.Text == _text)
+            if (alert != null)
             {
-                driver.SwitchTo().Alert().Accept();
+                driver.SwitchTo().Alert();
+
+                if (alert.Text.StartsWith(_text))
+                {
+                    driver.SwitchTo().Alert().Accept();
+                }
             }
         }
     }

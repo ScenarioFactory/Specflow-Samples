@@ -26,6 +26,13 @@
             Driver.FindElement(Mileage).SendKeys(viewInfo.Mileage.ToString());
 
             Driver.FindElement(Save).Click();
+
+            IAlert alert = Driver.Wait(5).Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
+
+            if (alert != null && alert.Text.StartsWith("Have you checked MOT"))
+            {
+                alert.Accept();
+            }
         }
     }
 }

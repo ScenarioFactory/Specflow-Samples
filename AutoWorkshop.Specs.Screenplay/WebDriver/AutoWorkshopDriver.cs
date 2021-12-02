@@ -10,7 +10,6 @@
     public class AutoWorkshopDriver : ChromeDriver
     {
         private readonly AppSettings _appSettings;
-        private const int TimeoutSeconds = 10;
 
         public AutoWorkshopDriver(AppSettings appSettings)
         {
@@ -44,9 +43,9 @@
             });
         }
 
-        private WebDriverWait Wait()
+        public WebDriverWait Wait(int timeoutSeconds = 10)
         {
-            var wait = new WebDriverWait(this, TimeSpan.FromSeconds(TimeoutSeconds));
+            var wait = new WebDriverWait(this, TimeSpan.FromSeconds(timeoutSeconds));
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
 
             return wait;
