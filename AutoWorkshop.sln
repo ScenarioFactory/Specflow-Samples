@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoWorkshop.SharedKernel",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoWorkshop.Specs.Screenplay", "AutoWorkshop.Specs.Screenplay\AutoWorkshop.Specs.Screenplay.csproj", "{D11DB7BB-445B-4305-BE9D-CCDD1903DD66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoWorkshop.Specs.Rest", "AutoWorkshop.Specs.Rest\AutoWorkshop.Specs.Rest.csproj", "{FADFF112-95AA-4A34-A0C7-2C0419BDF669}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoWorkshop.Specs.Rest", "AutoWorkshop.Specs.Rest\AutoWorkshop.Specs.Rest.csproj", "{FADFF112-95AA-4A34-A0C7-2C0419BDF669}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.AutomationFramework", "Samples.AutomationFramework\Samples.AutomationFramework.csproj", "{A287E37F-65C8-4281-9752-61EAFFBDF42C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{FADFF112-95AA-4A34-A0C7-2C0419BDF669}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FADFF112-95AA-4A34-A0C7-2C0419BDF669}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FADFF112-95AA-4A34-A0C7-2C0419BDF669}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A287E37F-65C8-4281-9752-61EAFFBDF42C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A287E37F-65C8-4281-9752-61EAFFBDF42C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A287E37F-65C8-4281-9752-61EAFFBDF42C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A287E37F-65C8-4281-9752-61EAFFBDF42C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

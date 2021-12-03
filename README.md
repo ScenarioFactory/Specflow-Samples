@@ -14,6 +14,8 @@
 
 **AutoWorkshop.Specs** - sample tests using stateful steps for highly readable Gherkin.
 
+**Samples.AutomationFramework** - sample supporting code used to build a SpecFlow automation framework.
+
 ### SpecFlow test suite principles
 
 - Provide database and other infrastructure access via stateless components.
