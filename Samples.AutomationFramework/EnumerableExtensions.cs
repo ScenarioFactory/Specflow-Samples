@@ -23,5 +23,10 @@
         {
             return !source.Any(predicate);
         }
+
+        public static T Second<T>(this IEnumerable<T> source)
+        {
+            return source.Skip(1).First();
+        }
     }
 }

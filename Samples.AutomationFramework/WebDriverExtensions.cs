@@ -12,16 +12,17 @@
 
     public static class WebDriverExtensions
     {
-        public static void BringElementToTopAndClickByTitle(this IWebDriver driver, string title)
+        public static void BringElementToTopAndClick(this IWebDriver driver, By locator)
         {
-            string script = $@"
-                var element = document.querySelector('[title=""{title}""]');
-                element.style.zIndex = '-1';
-                element.click();
+            IWebElement element = driver.Wait().Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(locator));
+
+            string script = @"
+                arguments[0].setAttribute('style.zIndex', '-1');
+                arguments[0].click();
             ";
 
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript(script);
+            js.ExecuteScript(script, element);
         }
 
         public static void ClickElementAtOffsetWhenClickable(this IWebDriver driver, By locator, int x, int y)
@@ -71,12 +72,6 @@
             }
 
             FunctionRetrier.RetryOnException<StaleElementReferenceException>(WebDriverActions);
-        }
-
-        // this method should be removed and calls to it refactored to use ClickElementWhenClickable at a convenient point
-        public static void ClickElementWhenVisible(this IWebDriver driver, By locator)
-        {
-            driver.ClickElementWhenClickable(locator);
         }
 
         public static void ClickFirstElementWhenVisible(this IWebDriver driver, By locator)
