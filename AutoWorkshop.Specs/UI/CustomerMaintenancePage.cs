@@ -2,10 +2,10 @@
 {
     using System.Linq;
     using Dto;
+    using Framework;
     using OpenQA.Selenium;
-    using OpenQA.Selenium.Support.UI;
 
-    public class CustomerMaintenancePage : Page
+    public class CustomerMaintenancePage
     {
         private const string PageUrl = "custmaint.php";
         private static readonly By Title = By.Name("title");
@@ -19,74 +19,78 @@
         private static readonly By Save = By.Name("save");
         private static readonly By AsYouTypeSearchResultAnchors = By.XPath("//div[@id='matchingPanel']//a");
 
-        public CustomerMaintenancePage(AutoWorkshopDriver driver) :base(driver)
+        private readonly AutoWorkshopDriver _driver;
+
+        public CustomerMaintenancePage(AutoWorkshopDriver driver, Toolbar toolbar)
         {
+            _driver = driver;
+            Toolbar = toolbar;
         }
+
+        public Toolbar Toolbar { get; }
 
         public void Open()
         {
-            Driver.NavigateTo(PageUrl);
+            _driver.NavigateTo(PageUrl);
         }
 
         public void Open(int customerId)
         {
-            Driver.NavigateTo($"{PageUrl}?custid={customerId}");
+            _driver.NavigateTo($"{PageUrl}?custid={customerId}");
         }
 
         public void CreateCustomer(CustomerUiViewInfo viewInfo)
         {
-            var titleSelectElement = new SelectElement(Driver.WaitForElement(Title));
-            titleSelectElement.SelectByText(viewInfo.Title);
+            _driver.SelectOptionByTextWhenVisible(Title, viewInfo.Title);
 
-            Driver.FindElement(Name).SendKeys(viewInfo.Name);
-            Driver.FindElement(AddressLine1).SendKeys(viewInfo.AddressLine1);
-            Driver.FindElement(AddressLine2).SendKeys(viewInfo.AddressLine2);
-            Driver.FindElement(AddressLine3).SendKeys(viewInfo.AddressLine3);
-            Driver.FindElement(Postcode).SendKeys(viewInfo.Postcode);
-            Driver.FindElement(HomePhone).SendKeys(viewInfo.HomePhone);
-            Driver.FindElement(Mobile).SendKeys(viewInfo.Mobile);
+            _driver.SendKeysWhenVisible(Name, viewInfo.Name);
+            _driver.SendKeysWhenVisible(AddressLine1, viewInfo.AddressLine1);
+            _driver.SendKeysWhenVisible(AddressLine2, viewInfo.AddressLine2);
+            _driver.SendKeysWhenVisible(AddressLine3, viewInfo.AddressLine3);
+            _driver.SendKeysWhenVisible(Postcode, viewInfo.Postcode);
+            _driver.SendKeysWhenVisible(HomePhone, viewInfo.HomePhone);
+            _driver.SendKeysWhenVisible(Mobile, viewInfo.Mobile);
 
-            Driver.FindElement(Save).Click();
+            _driver.ClickElementWhenClickable(Save);
         }
 
         public void UpdateMobile(string mobileNumber)
         {
-            Driver.FindElement(Mobile).Clear();
-            Driver.FindElement(Mobile).SendKeys(mobileNumber);
-            Driver.FindElement(Save).Click();
+            _driver.SendKeysWhenVisible(Mobile, mobileNumber);
+
+            _driver.ClickElementWhenClickable(Save);
         }
 
         public CustomerUiViewInfo GetViewInfo()
         {
             return new CustomerUiViewInfo(
-                new SelectElement(Driver.WaitForElement(Title)).SelectedOption.Text,
-                Driver.FindElement(Name).GetAttribute("value"),
-                Driver.FindElement(AddressLine1).GetAttribute("value"),
-                Driver.FindElement(AddressLine2).GetAttribute("value"),
-                Driver.FindElement(AddressLine3).GetAttribute("value"),
-                Driver.FindElement(Postcode).GetAttribute("value"),
-                Driver.FindElement(HomePhone).GetAttribute("value"),
-                Driver.FindElement(Mobile).GetAttribute("value"));
+                _driver.GetSelectedOptionTextWhenVisible(Title),
+                _driver.GetElementAttributeValueWhenVisible(Name, "value"),
+                _driver.GetElementAttributeValueWhenVisible(AddressLine1, "value"),
+                _driver.GetElementAttributeValueWhenVisible(AddressLine2, "value"),
+                _driver.GetElementAttributeValueWhenVisible(AddressLine3, "value"),
+                _driver.GetElementAttributeValueWhenVisible(Postcode, "value"),
+                _driver.GetElementAttributeValueWhenVisible(HomePhone, "value"),
+                _driver.GetElementAttributeValueWhenVisible(Mobile, "value"));
         }
 
         public void EnterName(string searchText)
         {
-            Driver.FindElement(Name).SendKeys(searchText);
+            _driver.SendKeysWhenVisible(Name, searchText);
         }
 
         public string[] GetAsYouTypeSearchResults()
         {
-            var anchors = Driver.WaitForElements(AsYouTypeSearchResultAnchors);
+            string[] textValues = _driver.GetMultipleElementTextValuesWhenVisible(AsYouTypeSearchResultAnchors);
 
-            return anchors
-                .Where((a, i) => i % 2 != 0)
-                .Select(a => a.Text)
+            return textValues
+                .Where((a, i) => i % 2 != 0) // get every other value
                 .ToArray();
         }
 
         public void AddNewCar()
         {
-            Toolbar.FindButtonByAltText("Add a new car").Click();
+            Toolbar.ClickButtonByAltText("Add a new car");
         }
     }
 }

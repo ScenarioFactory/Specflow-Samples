@@ -2,7 +2,7 @@
 {
     using System.Threading.Tasks;
     using Azure.Messaging.ServiceBus;
-    using Extensions;
+    using Framework;
 
     public class ServiceBus
     {

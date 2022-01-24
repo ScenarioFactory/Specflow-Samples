@@ -1,10 +1,9 @@
-﻿namespace AutoWorkshop.Specs.Extensions
+﻿namespace AutoWorkshop.Specs.Framework
 {
     using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
-    using Framework;
     using TechTalk.SpecFlow;
 
     public static class TableRowExtensions

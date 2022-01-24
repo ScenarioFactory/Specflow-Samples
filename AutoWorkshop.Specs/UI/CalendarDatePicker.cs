@@ -16,8 +16,7 @@
 
         public void SetValue(DateTime value)
         {
-            ((IJavaScriptExecutor) _driver).ExecuteScript("arguments[0].value = arguments[1]",
-                _webElement, value.ToString("dd MMM yyyy"));
+            ((IJavaScriptExecutor) _driver).ExecuteScript("arguments[0].value = arguments[1]", _webElement, value.ToString("dd MMM yyyy"));
         }
     }
 }

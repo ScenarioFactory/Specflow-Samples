@@ -1,11 +1,8 @@
 ﻿namespace AutoWorkshop.Specs.UI
 {
     using System;
-    using System.Collections.ObjectModel;
-    using System.Linq;
     using OpenQA.Selenium;
     using OpenQA.Selenium.Chrome;
-    using OpenQA.Selenium.Support.UI;
 
     public class AutoWorkshopDriver : ChromeDriver
     {
@@ -23,32 +20,6 @@
         public void NavigateTo(string path)
         {
             Url = Uri.EscapeUriString($"{_appSettings.BaseUrl}/{path}");
-        }
-
-        public IWebElement WaitForElement(By findBy)
-        {
-            return Wait().Until(d =>
-            {
-                IWebElement element = d.FindElement(findBy);
-                return element is {Displayed: true} ? element : null;
-            });
-        }
-
-        public ReadOnlyCollection<IWebElement> WaitForElements(By findBy)
-        {
-            return Wait().Until(d =>
-            {
-                ReadOnlyCollection<IWebElement> elements = d.FindElements(findBy);
-                return elements.Count > 0 && elements.All(e => e.Displayed) ? elements : null;
-            });
-        }
-
-        public WebDriverWait Wait(int timeoutSeconds = 10)
-        {
-            var wait = new WebDriverWait(this, TimeSpan.FromSeconds(timeoutSeconds));
-            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-
-            return wait;
         }
     }
 }

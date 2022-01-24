@@ -2,6 +2,7 @@
 {
     using System.Collections.ObjectModel;
     using System.Linq;
+    using Framework;
     using OpenQA.Selenium;
 
     public class Toolbar
@@ -13,21 +14,32 @@
             _driver = driver;
         }
 
-        public ToolbarButton[] Buttons
+        public void ClickButtonByAltText(string startsWith)
         {
-            get
+            void WebDriverActions()
             {
-                ReadOnlyCollection<IWebElement> anchors = _driver.WaitForElements(By.XPath("//fieldset//a"));
+                ReadOnlyCollection<IWebElement> anchors = _driver.GetMultipleElementsWhenVisible(By.XPath("//fieldset//a"));
 
-                return anchors
-                    .Select(anchor => new ToolbarButton(anchor))
-                    .ToArray();
+                anchors
+                    .SingleOrDefault(anchor => anchor.FindElement(By.TagName("img")).GetAttribute("Alt").StartsWith(startsWith))
+                    ?.Click();
             }
+
+            FunctionRetrier.RetryOnException<StaleElementReferenceException>(WebDriverActions);
         }
 
-        public ToolbarButton FindButtonByAltText(string startsWith)
+        public bool HasButtonWithAltText(string startsWith)
         {
-            return Buttons.SingleOrDefault(b => b.AltText.StartsWith(startsWith));
+            bool WebDriverActions()
+            {
+                ReadOnlyCollection<IWebElement> anchors = _driver.GetMultipleElementsWhenVisible(By.XPath("//fieldset//a"));
+
+                return anchors
+                    .Select(anchor => anchor.FindElement(By.TagName("img")).GetAttribute("Alt"))
+                    .Any(altText => altText.StartsWith(startsWith));
+            }
+
+            return FunctionRetrier.RetryOnException<bool, StaleElementReferenceException>(WebDriverActions);
         }
     }
 }

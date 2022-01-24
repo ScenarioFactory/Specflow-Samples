@@ -1,8 +1,9 @@
 ﻿namespace AutoWorkshop.Specs.UI
 {
+    using Framework;
     using OpenQA.Selenium;
 
-    public class ChangeCarRegistrationPage : Page
+    public class ChangeCarRegistrationPage
     {
         private const string PageUrl = "changereg.php";
         private static readonly By CurrentRegistration = By.Name("regis");
@@ -11,33 +12,36 @@
         private static readonly By SuccessMessage = By.XPath("//p[@class='largehead']");
         private static readonly By ErrorMessage = By.XPath("//p[@class='error']");
 
-        public ChangeCarRegistrationPage(AutoWorkshopDriver driver) : base(driver)
+        private readonly AutoWorkshopDriver _driver;
+
+        public ChangeCarRegistrationPage(AutoWorkshopDriver driver)
         {
+            _driver = driver;
         }
 
         public void Open()
         {
-            Driver.NavigateTo(PageUrl);
+            _driver.NavigateTo(PageUrl);
         }
 
         public void ChangeRegistration(string currentRegistration, string newRegistration)
         {
-            Driver.WaitForElement(CurrentRegistration).SendKeys(currentRegistration);
-            Driver.FindElement(NewRegistration).SendKeys(newRegistration);
+            _driver.SendKeysWhenVisible(CurrentRegistration, currentRegistration);
+            _driver.SendKeysWhenVisible(NewRegistration, newRegistration);
 
-            Driver.FindElement(UpdateRegistration).Click();
+            _driver.ClickElementWhenClickable(UpdateRegistration);
 
-            Driver.SwitchTo().Alert().Accept();
+            _driver.SwitchTo().Alert().Accept();
         }
 
         public string GetSuccessMessage()
         {
-            return Driver.WaitForElement(SuccessMessage).Text;
+            return _driver.GetElementTextWhenVisible(SuccessMessage);
         }
 
         public string GetErrorMessage()
         {
-            return Driver.WaitForElement(ErrorMessage).Text;
+            return _driver.GetElementTextWhenVisible(ErrorMessage);
         }
     }
 }

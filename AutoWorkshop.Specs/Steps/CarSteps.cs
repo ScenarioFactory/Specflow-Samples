@@ -1,7 +1,6 @@
 ﻿namespace AutoWorkshop.Specs.Steps
 {
     using Dto;
-    using Extensions;
     using FluentAssertions;
     using Framework;
     using Repositories;

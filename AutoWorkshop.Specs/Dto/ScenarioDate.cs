@@ -1,4 +1,4 @@
-﻿namespace AutoWorkshop.Specs.Framework
+﻿namespace AutoWorkshop.Specs.Dto
 {
     using System;
     using System.Globalization;

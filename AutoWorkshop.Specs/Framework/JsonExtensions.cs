@@ -1,4 +1,4 @@
-﻿namespace AutoWorkshop.Specs.Extensions
+﻿namespace AutoWorkshop.Specs.Framework
 {
     using Newtonsoft.Json;
 

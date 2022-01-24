@@ -1,7 +1,7 @@
 ﻿namespace AutoWorkshop.Specs.Steps
 {
     using Dto;
-    using Extensions;
+    using Framework;
     using Repositories;
     using TechTalk.SpecFlow;
 

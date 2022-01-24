@@ -1,7 +1,7 @@
 ﻿namespace AutoWorkshop.Specs.Dto
 {
     using System;
-    using Extensions;
+    using Framework;
 
     public class CarInfo
     {

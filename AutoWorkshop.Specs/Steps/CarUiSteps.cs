@@ -2,7 +2,6 @@
 {
     using System.Linq;
     using Dto;
-    using Extensions;
     using FluentAssertions;
     using Repositories;
     using TechTalk.SpecFlow;

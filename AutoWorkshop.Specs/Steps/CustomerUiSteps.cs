@@ -2,7 +2,6 @@
 {
     using System.Linq;
     using Dto;
-    using Extensions;
     using FluentAssertions;
     using Framework;
     using Repositories;
@@ -152,10 +151,9 @@
         [Then(@"I should see the following toolbar options")]
         public void ThenIShouldSeeTheFollowingToolbarOptions(Table table)
         {
-            table.Rows.ForEach(row =>
-            {
-                _customerMaintenancePage.Toolbar.FindButtonByAltText(row["Option"]).Should().NotBeNull();
-            });
+            table.Rows
+                .Select(row => row["Option"])
+                .ForEach(option => _customerMaintenancePage.Toolbar.HasButtonWithAltText(option).Should().BeTrue());
         }
 
         [Then(@"I should see the customer in the list of as-you-type results")]

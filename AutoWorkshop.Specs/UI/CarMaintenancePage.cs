@@ -1,9 +1,10 @@
 ﻿namespace AutoWorkshop.Specs.UI
 {
     using Dto;
+    using Framework;
     using OpenQA.Selenium;
 
-    public class CarMaintenancePage : Page
+    public class CarMaintenancePage
     {
         private static readonly By Registration = By.Name("regis");
         private static readonly By Make = By.Name("make");
@@ -11,23 +12,28 @@
         private static readonly By Year = By.Name("year");
         private static readonly By Save = By.Name("save");
 
-        public CarMaintenancePage(AutoWorkshopDriver driver) : base(driver)
+        private readonly AutoWorkshopDriver _driver;
+        private readonly Toolbar _toolbar;
+
+        public CarMaintenancePage(AutoWorkshopDriver driver, Toolbar toolbar)
         {
+            _driver = driver;
+            _toolbar = toolbar;
         }
 
         public void CreateCar(CarUiViewInfo viewInfo)
         {
-            Driver.WaitForElement(Registration).SendKeys(viewInfo.Registration);
-            Driver.FindElement(Make).SendKeys(viewInfo.Make);
-            Driver.FindElement(Model).SendKeys(viewInfo.Model);
-            Driver.FindElement(Year).SendKeys(viewInfo.Year);
+            _driver.SendKeysWhenVisible(Registration, viewInfo.Registration);
+            _driver.SendKeysWhenVisible(Make, viewInfo.Make);
+            _driver.SendKeysWhenVisible(Model, viewInfo.Model);
+            _driver.SendKeysWhenVisible(Year, viewInfo.Year);
 
-            Driver.FindElement(Save).Click();
+            _driver.ClickElementWhenClickable(Save);
         }
 
         public void AddNewJob()
         {
-            Toolbar.FindButtonByAltText("Add a new job").Click();
+            _toolbar.ClickButtonByAltText("Add a new job");
         }
     }
 }
